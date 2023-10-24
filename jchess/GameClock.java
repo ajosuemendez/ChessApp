@@ -109,7 +109,7 @@ public class GameClock extends JPanel implements Runnable
                 RenderingHints.VALUE_ANTIALIAS_ON);
         Font font = new Font("Serif", Font.ITALIC, 20);
 
-        g2d.setColor(Color.GRAY);
+        g2d.setColor(Color.WHITE);
         g2d.fillRect(5, 30, 80, 30);
         g2d.setFont(font);
 
