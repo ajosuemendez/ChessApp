@@ -23,9 +23,12 @@ jobs:
       - name: Maven Version Check
         run: mvn --version
 
-      - name: Install Maven
+      - name: Install Maven 3.8.1
         run: |
-          sudo apt-get install -y maven  # Install Maven
+          wget https://apache.osuosl.org/maven/maven-3/3.8.1/binaries/apache-maven-3.8.1-bin.tar.gz
+          tar xzvf apache-maven-3.8.1-bin.tar.gz
+          export PATH=$PWD/apache-maven-3.8.1/bin:$PATH
+          mvn --version  # Check Maven version
 
       - name: Clean
         run: |
