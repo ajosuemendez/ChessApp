@@ -23,12 +23,17 @@ jobs:
       - name: Maven Version Check
         run: mvn --version
 
-      - name: Install Maven 3.8.1
+      # - name: Install Maven 3.8.1
+      #   run: |
+      #     wget https://apache.osuosl.org/maven/maven-3/3.8.1/binaries/apache-maven-3.8.1-bin.tar.gz
+      #     tar xzvf apache-maven-3.8.1-bin.tar.gz
+      #     export PATH=$PWD/apache-maven-3.8.1/bin:$PATH
+      #     mvn --version  # Check Maven version
+
+      - name: Import SSL Certificates
         run: |
-          wget https://apache.osuosl.org/maven/maven-3/3.8.1/binaries/apache-maven-3.8.1-bin.tar.gz
-          tar xzvf apache-maven-3.8.1-bin.tar.gz
-          export PATH=$PWD/apache-maven-3.8.1/bin:$PATH
-          mvn --version  # Check Maven version
+          echo -n | openssl s_client -connect repo.maven.apache.org:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > maven.crt
+          keytool -import -alias maven -file maven.crt -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit -noprompt
 
       - name: Clean
         run: |
