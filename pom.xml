@@ -47,15 +47,17 @@
       </resource>
     </resources>
     <plugins>
+    
       <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.1</version> <!-- Use a suitable version -->
+          <version>3.8.1</version> 
           <configuration>
-              <source>1.8</source> <!-- Set the Java source version (e.g., 1.8 for Java 8) -->
-              <target>1.8</target> <!-- Set the Java target version (e.g., 1.8 for Java 8) -->
+              <source>1.8</source> 
+              <target>1.8</target> 
           </configuration>
       </plugin>
+     
 	    <plugin>
 	        <groupId>org.apache.maven.plugins</groupId>
 	        <artifactId>maven-shade-plugin</artifactId>

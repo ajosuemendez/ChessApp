@@ -38,6 +38,10 @@ jobs:
       - name: Clean
         run: |
           mvn clean
+
+      - name: Copy missed dependency
+        run: |
+          sudo cp javaws.jar /opt/hostedtoolcache/Java_Adopt_jdk/9.0.4-11/x64/lib/
       
       - name: Package
         run: |
