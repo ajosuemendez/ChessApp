@@ -3,6 +3,14 @@
   <groupId>ChessApp</groupId>
   <artifactId>ChessApp</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+
+  <repositories>
+    <repository>
+      <id>central</id>
+      <url>http://repo.maven.apache.org/maven2</url>
+    </repository>
+  </repositories>
+
   
   <dependencies>
 	 <!-- https://mvnrepository.com/artifact/org.jdesktop.bsaf/bsaf -->
