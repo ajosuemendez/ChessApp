@@ -19,6 +19,10 @@ jobs:
           distribution: 'adopt'
           java-version: 9
 
-      - name: Build clean and Create Package
+      - name: Clean
         run: |
           mvn clean package
+      
+      - name: Package
+        run: |
+          mvn package
