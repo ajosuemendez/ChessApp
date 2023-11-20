@@ -29,18 +29,18 @@ jobs:
       #     export PATH=$PWD/apache-maven-3.8.1/bin:$PATH
       #     mvn --version  # Check Maven version
 
-      # - name: Import SSL Certificates
-      #   run: |
-      #     echo -n | openssl s_client -connect repo.maven.apache.org:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > maven.crt
-      #     keytool -import -alias maven -file maven.crt -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit -noprompt
+      - name: Import SSL Certificates
+        run: |
+          echo -n | openssl s_client -connect repo.maven.apache.org:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > maven.crt
+          keytool -import -alias maven -file maven.crt -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit -noprompt
 
       - name: Clean
         run: |
           mvn clean
 
-      # - name: Copy missed dependency
-      #   run: |
-      #     sudo cp javaws.jar /opt/hostedtoolcache/Java_Adopt_jdk/9.0.4-11/x64/lib/
+      - name: Copy missed dependency
+        run: |
+          sudo cp javaws.jar /opt/hostedtoolcache/Java_Oracle_jdk/17/x64/lib/
       
       - name: Package
         run: |
