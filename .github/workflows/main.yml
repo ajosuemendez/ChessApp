@@ -45,3 +45,7 @@ jobs:
       - name: Package
         run: |
           mvn package
+
+      - name: Runnig application
+        run: |
+          java -jar target/ChessApp-0.0.1-SNAPSHOT.jar
