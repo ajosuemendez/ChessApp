@@ -1,0 +1,69 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+class Game implements JPanel {
+endgame()
+newGame()
+switchActive()
+getActivePlayer()
+nextMove()
+SimulateMove()
+mouseClicked()
+undo()
+rewindToBegin()
+rewindToEnd()
+redo()
+mousePressed()
+mouseReleased()
+mouseEntered()
+mouseExited()
+componentResized()
+componentMoved()
+componentShown()
+componentHidden()
+}
+class ReadGameError extends Exception {
+setPieces()
+getSquare()
+select()
+unselect()
+get_width()
+get_height()
+get_Square_height()
+move()
+redo()
+undo()
+draw()
+update()
+getTopLeftPoint()
+paintComponent()
+resizeChessboard(int height)
+componentMoved(ComponentEvent e)
+componentShown(ComponentEvent e)
+componentHidden(ComponentEvent e)
+}
+class GameClock extends JPanel implements Runnable{
+run()
+start()
+stop()
+drawBackground()
+paint(Graphics g)
+update(Graphics g)
+switch_clocks()
+setTimes(int t1, int t2)
+timeOver()
+
+}
+class Settings implements Serializable{
+getTimeForGame()
+lang(String key)
+}
+class Player implements Serializable{
+
+
+}
+class chessboard extends JPanel {
+
+}
+@enduml
