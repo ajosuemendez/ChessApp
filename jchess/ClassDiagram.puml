@@ -23,7 +23,38 @@ componentMoved()
 componentShown()
 componentHidden()
 }
-class ReadGameError extends Exception {
+
+class GameClock extends JPanel implements Runnable{
+run()
+start()
+stop()
+drawBackground()
+paint(Graphics g)
+update(Graphics g)
+switch_clocks()
+setTimes(int t1, int t2)
+timeOver()
+
+}
+class Settings implements Serializable{
+getTimeForGame()
+lang(String key)
+}
+class Player implements Serializable{
+setName(String name)
+String getName()
+setType(playerTypes type)
+}
+class Client implements Runnable{
+join(int tableID, boolean asPlayer, String nick, String password)
+run()
+sendMove(int beginX, int beginY, int endX, int endY)
+sendUndoAsk()
+sendUndoAnswerPositive()
+sendUndoAnswerNegative()
+sendMessage(String str)
+}
+class chessboard extends JPanel {
 setPieces()
 getSquare()
 select()
@@ -43,27 +74,65 @@ componentMoved(ComponentEvent e)
 componentShown(ComponentEvent e)
 componentHidden(ComponentEvent e)
 }
-class GameClock extends JPanel implements Runnable{
-run()
-start()
-stop()
-drawBackground()
-paint(Graphics g)
-update(Graphics g)
-switch_clocks()
-setTimes(int t1, int t2)
-timeOver()
+class Move {
+#Square from
+#quare to
+#Piece movedPiece
+#Piece takenPiece
+#Piece promotedTo
+#boolean wasEnPassant
+#castling castlingMove
+#boolean wasPawnTwoFieldsMove
++move()
++ getFrom()
++ getTo()
++getMovedPiece()
++getTakenPiece()
++wasEnPassant()
++wasPawnTwoFieldsMove()
++getCastlingMove()
++getPromotedTo()
+
 
 }
-class Settings implements Serializable{
-getTimeForGame()
-lang(String key)
-}
-class Player implements Serializable{
+class Moves extends AbstractTableModel{
+-ArrayList<Move> move
+-int columnNum
+-int rowsNum
+-String[] names
+-MyDefaultTableModel tableModel
+- JscrollPane scrollPane
+-JTable table
+- boolean enterBlack
+- Game game
+# stack<move> moveBackStack
+# stack<move> moveForwardStack
+ Moves()
+ + draw()
+ + getvalueAt(int row, int col)
+ + getRowCount()
+ + getColumnCount()
+ # addRow()
+ # addCastling(String Move)
+ + isCallEditable(int a ,int b)
+ # addMoveToTable(String str)
+ + addMove()
+ + clearMoveForwardStack()
+ + getScrollPane()
+ + gertMoves()
+ + getLastMoveFromHistory()
+ + getNextMoveFromHistory()
+ + undo()
+ + redo()
+ + isMoveCorrect()
+ + addMoves()
+ + getMovesInString()
+ + setMoves()
 
 
 }
-class chessboard extends JPanel {
-
+class MyDefaultTableModel extends DefaultTableModel{
++ MyDefaultTableModel()
++ isCelllEditable(int row, int col)
 }
 @enduml
