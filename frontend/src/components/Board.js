@@ -1,30 +1,33 @@
-import Quadrant from "./Quadrant"
-import "../styles/Board.css"
+import React from "react";
+import defaultChessboardState from "../utils/defaultChessboardState";
+import Square from "./Square";
+import "../styles/Board.css";
 
 export default function Board() {
 
-    const quadrantsInfo = [
-        {startColorSquare:"white", endColorSquare:"black", rotation:"0"},
-        {startColorSquare:"black", endColorSquare:"white", rotation:"60"},
-        {startColorSquare:"white", endColorSquare:"black", rotation:"120"},
-        {startColorSquare:"black", endColorSquare:"white", rotation:"180"},
-        {startColorSquare:"white", endColorSquare:"black", rotation:"240"},
-        {startColorSquare:"black", endColorSquare:"white", rotation:"300"},
-    ];
+    const [chessboardState, setChessboardState] = React.useState(defaultChessboardState);
 
-    const quadrantList = quadrantsInfo.map((quadrant) => {
-        return <Quadrant startColorSquare={quadrant.startColorSquare} endColorSquare={quadrant.endColorSquare} rotate={quadrant.rotation}/>
+    const SquareList = chessboardState.map( (square) => {
+        return( 
+            <Square key={square.id}
+                    id={square.id}
+                    piece={square.piece} 
+                    shapeFormat={square.shape}
+                    color={square.color}
+                    framePosition={square.centerPos}/>)
     })
 
-    return(
-        <div className="board">
-            {quadrantList}
-        {/* <Quadrant startColorSquare={"white"} endColorSquare={"black"} rotate={"0"}/>
-        <Quadrant startColorSquare={"black"} endColorSquare={"white"} rotate={"60"}/>
-        <Quadrant startColorSquare={"white"} endColorSquare={"black"} rotate={"120"}/>
-        <Quadrant startColorSquare={"black"} endColorSquare={"white"} rotate={"180"}/> */}
+    const handleMouseMove = (e) => {
+        const x = e.pageX;
+        const y = e.pageY;
+        console.log(`X is ${x} and Y is ${y}`);
+      };
 
+    return (
+        <div className="board">
+        <svg width="2339" height="1771" viewBox="0 0 2339 1771" fill="none" xmlns="http://www.w3.org/2000/svg" onMouseMove={handleMouseMove}>
+            {SquareList}
+        </svg>
         </div>
-        
     );
 }
