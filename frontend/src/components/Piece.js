@@ -12,7 +12,6 @@ export default function Piece({pieceType, theme, framePosition}) {
                     width={40}
                     height={40}
                     x = {framePosition.x}
-                    y = {framePosition.y}/>
+                    y = {framePosition.y}
+                    style={{ pointerEvents: 'none' }}/>
 }
-
-// x={framePosition.x} y={framePosition.y} 
