@@ -5,9 +5,9 @@ export default function Piece({pieceType, theme, framePosition}) {
         return;
     }
 
-    const imageSource = process.env.PUBLIC_URL + `/images/themes/${theme}/${pieceType}-${theme}.png`;
+    const pieceImage = process.env.PUBLIC_URL + `/images/themes/${theme}/${pieceType}-${theme}.png`;
 
-    return <image   href={imageSource}
+    return <image   href={pieceImage}
                     alt={`Piece ${pieceType}`} 
                     width={40}
                     height={40}
