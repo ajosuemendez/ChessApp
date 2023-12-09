@@ -1,11 +1,8 @@
+import React from "react";
 import Piece from "./Piece";
-import {getSquareColor} from "../utils/getSquareColor";
+import { getSquareColor } from "../utils/getSquareColor";
 
-export default function Square({id, theme, piece, shapeFormat, isValid, framePosition}) {
-
-    const handleClick = (e) => {
-        console.log(e.target.id);
-    };
+export default function Square({id, theme, piece, shapeFormat, isValid, framePosition, handleClick}) {
 
     let squareColor = getSquareColor(id) === "dark" ? theme.colors.darkSquareColor :  theme.colors.lightSquareColor;
 

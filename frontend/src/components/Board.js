@@ -8,7 +8,50 @@ export default function Board() {
 
     const [chessboardState, setChessboardState] = React.useState(defaultChessboardState);
     const [theme, setTheme] = React.useState(chessboardThemes.classic);
+    const [selectedOriginSquare, setSelectedOriginSquare] = React.useState(""); 
 
+
+    const handleClick = (e) => {
+        const clickedSquare = e.target.id;
+
+        if (selectedOriginSquare === "") {
+            
+            console.log(`Making API call "Check Valid Moves": selected origin: ${clickedSquare}`);
+            console.log("API response......");
+            
+            // if response comes without valid moves then the player has chosen a wrong piece or none.
+            const responseWithoutValidMoves = false;
+            if (responseWithoutValidMoves) {
+                console.log("Getting new chessboard state without Valid Moves from the API");
+                return;
+            }
+
+            console.log("Getting new chessboard state WITH Valid Moves from the API");
+            console.log(`Setting selected origin to ${clickedSquare}`);
+            setSelectedOriginSquare(clickedSquare);
+            return;
+        }
+
+        console.log(`Making API call "Move Piece": selected origin: ${selectedOriginSquare} , selected destination: ${clickedSquare}`);
+        console.log("API response....");
+
+        // If getting a chessboard state with valid moves then we have clicked another piece of us
+        const responseWithValidMoves = false;
+        if (responseWithValidMoves) {
+            console.log("Getting new chessboard state WITH valid moves from the API");
+            console.log(`Setting selected origin to ${clickedSquare}`);
+            selectedOriginSquare(clickedSquare);
+            return;
+        }
+        
+        // If getting a chessboard state without any valid moves then we updated the last played and now is the next players turn
+        console.log("Getting new chessboard state WITH valid moves from the API");
+        console.log(`Setting selected origin to ""`);
+        setSelectedOriginSquare("");
+
+        return;
+    }
+    
     const SquareList = chessboardState.map( (square) => {
         return( 
             <Square key={square.id}
@@ -17,7 +60,8 @@ export default function Board() {
                     piece={square.piece} 
                     shapeFormat={square.shape}
                     isValid={square.isValid}
-                    framePosition={square.centerPos}/>)
+                    framePosition={square.centerPos}
+                    handleClick={handleClick}/>)
     })
 
     
