@@ -12,7 +12,7 @@ export default function Board() {
     const [theme, setTheme] = React.useState(chessboardThemes.classic);
     const [selectedOriginSquare, setSelectedOriginSquare] = React.useState(""); 
 
-    const { data: validMoves, isLoading: isLoadingValidMoves, error: errorValidMoves } = useFetchData("http://localhost:8080/gameId=", selectedOriginSquare);
+    const { data: newChessBoardState, isLoading: isLoadingNewChessBoardState, error: errorNewChessBoardState } = useFetchData("http://localhost:8080/gameId=", selectedOriginSquare);
 
     
 
@@ -25,8 +25,9 @@ export default function Board() {
             console.log(`Making API call "Check Valid Moves": selected origin: ${clickedSquare}`);
             console.log("API response......");
             setSelectedOriginSquare(clickedSquare);
-            console.log("valid moves", validMoves);
-            console.log("Something went wrong", errorValidMoves);
+            console.log("new Chessboard state with valid moves");
+            setChessboardState(newChessBoardState);
+            console.log("ERROR?:", errorNewChessBoardState);
             
             // if response comes without valid moves then the player has chosen a wrong piece or none.
             const responseWithoutValidMoves = false;
