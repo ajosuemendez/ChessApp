@@ -22,4 +22,8 @@ public class Square {
     public String getPiece() {
         return this.piece;
     }
+
+    public boolean getIsValid() {
+        return this.isValid;
+    }
 }
