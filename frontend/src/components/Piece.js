@@ -1,13 +1,16 @@
 
-export default function Piece({pieceType, theme, framePosition}) {
+export default function Piece({key, pieceType, theme, framePosition}) {
     
     if ( pieceType === null ) {
-        return;
+        return <></>;
     }
 
     const pieceImage = process.env.PUBLIC_URL + `/images/themes/${theme}/${pieceType}-${theme}.png`;
 
-    return <image   href={pieceImage}
+    console.log(key);
+
+    return <image   key={pieceType}
+                    href={pieceImage}
                     alt={`Piece ${pieceType}`} 
                     width={40}
                     height={40}
