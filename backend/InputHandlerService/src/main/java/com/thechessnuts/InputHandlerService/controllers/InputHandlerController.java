@@ -1,9 +1,11 @@
 package com.thechessnuts.InputHandlerService;
 
 import com.thechessnuts.InputHandlerService.models.Square;
+
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.Collections;
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 public class InputHandlerController{
 
     @RequestMapping("/gameId={gameId}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public List<Square> getValidMoves(@PathVariable("gameId") String gameId) {
 
         // return Collections.singletonList(
