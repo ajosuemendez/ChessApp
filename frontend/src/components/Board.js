@@ -1,5 +1,6 @@
 import React from "react";
 import defaultChessboardState from "../utils/defaultChessboardState";
+import squareStaticInformation from "../utils/squareStaticInformation";
 import chessboardThemes from "../utils/chessboardThemes";
 import Square from "./Square";
 import "../styles/Board.css";
@@ -15,8 +16,6 @@ export default function Board() {
     const { data: newChessBoardState, isLoading: isLoadingNewChessBoardState, error: errorNewChessBoardState } = useFetchData("http://localhost:8080/gameId=", selectedOriginSquare);
 
     
-
-
     const handleClick = async (e) => {
         const clickedSquare = e.target.id;
 
@@ -65,12 +64,12 @@ export default function Board() {
     const SquareList = chessboardState.map( (square) => {
         return( 
             <Square 
-                    id={square.id}
                     theme={theme}
+                    id={square.id}
                     piece={square.piece} 
-                    shapeFormat={square.shape}
                     isValid={square.isValid}
-                    framePosition={square.centerPos}
+                    shapeFormat={squareStaticInformation[square.id].shape}
+                    framePosition={squareStaticInformation[square.id].centerPos}
                     handleClick={handleClick}/>)
     })
 
