@@ -23,24 +23,30 @@ export default function Board() {
         console.log("API response......");
         setSelectedOriginSquare(clickedSquare);
         console.log("new Chessboard state with valid moves");
-        // setChessboardState(newChessBoardState);
+        setChessboardState(newChessBoardState);
         console.log(newChessBoardState);
         console.log("ERROR?:", errorNewChessBoardState);
 
         return;
     }
+
+    let SquareList;
+
+    if (chessboardState !== undefined) {
+
+        SquareList = chessboardState.map( (square) => {
+            return( 
+                <Square 
+                        theme={theme}
+                        id={square.id}
+                        piece={square.piece} 
+                        isValid={square.isValid}
+                        shapeFormat={squareStaticInformation[square.id].shape}
+                        framePosition={squareStaticInformation[square.id].centerPos}
+                        handleClick={handleClick}/>)
+        })
+    }
     
-    const SquareList = chessboardState.map( (square) => {
-        return( 
-            <Square 
-                    theme={theme}
-                    id={square.id}
-                    piece={square.piece} 
-                    isValid={square.isValid}
-                    shapeFormat={squareStaticInformation[square.id].shape}
-                    framePosition={squareStaticInformation[square.id].centerPos}
-                    handleClick={handleClick}/>)
-    })
 
     
 
