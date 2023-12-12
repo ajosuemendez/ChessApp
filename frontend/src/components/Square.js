@@ -12,9 +12,11 @@ export default function Square({id, theme, piece, shapeFormat, isValid, framePos
     } 
     
     return(
-        <g id={`square-${id}`} style={{ zIndex: 1000 + id }}>
+        <g id={`square-${id}`} >
             <path onClick={handleClick} id={id} d={shapeFormat} fill={squareColor} stroke="black" strokeWidth="1.2"/>
             <Piece pieceType={piece} theme={theme.type} framePosition={framePosition} />
         </g>
     );
 }
+
+// style={{ zIndex: 1000 + id }}

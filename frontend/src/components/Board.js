@@ -9,7 +9,7 @@ import useFetchData from "../hooks/useFetchData";
 export default function Board() {
 
     const [chessboardState, setChessboardState] = React.useState(defaultChessboardState);
-    const [theme, setTheme] = React.useState(chessboardThemes.alternative);
+    const [theme, setTheme] = React.useState(chessboardThemes.classic);
     const [selectedOriginSquare, setSelectedOriginSquare] = React.useState(""); 
 
     const { data: newChessBoardState, isLoading: isLoadingNewChessBoardState, error: errorNewChessBoardState } = useFetchData("http://localhost:8080/gameId=", selectedOriginSquare);
