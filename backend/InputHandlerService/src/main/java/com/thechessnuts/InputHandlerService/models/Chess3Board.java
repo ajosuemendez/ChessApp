@@ -346,9 +346,8 @@ public class Chess3Board {
         ArrayList<SquareForSending> list = new ArrayList<>();
         ArrayList<Square> selectList = new ArrayList<>();
 
-        selectList.add(this.selectedPiece.square);
-
         if(this.selectedPiece!=null){
+            selectList.add(this.selectedPiece.square);
             selectList.addAll(this.selectedPiece.allMoves());
         }
 

@@ -1,7 +1,9 @@
 package com.thechessnuts.InputHandlerService.controllers;
 
 import com.thechessnuts.InputHandlerService.models.Square;
+import com.thechessnuts.InputHandlerService.models.SquareForSending;
 import com.thechessnuts.InputHandlerService.models.CenterPosition;
+import com.thechessnuts.InputHandlerService.models.Game;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,16 +18,29 @@ import java.util.ArrayList;
 @RestController
 @RequestMapping("/")
 public class InputHandlerController{
+    Game game;
 
     @RequestMapping("/gameId={gameId}")
     @CrossOrigin(origins = "http://localhost:3000")
-    public List<Square> getValidMoves(@PathVariable("gameId") String gameId) {
+
+     public List<SquareForSending> getNewGame(@PathVariable("gameId") String gameId) {
+        game = new Game();
+        game.gameID = gameId;
+
+        return game.getBoardState();
+     }
+
+
+
+    public List<SquareForSending> getGameState(@PathVariable("gameId") String gameId) {
 
         // return Collections.singletonList(
         //     new Square("E4", "white-pawn", false)
         // );
 
-        List<Square> squareList = new ArrayList<Square>();
+        List<SquareForSending> squareList = new ArrayList<SquareForSending>();
+        squareList.addAll(squareList);
+        
         // squareList.add(new Square("H12", "white-rook", false, new CenterPosition(952, 1215), "M996.01 1190.42L1025.79 1273.74L947.923 1273.24L909.491 1205.59L996.01 1190.42Z"));
         // squareList.add(new Square("H11", "", false, new CenterPosition(917, 1140), "M967.829 1110.48L995.603 1189.27L908.862 1204.49L872.881 1141.15L967.829 1110.48Z"));
         // squareList.add(new Square("H10", "", false, new CenterPosition(887, 1070), "M837.03 1078.05L939.71 1031.65L967.428 1109.35L872.316 1140.16L837.03 1078.05Z"));
