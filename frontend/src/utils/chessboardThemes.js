@@ -8,9 +8,9 @@ const themes = {
                                 lightSquareColor: "#c1cde7", 
                                 strongSquareColor: "#7c4429"}},
     barbie: {  type: "barbie", 
-    colors: {   darkSquareColor: "#E43F6F", 
-                lightSquareColor: "#F56476", 
-                strongSquareColor: "#DFBBB1"}}
+                colors: {   darkSquareColor: "#E43F6F", 
+                            lightSquareColor: "#F56476", 
+                            strongSquareColor: "#DFBBB1"}}
 };
 
 export default themes;
