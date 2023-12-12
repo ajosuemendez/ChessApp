@@ -45,7 +45,7 @@ public class InputHandlerController{
         squareList.add(new Square("E12", "white-queen", false, new CenterPosition(1187, 1195), "M1246.09 1147.17L1245.58 1275.53L1173.93 1274.92L1164.57 1161.2L1246.09 1147.17Z"));
         squareList.add(new Square("E11", "white-pawn", false, new CenterPosition(1182, 1080), "M1247.39 1020.03L1246.1 1145.95L1164.47 1160L1154.86 1049.9L1247.39 1020.03Z"));
         squareList.add(new Square("E10", "", false, new CenterPosition(1177, 960), "M1248.7 892.876L1247.41 1018.76L1154.75 1048.68L1144.96 939.313L1248.7 892.876Z"));
-        squareList.add(new Square("E9", "", false, new CenterPosition(1172, 840), "M1248.4 761.024L1248.71 891.557L1144.84 938.051L1134.2 825.195L1248.4 761.024Z"));
+        squareList.add(new Square("E9", "white-king", false, new CenterPosition(1172, 840), "M1248.4 761.024L1248.71 891.557L1144.84 938.051L1134.2 825.195L1248.4 761.024Z"));
 
         squareList.add(new Square("I12", "white-king", false, new CenterPosition(1265, 1195), "M1246.6 1147.22L1328.85 1161.99L1318.45 1275.4H1246.6V1147.22Z"));
         squareList.add(new Square("I11", "white-pawn", false, new CenterPosition(1270, 1080), "M1246.6 1019.33L1339.36 1049.92L1328.96 1160.79L1246.6 1146V1019.33Z"));
@@ -122,12 +122,12 @@ public class InputHandlerController{
         squareList.add(new Square("C2", "yellow-pawn", false, new CenterPosition(986, 440), "M1042.56 531.379L942.255 485.409L970.383 406.982L1061.82 437.145L1042.56 531.379Z"));
         squareList.add(new Square("C1", "yellow-bishop", false, new CenterPosition(884, 405), "M941.162 484.904L837.86 436.943L873.795 374.939L969.244 406.605L941.162 484.904Z"));
 
-        squareList.add(new Square("D4", "", false, new CenterPosition(1172, 646), "M1248.53 758.951L1133.14 691.676L1144.51 578.89L1247.4 625.389L1248.53 758.951Z"));
+        squareList.add(new Square("D4", "yellow-king", false, new CenterPosition(1172, 646), "M1248.53 758.951L1133.14 691.676L1144.51 578.89L1247.4 625.389L1248.53 758.951Z"));
         squareList.add(new Square("D3", "", false, new CenterPosition(1064, 583), "M1132.47 691.763L1023.66 628.436L1043.43 533.097L1143.35 578.623L1132.47 691.763Z"));
         squareList.add(new Square("D2", "yellow-pawn", false, new CenterPosition(960, 530), "M1022.57 627.799L913.728 564.454L941.848 486.542L1042.31 532.586L1022.57 627.799Z"));
         squareList.add(new Square("D1", "yellow-queen", false, new CenterPosition(852, 477), "M912.672 563.845L801.324 499.984L837.256 437.985L940.754 486.038L912.672 563.845Z"));
         
-        squareList.add(new Square("E4", "", false, new CenterPosition(1120, 735), "M1247.8 759.989L1133.67 824.808L1041.38 758.213L1133.72 692.458L1247.8 759.989Z"));
+        squareList.add(new Square("E4", "black-king", false, new CenterPosition(1120, 735), "M1247.8 759.989L1133.67 824.808L1041.38 758.213L1133.72 692.458L1247.8 759.989Z"));
         squareList.add(new Square("E3", "", false, new CenterPosition(1015, 670), "M1133.44 692.293L1040.36 757.474L950.807 693.051L1024.14 628.352L1133.44 692.293Z"));
         squareList.add(new Square("E2", "yellow-pawn", false, new CenterPosition(912, 610), "M1023.05 627.714L949.808 692.333L859.355 627.376L913.715 563.755L1023.05 627.714Z"));
         squareList.add(new Square("E1", "yellow-king", false, new CenterPosition(818, 545), "M912.662 563.139L858.377 626.674L766.603 560.94L802.884 498.92L912.662 563.139Z"));
