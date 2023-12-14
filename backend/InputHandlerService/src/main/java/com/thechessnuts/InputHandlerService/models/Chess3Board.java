@@ -99,6 +99,11 @@ public class Chess3Board {
         //QUEEN
         this.sections[section1].squares[0][3].setPiece(new Queen(this, player));
 
+        //KING
+        this.sections[section2].squares[3][0].setPiece(new King(this, player));
+
+
+
     }
 
     public void print(){
@@ -112,8 +117,13 @@ public class Chess3Board {
         if(this.selectedPiece!=null){
             this.selectedPiece.isSelected = false;
         }
-        this.findSquare(label).piece.isSelected = true;
-        this.selectedPiece = this.findSquare(label).piece;
+        Square squareSelected = this.findSquare(label);
+        if(squareSelected!=null){
+            this.findSquare(label).piece.isSelected = true;
+            this.selectedPiece = this.findSquare(label).piece;
+        }
+        else
+            this.selectedPiece = null;
     }
 
     public Square squareAbove(Square square){
@@ -339,6 +349,9 @@ public class Chess3Board {
     public void makeMove(Move move){
         this.findSquare(move.to.label).setPiece(this.findSquare(move.from.label).piece);
         this.findSquare(move.from.label).piece = null;
+        if(move.movedPiece.symbol == ""){
+            move.movedPiece.started = true;
+        }
 
     }
 

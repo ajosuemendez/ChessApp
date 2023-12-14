@@ -30,6 +30,7 @@ public abstract class Piece
     Player player;
     Chess3Board board;
     public Square square;
+    public boolean started;
     String name;
     protected String symbol;
     boolean isSelected;

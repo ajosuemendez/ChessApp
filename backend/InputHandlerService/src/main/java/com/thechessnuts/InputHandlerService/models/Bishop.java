@@ -73,6 +73,14 @@ public class Bishop extends Piece
         list.addAll(this.board.bottomLeftDiagonal(this.square));
         System.out.print("bottomLeft:");
         System.out.println(list);
+        for(int i = 0; i<list.size(); i++){
+            if(list.get(i).piece!=null){
+                if(list.get(i).piece.player.color == this.player.color){
+                    list.remove(i);
+                    i--;
+                }
+            }
+        }
         return list;
     }
 }

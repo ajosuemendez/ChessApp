@@ -10,13 +10,23 @@ export default function Square({id, theme, piece, shapeFormat, isValid, framePos
     if (isValid) {
         squareColor = theme.colors.strongSquareColor;
     } 
+    if(piece === ""){
+    return(
+        <g id={`square-${id}`} >
+            <path onClick={handleClick} id={id} d={shapeFormat} fill={squareColor} stroke="black" strokeWidth="1.2"/>
+            
+        </g>
+    );
+    }
     
+    else{
     return(
         <g id={`square-${id}`} >
             <path onClick={handleClick} id={id} d={shapeFormat} fill={squareColor} stroke="black" strokeWidth="1.2"/>
             <Piece pieceType={piece} theme={theme.type} framePosition={framePosition} />
         </g>
     );
+    }
 }
 
 // style={{ zIndex: 1000 + id }}

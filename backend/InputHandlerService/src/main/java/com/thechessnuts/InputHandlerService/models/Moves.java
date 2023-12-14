@@ -1,8 +1,6 @@
 package com.thechessnuts.InputHandlerService.models;
 
-import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
-import java.util.Stack;
 
 public class Moves{
     private ArrayList<String> moves = new ArrayList<>();
@@ -13,11 +11,6 @@ public class Moves{
 
     public Moves(Game game){
         this.game = game;
-    }
-
-    public void makeMove(Move move){
-        move.to.setPiece(move.from.piece);
-        move.from.piece = null;
     }
 
     public void add(Move move){

@@ -69,7 +69,6 @@ public class Pawn extends Piece
 {
 
     boolean crossedBorder;
-    boolean started;
     public static short value = 1;
 
     Pawn(Chess3Board board, Player player)
@@ -149,6 +148,16 @@ public class Pawn extends Piece
                 }
                 if (rightFront != null && !rightFront.isEmpty()) {
                     list.add(rightFront);
+                }
+            }
+            
+        }
+
+        for(int i = 0; i<list.size(); i++){
+            if(list.get(i).piece!=null){
+                if(list.get(i).piece.player.color == this.player.color){
+                    list.remove(i);
+                    i--;
                 }
             }
         }
