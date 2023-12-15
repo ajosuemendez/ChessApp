@@ -1,78 +1,48 @@
 import React from "react";
 import defaultChessboardState from "../utils/defaultChessboardState";
+import squareStaticInformation from "../utils/squareStaticInformation";
 import chessboardThemes from "../utils/chessboardThemes";
 import Square from "./Square";
 import "../styles/Board.css";
-
-import useFetchData from "../hooks/useFetchData";
 
 export default function Board() {
 
     const [chessboardState, setChessboardState] = React.useState(defaultChessboardState);
     const [theme, setTheme] = React.useState(chessboardThemes.classic);
-    const [selectedOriginSquare, setSelectedOriginSquare] = React.useState(""); 
 
-    const { data: newChessBoardState, isLoading: isLoadingNewChessBoardState, error: errorNewChessBoardState } = useFetchData("http://localhost:8080/gameId=", selectedOriginSquare);
+
+    const fetchData = async (squareId) => {
+        const response = await fetch(`http://localhost:8080/gameId=${squareId}`);
+        const data = await response.json();
+        setChessboardState(data);
+    };
 
     
-
-
-    const handleClick = async (e) => {
+    const handleClick = (e) => {
         const clickedSquare = e.target.id;
-
-        if (selectedOriginSquare === "") {
-            
-            console.log(`Making API call "Check Valid Moves": selected origin: ${clickedSquare}`);
-            console.log("API response......");
-            setSelectedOriginSquare(clickedSquare);
-            console.log("new Chessboard state with valid moves");
-            setChessboardState(newChessBoardState);
-            console.log("ERROR?:", errorNewChessBoardState);
-            
-            // if response comes without valid moves then the player has chosen a wrong piece or none.
-            const responseWithoutValidMoves = false;
-            if (responseWithoutValidMoves) {
-                console.log("Getting new chessboard state without Valid Moves from the API");
-                return;
-            }
-
-            console.log("Getting new chessboard state WITH Valid Moves from the API");
-            console.log(`Setting selected origin to ${clickedSquare}`);
-            setSelectedOriginSquare(clickedSquare);
-            return;
-        }
-
-        console.log(`Making API call "Move Piece": selected origin: ${selectedOriginSquare} , selected destination: ${clickedSquare}`);
-        console.log("API response....");
-
-        // If getting a chessboard state with valid moves then we have clicked another piece of us
-        const responseWithValidMoves = false;
-        if (responseWithValidMoves) {
-            console.log("Getting new chessboard state WITH valid moves from the API");
-            console.log(`Setting selected origin to ${clickedSquare}`);
-            selectedOriginSquare(clickedSquare);
-            return;
-        }
-        
-        // If getting a chessboard state without any valid moves then we updated the last played and now is the next players turn
-        console.log("Getting new chessboard state WITH valid moves from the API");
-        console.log(`Setting selected origin to ""`);
-        setSelectedOriginSquare("");
-
+        console.log(`Making API call "Check Valid Moves": selected origin: ${clickedSquare}`);
+        console.log("API response......");
+        fetchData(clickedSquare);
         return;
     }
+
+    let SquareList;
+
+    if (chessboardState !== undefined) {
+
+        SquareList = chessboardState.map( (square) => {
+            return( 
+                <Square 
+                        theme={theme}
+                        id={square.id}
+                        piece={square.piece} 
+                        isValid={square.isValid}
+                        shapeFormat={squareStaticInformation[square.id].shape}
+                        framePosition={squareStaticInformation[square.id].centerPos}
+                        handleClick={handleClick}/>)
+        })
+    }
     
-    const SquareList = chessboardState.map( (square) => {
-        return( 
-            <Square 
-                    id={square.id}
-                    theme={theme}
-                    piece={square.piece} 
-                    shapeFormat={square.shape}
-                    isValid={square.isValid}
-                    framePosition={square.centerPos}
-                    handleClick={handleClick}/>)
-    })
 
     
 

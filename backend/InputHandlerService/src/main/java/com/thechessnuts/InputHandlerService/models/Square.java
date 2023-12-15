@@ -1,41 +1,72 @@
+/*
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/*
+ * Authors:
+ * Jankan
+ * Othman
+ * Alejandro
+ * Ahad
+ */
 package com.thechessnuts.InputHandlerService.models;
+/**
+ * Class to represent a chess board square
+ */
+public class Square
+{
+    String label;
+    Piece piece = null;
+    int pozX; // 0-7, because 8 squares for row/column
+    int pozY; // 0-7, because 8 squares for row/column
+    Chess3Section section;
 
-public class Square {
-    private String id;
-    private String piece;
-    private boolean isValid;
-    private CenterPosition centerPos;
-    private String shape;
+    Square(String label, int pozX, int pozY, Chess3Section section)
+    {
 
-    public Square() {
+        this.pozX = pozX;
+        this.pozY = pozY;
+        this.section = section;
+        if(label.charAt(0)>= 'a' &&label.charAt(0)<='l') {
+            this.label = label;
+        }
+        else{
+            this.label = label.charAt(label.length()-1)+label.substring(0, label.length()-1);
+        }
     }
 
-    public Square(String id, String piece, boolean isValid, CenterPosition centerPos, String shape) {
-        this.id = id;
+    Square(String label){
+        this.label = label;
+    }
+
+    void setPiece(Piece piece)
+    {
         this.piece = piece;
-        this.isValid = isValid;
-        this.centerPos = centerPos;
-        this.shape = shape;
+        this.piece.square = this;
     }
 
 
-    public String getId() {
-        return this.id;
+    public String toString(){
+        return this.label;
     }
 
-    public String getPiece() {
-        return this.piece;
+    public boolean isEmpty(){
+        return this.piece==null;
     }
 
-    public boolean getIsValid() {
-        return this.isValid;
+    public SquareForSending getSquareState(boolean isSelected){
+        return new SquareForSending(this.label, this.piece==null?"":this.piece.name, isSelected);
     }
 
-    public CenterPosition getCenterPos() {
-        return this.centerPos;
-    }
-
-    public String getShape() {
-        return this.shape;
-    }
 }
