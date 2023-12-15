@@ -62,25 +62,29 @@ public class Queen extends Piece
 
         Square checkingSquare = board.squareAbove(this.square);
         while(checkingSquare!=null){
+            list.add(checkingSquare);
             if (checkingSquare.isEmpty()){
-                list.add(checkingSquare);
                 checkingSquare = board.squareAbove(checkingSquare);
             }
             else{
                 break;
             }
         }
+        if(this.square.label.charAt(0) <= 'd' && (this.square.label.charAt(1) == '4' || this.square.label.charAt(1) == '5')){
+            borderWasCrossed = true;
+        }
         checkingSquare = board.squareBelow(this.square);
 
         while(checkingSquare!=null){
+            list.add(checkingSquare);
             if (checkingSquare.isEmpty()){
-                list.add(checkingSquare);
                 if(borderWasCrossed){
                     checkingSquare = board.squareAbove(checkingSquare);
                 }
                 else {
-                    if (checkingSquare.label.charAt(0) <= 'D' && (checkingSquare.label.charAt(1) == '4' || checkingSquare.label.charAt(1) == '5')) {
+                    if (checkingSquare.label.charAt(0) <= 'd' && (checkingSquare.label.charAt(1) == '4' || checkingSquare.label.charAt(1) == '5')) {
                         borderWasCrossed = true;
+                         checkingSquare = board.squareBelow(checkingSquare);
                         continue;
                     }
                     checkingSquare = board.squareBelow(checkingSquare);
@@ -93,8 +97,8 @@ public class Queen extends Piece
         checkingSquare = board.squareLeft(this.square);
 
         while(checkingSquare!=null){
+            list.add(checkingSquare);
             if (checkingSquare.isEmpty()){
-                list.add(checkingSquare);
                 checkingSquare = board.squareLeft(checkingSquare);
             }
             else{
@@ -104,8 +108,8 @@ public class Queen extends Piece
         checkingSquare = board.squareRight(this.square);
 
         while(checkingSquare!=null){
+            list.add(checkingSquare);
             if (checkingSquare.isEmpty()){
-                list.add(checkingSquare);
                 checkingSquare = board.squareRight(checkingSquare);
             }
             else{

@@ -6,6 +6,7 @@ export default function Square({id, theme, piece, shapeFormat, isValid, framePos
 
     let squareColor = getSquareColor(id) === "dark" ? theme.colors.darkSquareColor :  theme.colors.lightSquareColor;
 
+
     // Overwrite color if is a valid square
     if (isValid) {
         squareColor = theme.colors.strongSquareColor;
@@ -14,6 +15,9 @@ export default function Square({id, theme, piece, shapeFormat, isValid, framePos
     return(
         <g id={`square-${id}`} >
             <path onClick={handleClick} id={id} d={shapeFormat} fill={squareColor} stroke="black" strokeWidth="1.2"/>
+            <text x={framePosition.x+3} y={framePosition.y+3} dominantBaseline="middle" textAnchor="middle" fill="white">
+          {id}
+        </text>
             
         </g>
     );
@@ -24,6 +28,9 @@ export default function Square({id, theme, piece, shapeFormat, isValid, framePos
         <g id={`square-${id}`} >
             <path onClick={handleClick} id={id} d={shapeFormat} fill={squareColor} stroke="black" strokeWidth="1.2"/>
             <Piece pieceType={piece} theme={theme.type} framePosition={framePosition} />
+            <text x={framePosition.x+3} y={framePosition.y+3} dominantBaseline="middle" textAnchor="middle" fill="pink">
+          {id}
+        </text>
         </g>
     );
     }
