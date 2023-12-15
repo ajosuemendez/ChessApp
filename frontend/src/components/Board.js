@@ -5,28 +5,24 @@ import chessboardThemes from "../utils/chessboardThemes";
 import Square from "./Square";
 import "../styles/Board.css";
 
-import useFetchData from "../hooks/useFetchData";
-
 export default function Board() {
 
     const [chessboardState, setChessboardState] = React.useState(defaultChessboardState);
     const [theme, setTheme] = React.useState(chessboardThemes.classic);
-    const [selectedOriginSquare, setSelectedOriginSquare] = React.useState(""); 
 
-    const { data: newChessBoardState, isLoading: isLoadingNewChessBoardState, error: errorNewChessBoardState } = useFetchData("http://localhost:8080/gameId=", selectedOriginSquare);
+
+    const fetchData = async (squareId) => {
+        const response = await fetch(`http://localhost:8080/gameId=${squareId}`);
+        const data = await response.json();
+        setChessboardState(data);
+    };
 
     
-    const handleClick = async (e) => {
+    const handleClick = (e) => {
         const clickedSquare = e.target.id;
-
         console.log(`Making API call "Check Valid Moves": selected origin: ${clickedSquare}`);
         console.log("API response......");
-        setSelectedOriginSquare(clickedSquare);
-        console.log("new Chessboard state with valid moves");
-        setChessboardState(newChessBoardState);
-        console.log(newChessBoardState);
-        console.log("ERROR?:", errorNewChessBoardState);
-
+        fetchData(clickedSquare);
         return;
     }
 
