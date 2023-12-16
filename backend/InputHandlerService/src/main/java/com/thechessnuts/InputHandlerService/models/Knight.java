@@ -27,40 +27,55 @@ public class Knight extends Piece
      * @return  ArrayList with new possition of pawn
      */
     @Override
-    public ArrayList allMoves() 
+    public ArrayList<Square> allMoves() 
     {
-        ArrayList<Square> list = new ArrayList();
+        ArrayList<Square> list = new ArrayList<>();
         Square up = this.board.squareAbove(this.square);
         Square down = this.board.squareBelow(this.square);
         Square left = this.board.squareLeft(this.square);
         Square right = this.board.squareRight(this.square);
         String num = this.square.label.substring(1);
 
-      if(up !=null)
-      {
-         list=upwards(list,this.square);
-        System.out.println(list);}
-      if(down!=null)
-         {list=downwards(list, this.square, num);
-        System.out.println(list);}
-      if(left!=null)
-        { list=leftwards(list, this.square,num);
-        System.out.println(list);}
-      if(right!=null)
-       { list=rightwards(list, this.square, num);
+      if(up !=null){
+        list=upwards(list,this.square);
+       // System.out.println(list);
+        }
+      if(down!=null){
+        list=downwards(list, this.square, num);
+        //System.out.println(list);
+        }
+      if(left!=null){
+        list=leftwards(list, this.square,num);
+        //System.out.println(list);
+        }
+      if(right!=null){
+        list=rightwards(list, this.square, num);
+       }
+
+       for(int i = 0; i<list.size(); i++){
+        if(list.get(i).piece!=null){
+            if(list.get(i).piece.player.color == this.player.color){
+                list.remove(i);
+                i--;
+            }
+        }
+    }
+
      
-    System.out.println(list);}
+    //System.out.println(list);
 
 
          return list;
     }
 
     public boolean isInSection(int sectionNumber) {
+        if(this.square!=null){
         if (this.board.sections[sectionNumber].findSquare(this.square.label) != null) {
             // System.out.println("In sec 1");
             return true;
-        } else
-            return false;
+        } 
+    }
+        return false;
     }
 
     public ArrayList<Square> upwards(ArrayList<Square> list, Square square) {
@@ -68,7 +83,7 @@ public class Knight extends Piece
             Square up = this.board.squareAbove(square);
             System.out.println("enter");
             Square up2 = this.board.squareAbove(up);
-            if (this.board.findSquare(up2.label) != null) {
+            if (up2 != null) {
                 if (this.board.squareRight(up2) != null)
                     list.add(this.board.squareRight(up2));
                 if (this.board.squareLeft(up2) != null)
@@ -77,7 +92,7 @@ public class Knight extends Piece
             }
 
             if (this.board.squareRight(up) != null) {
-                if (this.board.squareRight(this.board.squareRight(up)).label != null) {
+                if (this.board.squareRight(this.board.squareRight(up)) != null) {
                       Square right2= this.board.squareRight(up);
                       System.out.println(right2);
                       System.out.println(this.board.squareRight(right2));
@@ -103,7 +118,7 @@ public class Knight extends Piece
                  down2 = this.board.squareBelow(down);
                
 
-                if (this.board.findSquare(down2.label) != null) {
+                if (down2 != null) {
                     if (this.board.squareRight(down2) != null) {
                         // System.out.println(this.board.squareRight(down2).label);
                         list.add(this.board.squareRight(down2));
@@ -134,7 +149,7 @@ public class Knight extends Piece
      public ArrayList<Square> leftwards(ArrayList<Square> list, Square square,String num)
         {
             Square left=this.board.squareLeft(square);
-            if (this.board.findSquare(left.label) != null) {
+            if (left != null) {
             Square left2 = this.board.squareLeft(left);
             if (left2 != null) {
                 if (this.board.squareAbove(left2) != null && !list.contains(this.board.squareAbove(left2)))
@@ -174,7 +189,7 @@ public class Knight extends Piece
 
        public ArrayList<Square> rightwards(ArrayList<Square> list, Square square,String num)
        { Square right=this.board.squareRight(square);
-         if (this.board.findSquare(right.label) != null) {
+         if (right != null) {
             Square right2 = this.board.squareRight(right);
             if (right2 != null) {
                 if (this.board.squareAbove(right2) != null && !list.contains(this.board.squareAbove(right2)))
