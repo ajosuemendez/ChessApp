@@ -330,9 +330,6 @@ public class Chess3Board {
                 if(bottomLeft.isEmpty())
                     list.addAll(this.bottomLeftDiagonal(bottomLeft));
             }
-            else{
-                System.out.println("Square bottomLeft was null");
-            }
         }
         return list;
     }
@@ -358,17 +355,12 @@ public class Chess3Board {
                 if(topRight.isEmpty())
                     list.addAll(this.topRightDiagonal(topRight));
             }
-            else{
-                System.out.println("Top right was null:" + above);
-            }
         }
         return list;
     }
 
     public ArrayList<Square> bottomRightDiagonal(Square square){
         ArrayList<Square> list = new ArrayList<>();
-        //working
-        System.out.println("Attempted bottom RightDiagonal : " + square);
         if(square.label.equals("e4")){
             list.add(this.findSquare("i9"));
             if(this.findSquare("i9").isEmpty())

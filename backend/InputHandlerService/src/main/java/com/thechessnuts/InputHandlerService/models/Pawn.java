@@ -93,8 +93,18 @@ public class Pawn extends Piece
     {
 
         ArrayList<Square> list = new ArrayList<>();
-
+try{
         if(player.color == Player.colors.WHITE){
+            if(this.square.label.equals("i9")){
+                if(this.board.findSquare("e4").piece != null){
+                    list.add(this.board.findSquare("e4"));
+                }
+            }
+            if(this.square.label.equals("e9")){
+                if(this.board.findSquare("i5").piece != null){
+                    list.add(this.board.findSquare("i5"));
+                }
+            }
             Square squareAbove = board.squareAbove(this.square);
             if(squareAbove.isEmpty()){
                 list.add(squareAbove);
@@ -117,6 +127,32 @@ public class Pawn extends Piece
                 crossedBorder = true;
             if(player.color == Player.colors.BLACK && this.square.label.charAt(1)=='5')
                 crossedBorder = true;
+            
+            if(this.player.color == Player.colors.BLACK){
+                if(this.square.label.equals("e4")){
+                if(this.board.findSquare("d5").piece != null){
+                    list.add(this.board.findSquare("d5"));
+                }
+            }
+            if(this.square.label.equals("d4")){
+                if(this.board.findSquare("e9").piece != null){
+                    list.add(this.board.findSquare("e9"));
+                }
+            }
+            }
+
+            if(this.player.color == Player.colors.YELLOW){
+                if(this.square.label.equals("d5")){
+                if(this.board.findSquare("i9").piece != null){
+                    list.add(this.board.findSquare("i9"));
+                }
+            }
+            if(this.square.label.equals("i5")){
+                if(this.board.findSquare("d4").piece != null){
+                    list.add(this.board.findSquare("d4"));
+                }
+            }
+            }
 
             if(crossedBorder){
                 Square squareAbove = board.squareAbove(this.square);
@@ -152,6 +188,10 @@ public class Pawn extends Piece
             }
             
         }
+    }
+    catch(Exception e){
+        System.out.println(e);
+    }
 
         for(int i = 0; i<list.size(); i++){
             if(list.get(i).piece!=null){

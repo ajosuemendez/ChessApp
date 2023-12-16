@@ -67,7 +67,6 @@ public class Game {
        
         if(this.board.selectedPiece!=null){
             if(this.board.selectedPiece.allMoves().contains(clickedSquare)){
-                System.out.println("was here");
                 this.makeMove(new Move(this.board.selectedPiece.square, clickedSquare, this.board.selectedPiece, clickedSquare.piece));
             }
             this.board.selectPiece("");
