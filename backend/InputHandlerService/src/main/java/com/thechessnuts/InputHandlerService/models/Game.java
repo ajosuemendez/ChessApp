@@ -59,10 +59,10 @@ public class Game {
         }
 
         if(clickedSquare.piece != null){
-            //if(clickedSquare.piece.player.color.equals(this.activePlayer.color)){
+            if(clickedSquare.piece.player.color.equals(this.activePlayer.color)){
                 this.board.selectPiece(label);
                 return;
-            //}
+            }
         }
        
         if(this.board.selectedPiece!=null){
