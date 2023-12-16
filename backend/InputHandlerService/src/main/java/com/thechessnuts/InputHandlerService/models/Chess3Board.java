@@ -79,28 +79,28 @@ public class Chess3Board {
         }
 
         //PAWNS
-        /*for(int i = 0; i<4;i++){
+        for(int i = 0; i<4;i++){
             this.sections[section1].squares[i][2].setPiece(new Pawn(this, player));
             this.sections[section2].squares[2][i].setPiece(new Pawn(this, player));
         }
-*/
+
         //ROOKS
-        this.sections[section1].squares[3][3].setPiece(new Knight(this, player));
-        this.sections[section2].squares[3][3].setPiece(new Knight(this, player));
+        this.sections[section1].squares[3][3].setPiece(new Rook(this, player));
+        this.sections[section2].squares[3][3].setPiece(new Rook(this, player));
 
         //KNIGHTS
         this.sections[section1].squares[2][3].setPiece(new Knight(this, player));
         this.sections[section2].squares[3][2].setPiece(new Knight(this, player));
 
         //BISHOPS
-        this.sections[section1].squares[1][3].setPiece(new Knight(this, player));
-        this.sections[section2].squares[3][1].setPiece(new Knight(this, player));
+        this.sections[section1].squares[1][3].setPiece(new Bishop(this, player));
+        this.sections[section2].squares[3][1].setPiece(new Bishop(this, player));
 
         //QUEEN
-        this.sections[section1].squares[0][3].setPiece(new Knight(this, player));
+        this.sections[section1].squares[0][3].setPiece(new Queen(this, player));
 
         //KING
-        this.sections[section2].squares[3][0].setPiece(new Knight(this, player));
+        this.sections[section2].squares[3][0].setPiece(new King(this, player));
 
 
 
@@ -330,9 +330,6 @@ public class Chess3Board {
                 if(bottomLeft.isEmpty())
                     list.addAll(this.bottomLeftDiagonal(bottomLeft));
             }
-            else{
-                System.out.println("Square bottomLeft was null");
-            }
         }
         return list;
     }
@@ -358,17 +355,12 @@ public class Chess3Board {
                 if(topRight.isEmpty())
                     list.addAll(this.topRightDiagonal(topRight));
             }
-            else{
-                System.out.println("Top right was null:" + above);
-            }
         }
         return list;
     }
 
     public ArrayList<Square> bottomRightDiagonal(Square square){
         ArrayList<Square> list = new ArrayList<>();
-        //working
-        System.out.println("Attempted bottom RightDiagonal : " + square);
         if(square.label.equals("e4")){
             list.add(this.findSquare("i9"));
             if(this.findSquare("i9").isEmpty())

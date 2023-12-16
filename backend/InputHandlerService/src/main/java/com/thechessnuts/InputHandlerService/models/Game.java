@@ -10,7 +10,6 @@ public class Game {
     //public Client client;
     public Moves moves;
     public String gameID;
-    //public Chat chat;
 
     public Game(){
         this.moves = new Moves(this);
@@ -59,21 +58,19 @@ public class Game {
         }
 
         if(clickedSquare.piece != null){
-            //if(clickedSquare.piece.player.color.equals(this.activePlayer.color)){
+            if(clickedSquare.piece.player.color.equals(this.activePlayer.color)){
                 this.board.selectPiece(label);
                 return;
-            //}
+            }
         }
        
         if(this.board.selectedPiece!=null){
             if(this.board.selectedPiece.allMoves().contains(clickedSquare)){
-                System.out.println("was here");
                 this.makeMove(new Move(this.board.selectedPiece.square, clickedSquare, this.board.selectedPiece, clickedSquare.piece));
             }
             this.board.selectPiece("");
         }
 
-        //if(clickedSquare.piece)
     }
 
 
