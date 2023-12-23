@@ -17,11 +17,11 @@ public class Chess3Section {
 
         for (int i = 0; i < 4; i++)
             for (int j = 0; j < 4; j++)
-                this.squares[i][j] = new Square(x_axis[j] + y_axis[i], j, i, this);
+                this.squares[i][j] = new Square(x_axis[j] + y_axis[i], this);
 
     }
 
-    public Square findSquare(String label){
+    public Square getSquare(String label){
         for(int i = 0; i < 4; i++)
             for(int j = 0; j < 4; j++)
                 if(squares[j][i].label.equals(label))

@@ -31,48 +31,48 @@ public class King extends Piece
 
         ArrayList<Square> list = new ArrayList<>();
 
-        Square squareAbove = board.squareAbove(this.square);
-        if(squareAbove != null){
-            list.add(squareAbove);
-            Square squareTopLeft = board.squareLeft(squareAbove);
-            if(squareTopLeft != null){
-                list.add(squareTopLeft);
-            }
-            Square squareTopRight = board.squareRight(squareAbove);
-            if (squareTopRight != null) {
-                list.add(squareTopRight);
-            }
-        }
-        Square squareBelow = board.squareBelow(this.square);
-        if (squareBelow != null) {
-                list.add(squareBelow);
-            Square squareBottomLeft = board.squareLeft(squareBelow);
-            if(squareBottomLeft != null){
-                list.add(squareBottomLeft);
-            }
-            Square squareBottomRight = board.squareRight(squareBelow);
-            if (squareBottomRight != null) {
-                list.add(squareBottomRight);
-            }
-        }
-         Square squareLeft = board.squareLeft(this.square);
-        if (squareBelow != null) {
-                list.add(squareLeft);
-        }
-         Square squareRight = board.squareRight(this.square);
-        if (squareBelow != null) {
-                list.add(squareRight);
-        }
+        // Square squareAbove = board.squareAbove(this.square);
+        // if(squareAbove != null){
+        //     list.add(squareAbove);
+        //     Square squareTopLeft = board.squareLeft(squareAbove);
+        //     if(squareTopLeft != null){
+        //         list.add(squareTopLeft);
+        //     }
+        //     Square squareTopRight = board.squareRight(squareAbove);
+        //     if (squareTopRight != null) {
+        //         list.add(squareTopRight);
+        //     }
+        // }
+        // Square squareBelow = board.squareBelow(this.square);
+        // if (squareBelow != null) {
+        //         list.add(squareBelow);
+        //     Square squareBottomLeft = board.squareLeft(squareBelow);
+        //     if(squareBottomLeft != null){
+        //         list.add(squareBottomLeft);
+        //     }
+        //     Square squareBottomRight = board.squareRight(squareBelow);
+        //     if (squareBottomRight != null) {
+        //         list.add(squareBottomRight);
+        //     }
+        // }
+        //  Square squareLeft = board.squareLeft(this.square);
+        // if (squareBelow != null) {
+        //         list.add(squareLeft);
+        // }
+        //  Square squareRight = board.squareRight(this.square);
+        // if (squareBelow != null) {
+        //         list.add(squareRight);
+        // }
 
 
-        for(int i = 0; i<list.size(); i++){
-            if(list.get(i).piece!=null){
-                if(list.get(i).piece.player.color == this.player.color){
-                    list.remove(i);
-                    i--;
-                }
-            }
-        }
+        // for(int i = 0; i<list.size(); i++){
+        //     if(list.get(i).piece!=null){
+        //         if(list.get(i).piece.player.color == this.player.color){
+        //             list.remove(i);
+        //             i--;
+        //         }
+        //     }
+        // }
 
         return list;
     }

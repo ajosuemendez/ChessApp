@@ -52,7 +52,7 @@ public class Game {
     }
 
     public void handleEvent(String label){
-        Square clickedSquare = this.board.findSquare(label);
+        Square clickedSquare = this.board.getSquare(label);
 
         if(clickedSquare == null){
             return;
