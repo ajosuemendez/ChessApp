@@ -3,7 +3,7 @@ package com.thechessnuts.InputHandlerService.models;
 import java.util.ArrayList;
 
 public class Chess3Board {
-    Chess3Section[] sections;
+    public Chess3Section[] sections;
     Piece selectedPiece = null;
 
     public Chess3Board(){

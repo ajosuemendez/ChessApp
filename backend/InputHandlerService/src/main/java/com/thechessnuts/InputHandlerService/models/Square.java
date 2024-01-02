@@ -32,11 +32,17 @@ public class Square
     int pozY; // 0-7, because 8 squares for row/column
     Chess3Section section;
 
-    Square(String label, int pozX, int pozY, Chess3Section section)
+   public Square(String label, int pozX, int pozY, Chess3Section section)
     {
 
-        this.pozX = pozX;
-        this.pozY = pozY;
+//added error handling for 0>x>7
+        if (7>=pozX&&pozX>=0 && 7>=pozY&&pozY>=0) {
+            this.pozX = pozX;
+            this.pozY = pozY;
+        } else {
+            this.pozX= -1;
+            this.pozY =-1;
+        }
         this.section = section;
         if(label.charAt(0)>= 'a' &&label.charAt(0)<='l') {
             this.label = label;
@@ -46,11 +52,11 @@ public class Square
         }
     }
 
-    Square(String label){
+    public Square(String label){
         this.label = label;
     }
 
-    void setPiece(Piece piece)
+    public void setPiece(Piece piece)
     {
         this.piece = piece;
         this.piece.square = this;
@@ -69,4 +75,39 @@ public class Square
         return new SquareForSending(this.label, this.piece==null?"":this.piece.name, isSelected);
     }
 
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public Piece getPiece() {
+        return piece;
+    }
+
+    public int getPozX() {
+        return pozX;
+    }
+
+    public void setPozX(int pozX) {
+        this.pozX = pozX;
+    }
+
+    public int getPozY() {
+        return pozY;
+    }
+
+    public void setPozY(int pozY) {
+        this.pozY = pozY;
+    }
+
+    public Chess3Section getSection() {
+        return section;
+    }
+
+    public void setSection(Chess3Section section) {
+        this.section = section;
+    }
 }

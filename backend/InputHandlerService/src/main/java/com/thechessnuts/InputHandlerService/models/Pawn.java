@@ -71,7 +71,7 @@ public class Pawn extends Piece
     boolean crossedBorder;
     public static short value = 1;
 
-    Pawn(Chess3Board board, Player player)
+      public Pawn(Chess3Board board, Player player)
     {
 
         super(board, player);
@@ -111,8 +111,7 @@ public class Pawn extends Piece
             if(rightFront!=null && !rightFront.isEmpty()){
                 list.add(rightFront);
             }
-        }
-        else{
+        } else{
             if(player.color == Player.colors.YELLOW && this.square.label.charAt(1)=='4')
                 crossedBorder = true;
             if(player.color == Player.colors.BLACK && this.square.label.charAt(1)=='5')
@@ -125,14 +124,13 @@ public class Pawn extends Piece
                 }
                 Square leftFront = board.squareLeft(squareAbove);
                 Square rightFront = board.squareRight(squareAbove);
-                if(leftFront!=null && !leftFront.isEmpty()){
+                if(leftFront!=null && !leftFront.isEmpty()){//&&!(leftFront.piece.player.color==this.player.color)
                     list.add(leftFront);
                 }
                 if(rightFront!=null && !rightFront.isEmpty()){
                     list.add(rightFront);
                 }
-            }
-            else {
+            } else {
                 Square squareBelow = board.squareBelow(this.square);
                 if (squareBelow.isEmpty()) {
                     list.add(squareBelow);
