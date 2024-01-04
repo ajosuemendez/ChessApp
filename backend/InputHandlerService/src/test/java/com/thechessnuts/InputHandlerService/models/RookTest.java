@@ -1,4 +1,4 @@
-package backend.InputHandlerService.src.test.java.com.thechessnuts.InputHandlerService.InputHandlerService.models;
+package com.thechessnuts.InputHandlerService.models;
 
 import com.thechessnuts.InputHandlerService.models.*;
 import org.junit.jupiter.api.BeforeEach;

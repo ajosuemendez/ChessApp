@@ -75,39 +75,26 @@ public class Square
         return new SquareForSending(this.label, this.piece==null?"":this.piece.name, isSelected);
     }
 
-    public String getLabel() {
-        return label;
-    }
 
-    public void setLabel(String label) {
-        this.label = label;
-    }
 
-    public Piece getPiece() {
-        return piece;
-    }
+
 
     public int getPozX() {
         return pozX;
     }
 
-    public void setPozX(int pozX) {
-        this.pozX = pozX;
-    }
+
 
     public int getPozY() {
         return pozY;
     }
 
-    public void setPozY(int pozY) {
-        this.pozY = pozY;
+
+    public String getLabel() {
+        return label;
     }
 
     public Chess3Section getSection() {
         return section;
-    }
-
-    public void setSection(Chess3Section section) {
-        this.section = section;
     }
 }
