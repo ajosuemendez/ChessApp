@@ -1,0 +1,164 @@
+@startuml
+'https://plantuml.com/class-diagram
+class Bishop extends Piece{
+-value
++allMoves();
+
+}
+class CenterPosition{
+- x
+- y
++getx()
++gety()
+}
+class Chess3Board{
+ selectedPiece
++ sections
++ isSquareEmpty()
++ FindSquare()
++ setPieces()
++ print()
++ selectPiece()
++ SquareAbove()
++ SquareBelow()
++ SquareLeft()
++ SquareRight()
++ topLeftDiagonal()
++ topRightDiagonal()
++ bottomLeftDiagonal()
++ bottomRightDiagonal()
++ MakeMove()
++ getBoardState()
+
+
+}
+Class ChessSection{
++ squares
+- board
+- x_axis
+- y_axis
++ getSquares()
++ getX_axis()
++ getY_axis()
++ toString()
++ getSectionState()
+
+}
+class Game{
++ settings
++ board
++ activePlayer
++ moves
++ gameID
++ newGame()
++ setPlayer()
++ loadGame()
++ saveGame()
++ nextTurn()
++ handleEvent()
++ makeMove()
+}
+Class King extends Piece{
+crossBorder
+-value
++allMoves()
+promote()
+
+
+}
+Class Knight extends Piece{
+-value
++allMoves
+}
+Class Move{
+-from
+-to
+-movedPiece
+-takenPiece
+-promotedTo
++ toString()
+}
+class Moves{
+-moves
+- game
++ add()
++ MoveFromString()
+
+}
+Class Pawn extends Piece{
+- crossBorder
+- value
++ allMoves()
+- promote()
+}
+Abstract class Piece{
++ player
++ board
++ square
++ started
+- name
+- symbol
+-isSelected
++ allMoves()
+- checkPiece()
+- otherOwner()
+
+}
+class Player implements Serializable{
+- name
+- color
+- goDown
++ SetName()
+- getName()
++ SetType()
+
+}
+class Queen extends Piece{
+- value
++ allMoves()
+
+}
+class Rook extends Piece{
+- value
++ allMoves()
+}
+class Settings{
++ playerWhite
++ playerBlack
++ playerYellow
++ gameMode
++ gameModes()
+}
+class Square {
+- label
+- posX
+- posY
+- Section
+- SetPiece()
++ toString()
++ isEmpty()
++ getSquareState()
++ getLabel()
++ setLabel()
++ getPiece()
++ getPozX()
++ getPozY()
++ setPozX()
++ setPozY()
++ getSection()
++ setSection()
+}
+class SquareForSending{
+- id
+- piece
++ isValid
++ getId()
++ getPiece()
++ getIsValid()
++ toString()
+}
+class InputHandlerServiceApplication{
+}
+
+
+@enduml

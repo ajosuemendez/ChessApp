@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Game {
     public Settings settings;
     public Chess3Board board;
-    private Player activePlayer;
+    public Player activePlayer;
     //public GameClock gameClock;
     //public Client client;
     public Moves moves;
@@ -51,7 +51,7 @@ public class Game {
     }
 
     public void handleEvent(String label){
-        Square clickedSquare = this.board.findSquare(label);
+        Square clickedSquare = this.board.getSquare(label);
 
         if(clickedSquare == null){
             return;
@@ -84,4 +84,23 @@ public class Game {
         return board.getBoardState();
     }
 
+    public Settings getSettings() {
+        return settings;
+    }
+
+    public Chess3Board getBoard() {
+        return board;
+    }
+
+    public Player getActivePlayer() {
+        return activePlayer;
+    }
+
+    public Moves getMoves() {
+        return moves;
+    }
+
+    public String getGameID() {
+        return gameID;
+    }
 }

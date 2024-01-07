@@ -31,6 +31,18 @@ public class Player implements Serializable
 
     String name;
 
+    public colors getColor() {
+        return color;
+    }
+
+    public playerTypes getPlayerType() {
+        return playerType;
+    }
+
+    public boolean isGoDown() {
+        return goDown;
+    }
+
     enum colors
     {
 

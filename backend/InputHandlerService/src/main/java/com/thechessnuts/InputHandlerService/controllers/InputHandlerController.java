@@ -1,10 +1,7 @@
 package com.thechessnuts.InputHandlerService.controllers;
-
-import com.thechessnuts.InputHandlerService.models.Square;
-import com.thechessnuts.InputHandlerService.models.SquareForSending;
-import com.thechessnuts.InputHandlerService.models.CenterPosition;
-import com.thechessnuts.InputHandlerService.models.Game;
-
+import  com.thechessnuts.InputHandlerService.models.Square;
+import  com.thechessnuts.InputHandlerService.models.SquareForSending;
+import  com.thechessnuts.InputHandlerService.models.Game;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;

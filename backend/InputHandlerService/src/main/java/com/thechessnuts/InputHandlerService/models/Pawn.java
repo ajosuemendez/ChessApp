@@ -71,7 +71,7 @@ public class Pawn extends Piece
     boolean crossedBorder;
     public static short value = 1;
 
-    Pawn(Chess3Board board, Player player)
+      public Pawn(Chess3Board board, Player player)
     {
 
         super(board, player);
@@ -91,78 +91,7 @@ public class Pawn extends Piece
     @Override
     public ArrayList<Square> allMoves()
     {
-
-        ArrayList<Square> list = new ArrayList<>();
-
-        if(player.color == Player.colors.WHITE){
-            Square squareAbove = board.squareAbove(this.square);
-            if(squareAbove.isEmpty()){
-                list.add(squareAbove);
-                Square nextStep = board.squareAbove(squareAbove);
-                if(nextStep.isEmpty() && !this.started){
-                    list.add(nextStep);
-                }
-            }
-            Square leftFront = board.squareLeft(squareAbove);
-            Square rightFront = board.squareRight(squareAbove);
-            if(leftFront!=null && !leftFront.isEmpty()){
-                list.add(leftFront);
-            }
-            if(rightFront!=null && !rightFront.isEmpty()){
-                list.add(rightFront);
-            }
-        }
-        else{
-            if(player.color == Player.colors.YELLOW && this.square.label.charAt(1)=='4')
-                crossedBorder = true;
-            if(player.color == Player.colors.BLACK && this.square.label.charAt(1)=='5')
-                crossedBorder = true;
-
-            if(crossedBorder){
-                Square squareAbove = board.squareAbove(this.square);
-                if(squareAbove.isEmpty()){
-                    list.add(squareAbove);
-                }
-                Square leftFront = board.squareLeft(squareAbove);
-                Square rightFront = board.squareRight(squareAbove);
-                if(leftFront!=null && !leftFront.isEmpty()){
-                    list.add(leftFront);
-                }
-                if(rightFront!=null && !rightFront.isEmpty()){
-                    list.add(rightFront);
-                }
-            }
-            else {
-                Square squareBelow = board.squareBelow(this.square);
-                if (squareBelow.isEmpty()) {
-                    list.add(squareBelow);
-                    Square nextStep = board.squareBelow(squareBelow);
-                    if(nextStep.isEmpty() && !this.started){
-                        list.add(nextStep);
-                    }
-                }
-                Square leftFront = board.squareLeft(squareBelow);
-                Square rightFront = board.squareRight(squareBelow);
-                if (leftFront != null && !leftFront.isEmpty()) {
-                    list.add(leftFront);
-                }
-                if (rightFront != null && !rightFront.isEmpty()) {
-                    list.add(rightFront);
-                }
-            }
-            
-        }
-
-        for(int i = 0; i<list.size(); i++){
-            if(list.get(i).piece!=null){
-                if(list.get(i).piece.player.color == this.player.color){
-                    list.remove(i);
-                    i--;
-                }
-            }
-        }
-
-        return list;
+        return this.board.behaviours.pawnBehaviour(this);
     }
     void promote(Piece newPiece)
     {

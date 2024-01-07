@@ -12,7 +12,7 @@ public class Settings {
         loadGame, newGame
     }
 
-    Settings(){
+    public Settings(){
         this.playerWhite = new Player("", "WHITE");
         this.playerBlack = new Player("", "BLACK");
         this.playerYellow = new Player("", "YELLOW");
