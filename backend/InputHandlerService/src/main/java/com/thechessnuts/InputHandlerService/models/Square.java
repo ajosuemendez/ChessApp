@@ -20,11 +20,11 @@ public class Square
         }
     }
 
-    Square(String label){
+    public Square(String label){
         this.label = label;
     }
 
-    void setPiece(Piece piece)
+    public void setPiece(Piece piece)
     {
         this.piece = piece;
         this.piece.square = this;

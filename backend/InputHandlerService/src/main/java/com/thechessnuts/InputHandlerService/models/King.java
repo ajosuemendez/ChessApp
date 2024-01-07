@@ -8,7 +8,7 @@ public class King extends Piece
     boolean crossedBorder;
     public static short value = 1;
 
-    King(Chess3Board board, Player player)
+    public King(Chess3Board board, Player player)
     {
 
         super(board, player);

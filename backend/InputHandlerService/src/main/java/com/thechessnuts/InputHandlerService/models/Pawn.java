@@ -71,7 +71,7 @@ public class Pawn extends Piece
     boolean crossedBorder;
     public static short value = 1;
 
-    Pawn(Chess3Board board, Player player)
+      public Pawn(Chess3Board board, Player player)
     {
 
         super(board, player);

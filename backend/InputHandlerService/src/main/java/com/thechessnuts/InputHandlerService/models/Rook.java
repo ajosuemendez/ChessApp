@@ -25,7 +25,7 @@ public class Rook extends Piece
 
     public static short value = 5;
 
-    Rook(Chess3Board board, Player player)
+    public Rook(Chess3Board board, Player player)
     {
         super(board, player);
         this.board = board;

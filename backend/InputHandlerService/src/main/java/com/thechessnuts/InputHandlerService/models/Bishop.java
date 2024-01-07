@@ -25,7 +25,7 @@ public class Bishop extends Piece
 
     public static short value = 3;
 
-    Bishop(Chess3Board board, Player player)
+    public Bishop(Chess3Board board, Player player)
     {
         super(board, player);
         this.board = board;

@@ -25,7 +25,7 @@ public class Knight extends Piece
 
     public static short value = 3;
 
-    Knight(Chess3Board board, Player player)
+    public Knight(Chess3Board board, Player player)
     {
         super(board, player);
         this.board = board;
