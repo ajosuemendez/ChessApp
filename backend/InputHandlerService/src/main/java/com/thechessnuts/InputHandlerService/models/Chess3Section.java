@@ -47,10 +47,7 @@ public class Chess3Section {
         ret+="   ";
         for(int i = 0; i<4; i++)
             ret+= x_axis[i] + "  " + (x_axis[i].length()>1?"":" ");
-/*
-        for(int i = 0; i< 4; i++)
-            for(int j = 0; j<4; j++)
-                ret+= this.squares[j][i].label+", ";*/
+            
         return ret;
     }
 
