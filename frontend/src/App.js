@@ -1,7 +1,9 @@
-// import './App.css';
-
+import "./styles/App.css"
 // import Board from "./components/Board";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+// Layout
+import Header from './layout/Header';
 
 // Pages
 import Home from "./pages/Home";
@@ -10,7 +12,7 @@ import NotFoundPage from './pages/NotFoundPage';
 export default function App() {
   return(
     <Router>
-      {/* <Header /> */}
+      <Header/>
       <Routes>
         <Route exact path="/" element={<Home/>} />
         <Route path="*" element={<NotFoundPage/>} />
