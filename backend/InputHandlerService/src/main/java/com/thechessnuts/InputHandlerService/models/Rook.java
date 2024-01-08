@@ -27,16 +27,10 @@ public class Rook extends Piece
 
     public Rook(Chess3Board board, Player player)
     {
-        super(board, player);
+        super(board, player, new RookBehaviour());
         this.board = board;
         this.player = player;
         this.symbol = "R";
         this.name += "rook";
-    }
-
-    @Override
-    public ArrayList<Square> allMoves()
-    {
-       return this.board.behaviours.rookBehaviour(this);
     }
 }

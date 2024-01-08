@@ -1,76 +1,71 @@
 package com.thechessnuts.InputHandlerService.models;
 
 import java.util.ArrayList;
+import java.util.stream.IntStream;
+
+import com.thechessnuts.InputHandlerService.models.Chess3Board.Chess3Section;
 
 public class Chess3Board {
     public Chess3Section[] sections;
     Piece selectedPiece = null;
     Navigation navigation;
-    Behaviours behaviours;
 
-    public Chess3Board()
-    {
+    public Chess3Board() {
+        sections = new Chess3Section[6];
 
-     sections = new Chess3Section[6];
+        // Define pairs of string arrays as arrays of arrays
+        String[][][] sectionData = {
+            {
+                {"4", "3", "2", "1"},
+                {"d", "c", "b", "a"}
+            },
 
-        sections[0] = new Chess3Section(
-                new String[]{"4", "3", "2", "1"},
-                new String[]{"d", "c", "b", "a"},
-                this
-        );
+            {
+                {"e", "f", "g", "h"}, 
+                {"4", "3", "2", "1"}
+            },
 
-        sections[1] = new Chess3Section(
-                new String[]{"e", "f", "g", "h"},
-                new String[]{"4", "3", "2", "1"},
-                this
-        );
+            {
+                {"9", "10", "11", "12"}, 
+                {"e", "f", "g", "h"}
+            },
 
-        sections[2] = new Chess3Section(
-                new String[]{"9", "10", "11", "12"},
-                new String[]{"e", "f", "g", "h"},
-                this
-        );
+            {   
+                {"i", "j", "k", "l"}, 
+                {"9", "10", "11", "12"}
+            },
 
-        sections[3] = new Chess3Section(
-                new String[]{"i", "j", "k", "l"},
-                new String[]{"9", "10", "11", "12"},
-                this
-        );
+            {
+                {"5", "6", "7", "8"}, 
+                {"i", "j", "k", "l"}
+            },
 
-        sections[4] = new Chess3Section(
-                new String[]{"5", "6", "7", "8"},
-                new String[]{"i", "j", "k", "l"},
-                this
-        );
+            {
+                {"d", "c", "b", "a"}, 
+                {"5", "6", "7", "8"}
+            },
+        };
 
-        sections[5] = new Chess3Section(
-                new String[]{"d", "c", "b", "a"},
-                new String[]{"5", "6", "7", "8"},
-                this
-        );
+        IntStream.range(0, 6).forEach(i -> {
+            String[] rowValues = sectionData[i][0];
+            String[] colValues = sectionData[i][1];
+
+            sections[i] = new Chess3Section(rowValues, colValues, this);
+        });
+
         this.navigation = new Navigation(this);
-        this.behaviours = new Behaviours(this);
     }
 
-    public Square getSquare(String label)
+    public Square getSquareAt(String label)
     {
         
         for(int i = 0; i<6; i++){
-            if(this.sections[i].getSquare(label)!=null){
-                return this.sections[i].getSquare(label);
+            if(this.sections[i].getSquareAt(label)!=null){
+                return this.sections[i].getSquareAt(label);
             }
         }
         return null;
     }
-    
-    //CLEAN
-    public boolean isSquareEmpty(String label)
-    {
-        if(this.getSquare(label) == null)
-            return false;
-        return this.getSquare(label).isEmpty();
-    }
-
 
     public void setPieces(Player player){
         int section1/*Queen's Side*/, section2/*King's Side*/;
@@ -122,14 +117,16 @@ public class Chess3Board {
         }
     }
 
+    //----------------- clean code below -----------------------//
+
     public void selectPiece(String label){
         if(this.selectedPiece!=null){
             this.selectedPiece.isSelected = false;
         }
-        Square squareSelected = this.getSquare(label);
+        Square squareSelected = this.getSquareAt(label);
         if(squareSelected!=null){
-            this.getSquare(label).piece.isSelected = true;
-            this.selectedPiece = this.getSquare(label).piece;
+            this.getSquareAt(label).piece.isSelected = true;
+            this.selectedPiece = this.getSquareAt(label).piece;
         }
         else
             this.selectedPiece = null;
@@ -137,8 +134,8 @@ public class Chess3Board {
 
 
     public void makeMove(Move move){
-        this.getSquare(move.to.label).setPiece(this.getSquare(move.from.label).piece);
-        this.getSquare(move.from.label).piece = null;
+        this.getSquareAt(move.to.label).setPiece(this.getSquareAt(move.from.label).piece);
+        this.getSquareAt(move.from.label).piece = null;
         if(move.movedPiece.symbol == ""){
             move.movedPiece.started = true;
         }
@@ -159,6 +156,101 @@ public class Chess3Board {
         }
 
         return list;
+    }
+
+    class Chess3Section {
+        public Square[][] squares;//squares of chessboard
+        //The top left corner(pos 0,0) is always the square at the center rosette
+    
+        protected Chess3Board board;
+        protected String[] x_axis, y_axis;
+    
+        public Square[][] getSquares() {
+            return squares;
+        }
+    
+        public Chess3Board getBoard() {
+            return board;
+        }
+    
+        public String[] getX_axis() {
+            return x_axis;
+        }
+    
+        public String[] getY_axis() {
+            return y_axis;
+        }
+    
+        public Chess3Section(String[] x_axis, String[] y_axis, Chess3Board board) {
+    
+            if (board.equals(null)){
+                throw new NullPointerException("Board is Null!!");
+            }else this.board = board;
+    
+            if(x_axis.length==0||y_axis.length==0){
+                throw new IllegalArgumentException("Array is Empty!!");
+            } else if (x_axis.length== y_axis.length) {
+                this.x_axis = x_axis;
+                this.y_axis = y_axis;
+            }else {
+                throw new IllegalArgumentException(("THE Lenght of x_axis and y_axis does not match!!"));
+            }
+    
+            this.squares = new Square[4][4];
+    
+    
+            for (int i = 0; i < 4; i++)
+                for (int j = 0; j < 4; j++)
+                    this.squares[i][j] = new Square(x_axis[j] + y_axis[i]);
+    
+        }
+    
+        public Square getSquareAt(String label){
+            for(int i = 0; i < 4; i++)
+                for(int j = 0; j < 4; j++)
+                    if(squares[j][i].label.equals(label))
+                        return squares[j][i];
+            return null;
+        }
+    
+        @Override
+        public String toString() {
+            String ret = "";
+            for(int i = 0; i<4; i++) {
+                ret += y_axis[i]+ " " + (y_axis[i].length()>1?"":" ");
+                for(int j = 0; j<4;j++){
+                    if(this.squares[i][j].piece!=null) {
+                        ret +=  this.squares[i][j].piece.symbol + "   ";
+                    }
+                    else{
+                        ret += "    ";
+                    }
+                }
+                ret+="\n";
+            }
+            ret+="   ";
+            for(int i = 0; i<4; i++)
+                ret+= x_axis[i] + "  " + (x_axis[i].length()>1?"":" ");
+                
+            return ret;
+        }
+    
+        public ArrayList<SquareForSending> getSectionState(ArrayList<Square> selectedList){
+            ArrayList<SquareForSending> list = new ArrayList<>();
+    
+            for(int i = 0; i< 4; i++){
+                for(int j = 0; j<4; j++){
+                    if(selectedList.indexOf(squares[i][j])>=0){
+                        list.add(squares[i][j].getSquareState(true));
+                    }
+                    else{
+                        list.add(squares[i][j].getSquareState(false));
+                    }
+                }
+            }
+    
+            return list;
+        }
     }
 
     

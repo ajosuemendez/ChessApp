@@ -6,10 +6,6 @@ import java.util.HashMap;
 public class Navigation {
     Chess3Board board;
 
-    /*
-     * 
-     */
-
     Navigation(Chess3Board board){
         this.board = board;
     }
@@ -24,19 +20,18 @@ public class Navigation {
 
         if(rowNumber == 9){
             if(columnLetter>='i'){
-                 return board.getSquare(Character.toString(columnLetter)+Integer.toString(5));
+                 return board.getSquareAt(Character.toString(columnLetter)+Integer.toString(5));
             }
             else{
-                 return board.getSquare(Character.toString(columnLetter)+Integer.toString(4));
+                 return board.getSquareAt(Character.toString(columnLetter)+Integer.toString(4));
             }
         }
 
         if(rowNumber < 8 && rowNumber >= 5){
-            return board.getSquare(Character.toString(columnLetter)+Integer.toString(rowNumber+1));
+            return board.getSquareAt(Character.toString(columnLetter)+Integer.toString(rowNumber+1));
         }
 
-        return board.getSquare(Character.toString(columnLetter)+Integer.toString(rowNumber-1));
-        
+        return board.getSquareAt(Character.toString(columnLetter)+Integer.toString(rowNumber-1));
 
     }
 
@@ -45,29 +40,29 @@ public class Navigation {
         int rowNumber = Integer.parseInt(square.label.substring(1));
 
         if(rowNumber>=9){
-            return board.getSquare(Character.toString(columnLetter)+Integer.toString(rowNumber+1));
+            return board.getSquareAt(Character.toString(columnLetter)+Integer.toString(rowNumber+1));
         }
 
         if(rowNumber>5){
-            return board.getSquare(Character.toString(columnLetter)+Integer.toString(rowNumber-1));
+            return board.getSquareAt(Character.toString(columnLetter)+Integer.toString(rowNumber-1));
         }
 
         if(rowNumber == 5){
             if(columnLetter>='i'){
-                return board.getSquare(Character.toString(columnLetter)+"9");
+                return board.getSquareAt(Character.toString(columnLetter)+"9");
             }
-            return board.getSquare(Character.toString(columnLetter)+"4");
+            return board.getSquareAt(Character.toString(columnLetter)+"4");
         }
 
          if(rowNumber<4){
-            return board.getSquare(Character.toString(columnLetter)+Integer.toString(rowNumber+1));
+            return board.getSquareAt(Character.toString(columnLetter)+Integer.toString(rowNumber+1));
         }
 
         if(rowNumber == 4){
             if(columnLetter>='e'){
-                return board.getSquare(Character.toString(columnLetter)+"9");
+                return board.getSquareAt(Character.toString(columnLetter)+"9");
             }
-            return board.getSquare(Character.toString(columnLetter)+"5");
+            return board.getSquareAt(Character.toString(columnLetter)+"5");
         }
 
         return null;
@@ -83,26 +78,26 @@ public class Navigation {
 
         if(columnLetter == 'i'){
             if(rowNumber>=9){
-                return board.getSquare("e"+Integer.toString(rowNumber));
+                return board.getSquareAt("e"+Integer.toString(rowNumber));
             }
             else{
-                return board.getSquare("d"+Integer.toString(rowNumber));
+                return board.getSquareAt("d"+Integer.toString(rowNumber));
             }
         }
 
         if(columnLetter>'i'){
-            return board.getSquare(Character.toString(columnLetter-1)+Integer.toString(rowNumber));
+            return board.getSquareAt(Character.toString(columnLetter-1)+Integer.toString(rowNumber));
         }
 
         if(columnLetter>='e'){
-            return board.getSquare(Character.toString(columnLetter+1)+Integer.toString(rowNumber));
+            return board.getSquareAt(Character.toString(columnLetter+1)+Integer.toString(rowNumber));
         }
 
         if(rowNumber<=4){
-            return board.getSquare(Character.toString(columnLetter+1)+Integer.toString(rowNumber));
+            return board.getSquareAt(Character.toString(columnLetter+1)+Integer.toString(rowNumber));
         }
         if(rowNumber>=5){
-             return board.getSquare(Character.toString(columnLetter-1)+Integer.toString(rowNumber));
+             return board.getSquareAt(Character.toString(columnLetter-1)+Integer.toString(rowNumber));
         }
 
         
@@ -121,32 +116,32 @@ public class Navigation {
 
         if(columnLetter == 'e'){
             if(rowNumber>=9){
-                return board.getSquare("i"+Integer.toString(rowNumber));
+                return board.getSquareAt("i"+Integer.toString(rowNumber));
             }
             else{
-                return board.getSquare("d"+Integer.toString(rowNumber));
+                return board.getSquareAt("d"+Integer.toString(rowNumber));
             }
         }
 
         if(columnLetter>='i'){
-            return board.getSquare(Character.toString(columnLetter+1)+Integer.toString(rowNumber));
+            return board.getSquareAt(Character.toString(columnLetter+1)+Integer.toString(rowNumber));
         }
 
         if(columnLetter>'e'){
-            return board.getSquare(Character.toString(columnLetter-1)+Integer.toString(rowNumber));
+            return board.getSquareAt(Character.toString(columnLetter-1)+Integer.toString(rowNumber));
         }
 
         if(columnLetter == 'd'){
             if(rowNumber>=5){
-                return board.getSquare("i"+Integer.toString(rowNumber));
+                return board.getSquareAt("i"+Integer.toString(rowNumber));
             }
         }
 
         if(rowNumber<=4){
-            return board.getSquare(Character.toString(columnLetter-1)+Integer.toString(rowNumber));
+            return board.getSquareAt(Character.toString(columnLetter-1)+Integer.toString(rowNumber));
         }
         if(rowNumber>=5){
-             return board.getSquare(Character.toString(columnLetter+1)+Integer.toString(rowNumber));
+             return board.getSquareAt(Character.toString(columnLetter+1)+Integer.toString(rowNumber));
         }
 
         
@@ -195,12 +190,12 @@ public class Navigation {
         ArrayList<Square> list = new ArrayList<>();
         if(square.label.equals("i9")){
             if(square.isEmpty() || square.piece.isSelected) {
-                list.add(board.getSquare("e4"));
-                if(board.getSquare("e4").isEmpty())
-                    list.addAll(squaresTopLeftDiagonal(board.getSquare("e4")));
-                list.add(board.getSquare("d5"));
-                if(board.getSquare("d5").isEmpty())
-                    list.addAll(squaresTopLeftDiagonal(board.getSquare("d5")));
+                list.add(board.getSquareAt("e4"));
+                if(board.getSquareAt("e4").isEmpty())
+                    list.addAll(squaresTopLeftDiagonal(board.getSquareAt("e4")));
+                list.add(board.getSquareAt("d5"));
+                if(board.getSquareAt("d5").isEmpty())
+                    list.addAll(squaresTopLeftDiagonal(board.getSquareAt("d5")));
             }
             return list;
         }
@@ -221,23 +216,23 @@ public class Navigation {
         ArrayList<Square> list = new ArrayList<>();
         if(square.label.equals("d4")){
             if(square.isEmpty() || square.piece.isSelected) {
-                list.add(board.getSquare("e9"));
-                if(board.getSquare("e9").isEmpty())
-                    list.addAll(squaresBottomLeftDiagonal(board.getSquare("e9")));
-                list.add(board.getSquare("i5"));
-                if(board.getSquare("i5").isEmpty())
-                    list.addAll(squaresTopRightDiagonal(board.getSquare("i5")));
+                list.add(board.getSquareAt("e9"));
+                if(board.getSquareAt("e9").isEmpty())
+                    list.addAll(squaresBottomLeftDiagonal(board.getSquareAt("e9")));
+                list.add(board.getSquareAt("i5"));
+                if(board.getSquareAt("i5").isEmpty())
+                    list.addAll(squaresTopRightDiagonal(board.getSquareAt("i5")));
             }
             return list;
         }
         if(square.label.equals("i5")){
             if(square.isEmpty() || square.piece.isSelected) {
-                list.add(board.getSquare("e9"));
-                if(board.getSquare("e9").isEmpty())
-                    list.addAll(squaresBottomLeftDiagonal(board.getSquare("e9")));
-                list.add(board.getSquare("d4"));
-                if(board.getSquare("d4").isEmpty())
-                    list.addAll(squaresTopRightDiagonal(board.getSquare("d4")));
+                list.add(board.getSquareAt("e9"));
+                if(board.getSquareAt("e9").isEmpty())
+                    list.addAll(squaresBottomLeftDiagonal(board.getSquareAt("e9")));
+                list.add(board.getSquareAt("d4"));
+                if(board.getSquareAt("d4").isEmpty())
+                    list.addAll(squaresTopRightDiagonal(board.getSquareAt("d4")));
             }
             return list;
         }
@@ -266,12 +261,12 @@ public class Navigation {
         ArrayList<Square> list = new ArrayList<>();
         if(square.label.equals("e9")){
             if(square.isEmpty() || square.piece.isSelected){
-                list.add(board.getSquare("d4"));
-                if(board.getSquare("d4").isEmpty())
-                    list.addAll(squaresTopRightDiagonal(board.getSquare("d4")));
-                list.add(board.getSquare("i5"));
-                if(board.getSquare("i5").isEmpty())
-                    list.addAll(squaresTopRightDiagonal(board.getSquare("i5")));
+                list.add(board.getSquareAt("d4"));
+                if(board.getSquareAt("d4").isEmpty())
+                    list.addAll(squaresTopRightDiagonal(board.getSquareAt("d4")));
+                list.add(board.getSquareAt("i5"));
+                if(board.getSquareAt("i5").isEmpty())
+                    list.addAll(squaresTopRightDiagonal(board.getSquareAt("i5")));
             }
             return list; 
         }
@@ -290,21 +285,21 @@ public class Navigation {
     public ArrayList<Square> squaresBottomRightDiagonal(Square square){
         ArrayList<Square> list = new ArrayList<>();
         if(square.label.equals("e4")){
-            list.add(board.getSquare("i9"));
-            if(board.getSquare("i9").isEmpty())
-                list.addAll(squaresBottomRightDiagonal(board.getSquare("i9")));
-            list.add(board.getSquare("d5"));
-            if(board.getSquare("d5").isEmpty())
-                list.addAll(squaresTopLeftDiagonal(board.getSquare("d5")));
+            list.add(board.getSquareAt("i9"));
+            if(board.getSquareAt("i9").isEmpty())
+                list.addAll(squaresBottomRightDiagonal(board.getSquareAt("i9")));
+            list.add(board.getSquareAt("d5"));
+            if(board.getSquareAt("d5").isEmpty())
+                list.addAll(squaresTopLeftDiagonal(board.getSquareAt("d5")));
             return list;
         }
         if(square.label.equals("d5")){
-            list.add(board.getSquare("i9"));
-            if(board.getSquare("i9").isEmpty())
-                list.addAll(squaresBottomRightDiagonal(board.getSquare("i9")));
-            list.add(board.getSquare("e4"));
-            if(board.getSquare("e4").isEmpty())
-                list.addAll(squaresTopLeftDiagonal(board.getSquare("e4")));
+            list.add(board.getSquareAt("i9"));
+            if(board.getSquareAt("i9").isEmpty())
+                list.addAll(squaresBottomRightDiagonal(board.getSquareAt("i9")));
+            list.add(board.getSquareAt("e4"));
+            if(board.getSquareAt("e4").isEmpty())
+                list.addAll(squaresTopLeftDiagonal(board.getSquareAt("e4")));
             return list;
         }
         Square below = squareBelow(square);

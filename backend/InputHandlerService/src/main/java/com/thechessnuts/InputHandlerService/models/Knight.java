@@ -27,17 +27,11 @@ public class Knight extends Piece
 
     public Knight(Chess3Board board, Player player)
     {
-        super(board, player);
+        super(board, player, new KnightBehaviour());
         this.board = board;
         this.player = player;
         this.symbol = "N";
         this.name += "knight";
-    }
-
-
-    @Override
-    public ArrayList<Square> allMoves() {
-        return this.board.behaviours.knightBehaviour(this);
     }
 }
 

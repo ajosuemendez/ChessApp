@@ -1,23 +1,4 @@
-/*
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
-#
-#    You should have received a copy of the GNU General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 
-/*
- * Authors:
- * Mateusz Sławomir Lach ( matlak, msl )
- * Damian Marciniak
- */
 package com.thechessnuts.InputHandlerService.models;
 
 import java.util.ArrayList;
@@ -68,13 +49,11 @@ import java.util.ArrayList;
 public class Pawn extends Piece
 {
 
-    boolean crossedBorder;
     public static short value = 1;
 
-      public Pawn(Chess3Board board, Player player)
+    public Pawn(Chess3Board board, Player player)
     {
-
-        super(board, player);
+        super(board, player, new PawnBehaviour());
         this.started = false; // Check if pawn has made first move
         this.crossedBorder = false;
         this.board = board;
@@ -88,11 +67,6 @@ public class Pawn extends Piece
      * @return  ArrayList with new position of piece
      */
 
-    @Override
-    public ArrayList<Square> allMoves()
-    {
-        return this.board.behaviours.pawnBehaviour(this);
-    }
     void promote(Piece newPiece)
     {
         throw new UnsupportedOperationException("Not supported yet.");

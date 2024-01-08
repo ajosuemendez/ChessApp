@@ -6,12 +6,9 @@ public class Square
 {
     String label;
     Piece piece = null;
-    Chess3Section section;
 
-    Square(String label, Chess3Section section)
+    Square(String label)
     {
-
-        this.section = section;
         if(label.charAt(0)>= 'a' &&label.charAt(0)<='l') {
             this.label = label;
         }
@@ -20,14 +17,10 @@ public class Square
         }
     }
 
-    public Square(String label){
-        this.label = label;
-    }
-
     public void setPiece(Piece piece)
     {
         this.piece = piece;
-        this.piece.square = this;
+        piece.square = this;
     }
 
 
