@@ -11,7 +11,7 @@ public class KingBehaviour implements PieceBehaviour{
         String[] directions = {"up", "left", "down", "right", "topLeft", "topRight", "bottomLeft", "bottomRight"};
 
         for(String direction : directions){
-            Square directedSquare = board.navigation.squaresAdjacent(piece.square).get(direction); 
+            Square directedSquare = board.navigation.getSquaresAdjacent(piece.square).get(direction); 
             if(directedSquare==null)
                 continue;
             list.add(directedSquare);

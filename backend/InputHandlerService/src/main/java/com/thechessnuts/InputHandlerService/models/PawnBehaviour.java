@@ -22,16 +22,16 @@ try{
                     list.add(board.getSquareAt("i5"));
                 }
             }
-            Square squareAbove = board.navigation.squareAbove(piece.square);
+            Square squareAbove = board.navigation.getSquareAbove(piece.square);
             if(squareAbove.isEmpty()){
                 list.add(squareAbove);
-                Square nextStep = board.navigation.squareAbove(squareAbove);
+                Square nextStep = board.navigation.getSquareAbove(squareAbove);
                 if(nextStep.isEmpty() && !piece.started){
                     list.add(nextStep);
                 }
             }
-            Square leftFront = board.navigation.squareLeft(squareAbove);
-            Square rightFront = board.navigation.squareRight(squareAbove);
+            Square leftFront = board.navigation.getSquareLeft(squareAbove);
+            Square rightFront = board.navigation.getSquareRight(squareAbove);
             if(leftFront!=null && !leftFront.isEmpty()){
                 list.add(leftFront);
             }
@@ -72,12 +72,12 @@ try{
             }
 
             if(piece.crossedBorder){
-                Square squareAbove = board.navigation.squareAbove(piece.square);
+                Square squareAbove = board.navigation.getSquareAbove(piece.square);
                 if(squareAbove.isEmpty()){
                     list.add(squareAbove);
                 }
-                Square leftFront = board.navigation.squareLeft(squareAbove);
-                Square rightFront = board.navigation.squareRight(squareAbove);
+                Square leftFront = board.navigation.getSquareLeft(squareAbove);
+                Square rightFront = board.navigation.getSquareRight(squareAbove);
                 if(leftFront!=null && !leftFront.isEmpty()){
                     list.add(leftFront);
                 }
@@ -86,16 +86,16 @@ try{
                 }
             }
             else {
-                Square squareBelow = board.navigation.squareBelow(piece.square);
+                Square squareBelow = board.navigation.getSquareBelow(piece.square);
                 if (squareBelow.isEmpty()) {
                     list.add(squareBelow);
-                    Square nextStep = board.navigation.squareBelow(squareBelow);
+                    Square nextStep = board.navigation.getSquareBelow(squareBelow);
                     if(nextStep.isEmpty() && !piece.started){
                         list.add(nextStep);
                     }
                 }
-                Square leftFront = board.navigation.squareLeft(squareBelow);
-                Square rightFront = board.navigation.squareRight(squareBelow);
+                Square leftFront = board.navigation.getSquareLeft(squareBelow);
+                Square rightFront = board.navigation.getSquareRight(squareBelow);
                 if (leftFront != null && !leftFront.isEmpty()) {
                     list.add(leftFront);
                 }

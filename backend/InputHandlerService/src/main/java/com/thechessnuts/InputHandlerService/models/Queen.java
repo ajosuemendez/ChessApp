@@ -1,7 +1,5 @@
 package com.thechessnuts.InputHandlerService.models;
 
-import java.util.ArrayList;
-
 public class Queen extends Piece
 {
     public static short value = 9;

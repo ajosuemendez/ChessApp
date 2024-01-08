@@ -1,6 +1,5 @@
 package com.thechessnuts.InputHandlerService.models;
 
-import java.util.ArrayList;
 
 
 /**

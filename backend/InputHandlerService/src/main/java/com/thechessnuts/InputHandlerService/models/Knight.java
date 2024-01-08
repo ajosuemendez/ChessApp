@@ -1,7 +1,4 @@
 package com.thechessnuts.InputHandlerService.models;
-
-import java.util.ArrayList;
-
 /**
  * Class to represent a chess piece "Knight"
  * A Knight can, on a normal Chessboard, move as below:

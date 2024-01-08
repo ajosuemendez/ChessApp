@@ -8,68 +8,14 @@ public class RookBehaviour implements PieceBehaviour{
     public ArrayList<Square> getMoves(Chess3Board board, Piece piece){
         
         ArrayList<Square> list = new ArrayList<>();
-        boolean borderWasCrossed = false;
+        
+        list.addAll(board.navigation.getSquaresAbove(piece.square));
 
-        Square checkingSquare = board.navigation.squareAbove(piece.square);
+        list.addAll(board.navigation.getSquaresBelow(piece.square));
 
-        while(checkingSquare!=null){
-            list.add(checkingSquare);
-            if (checkingSquare.isEmpty()){
-                checkingSquare = board.navigation.squareAbove(checkingSquare);
-            }
-            else{
-                break;
-            }
-        }
-        if(piece.square.label.charAt(0) <= 'd' && (piece.square.label.charAt(1) == '4' || piece.square.label.charAt(1) == '5')){
-            borderWasCrossed = true;
-        }
+        list.addAll(board.navigation.getSquaresLeft(piece.square));
 
-        checkingSquare = board.navigation.squareBelow(piece.square);
-
-        while(checkingSquare!=null){
-            list.add(checkingSquare);
-            if (checkingSquare.isEmpty()){
-                if(borderWasCrossed){
-                    checkingSquare = board.navigation.squareAbove(checkingSquare);
-                }
-                else {
-                    if (checkingSquare.label.charAt(0) <= 'd' && (checkingSquare.label.charAt(1) == '4' || checkingSquare.label.charAt(1) == '5')) {
-                        borderWasCrossed = true;
-                         checkingSquare = board.navigation.squareBelow(checkingSquare);
-                        continue;
-                    }
-                    checkingSquare = board.navigation.squareBelow(checkingSquare);
-                }
-            }
-            else{
-                break;
-            }
-        }
-
-        checkingSquare = board.navigation.squareLeft(piece.square);
-
-        while(checkingSquare!=null){
-            list.add(checkingSquare);
-            if (checkingSquare.isEmpty()){
-                checkingSquare = board.navigation.squareLeft(checkingSquare);
-            }
-            else{
-                break;
-            }
-        }
-
-        checkingSquare = board.navigation.squareRight(piece.square);
-
-        while(checkingSquare!=null){
-            list.add(checkingSquare);
-            if (checkingSquare.isEmpty()){
-                checkingSquare = board.navigation.squareRight(checkingSquare);
-            }
-            else{
-                break;
-            }
-        }
+        list.addAll(board.navigation.getSquaresRight(piece.square));
 
         for(int i = 0; i<list.size(); i++){
             if(list.get(i).piece!=null){

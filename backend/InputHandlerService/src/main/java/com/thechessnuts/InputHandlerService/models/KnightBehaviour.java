@@ -13,7 +13,7 @@ public class KnightBehaviour implements PieceBehaviour {
 
         for(String direction : directions){
 
-            Square adjacentSquare = board.navigation.squaresAdjacent(piece.square).get(direction);
+            Square adjacentSquare = board.navigation.getSquaresAdjacent(piece.square).get(direction);
 
             if(adjacentSquare == null)
                 continue;
@@ -22,11 +22,11 @@ public class KnightBehaviour implements PieceBehaviour {
 
             //ABOVE
             if(direction.equals("up")){
-                secondStep = board.navigation.squareAbove(adjacentSquare);
+                secondStep = board.navigation.getSquareAbove(adjacentSquare);
             }
             //LEFT
             else if(direction.equals("left")){
-                 secondStep = board.navigation.squareLeft(adjacentSquare);
+                 secondStep = board.navigation.getSquareLeft(adjacentSquare);
             }
             //BELOW 
             else if(direction.equals("down")){    
@@ -35,16 +35,16 @@ public class KnightBehaviour implements PieceBehaviour {
                  */
 
                 if(adjacentSquare.isAtBorder()){
-                    secondStep = board.navigation.squareAbove(adjacentSquare);        
+                    secondStep = board.navigation.getSquareAbove(adjacentSquare);        
                 }
 
                 else{
-                    secondStep = board.navigation.squareBelow(adjacentSquare);
+                    secondStep = board.navigation.getSquareBelow(adjacentSquare);
                 }
             }
             //RIGHT
             else{
-                secondStep = board.navigation.squareRight(adjacentSquare);
+                secondStep = board.navigation.getSquareRight(adjacentSquare);
             }
 
             if(secondStep == null)
@@ -56,13 +56,13 @@ public class KnightBehaviour implements PieceBehaviour {
 
             //ABOVE OR BELOW
             if(direction.equals("up") || direction.equals("down")){
-                thirdStepLeft = board.navigation.squareLeft(secondStep);
-                thirdStepRight = board.navigation.squareRight(secondStep);
+                thirdStepLeft = board.navigation.getSquareLeft(secondStep);
+                thirdStepRight = board.navigation.getSquareRight(secondStep);
             }
             //LEFT OR RIGHT
             else{
-                thirdStepLeft = board.navigation.squareAbove(secondStep);
-                thirdStepRight = board.navigation.squareBelow(secondStep);
+                thirdStepLeft = board.navigation.getSquareAbove(secondStep);
+                thirdStepRight = board.navigation.getSquareBelow(secondStep);
             
             }
 

@@ -1,6 +1,4 @@
 package com.thechessnuts.InputHandlerService.models;
-import java.util.ArrayList;
-
 public class King extends Piece
 {
 

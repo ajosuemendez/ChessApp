@@ -3,14 +3,14 @@ package com.thechessnuts.InputHandlerService.models;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Navigation {
-    Chess3Board board;
+public class Chess3Navigation extends AbstractNavigation{
 
-    Navigation(Chess3Board board){
-        this.board = board;
+    Chess3Navigation(Chess3Board board){
+        super(board);
     }
     
-    public Square squareAbove(Square square){
+    @Override
+    public Square getSquareAbove(Square square){
        char columnLetter = square.label.charAt(0);
        int rowNumber = Integer.parseInt(square.label.substring(1));
 
@@ -35,7 +35,8 @@ public class Navigation {
 
     }
 
-    public Square squareBelow(Square square){
+    @Override
+    public Square getSquareBelow(Square square){
         char columnLetter = square.label.charAt(0);
         int rowNumber = Integer.parseInt(square.label.substring(1));
 
@@ -69,7 +70,8 @@ public class Navigation {
 
     }
 
-    public Square squareLeft(Square square){
+    @Override
+    public Square getSquareLeft(Square square){
         char columnLetter = square.label.charAt(0);
         int rowNumber = Integer.parseInt(square.label.substring(1));
 
@@ -105,7 +107,8 @@ public class Navigation {
         
     }
 
-    public Square squareRight(Square square){
+    @Override
+    public Square getSquareRight(Square square){
 
     
         char columnLetter = square.label.charAt(0);
@@ -148,24 +151,115 @@ public class Navigation {
         return null;
     }
 
-    public HashMap<String, Square> squaresAdjacent(Square square){
+    @Override
+    public ArrayList<Square> getSquaresAbove(Square square) {
+
+        ArrayList<Square> list = new ArrayList<>();
+
+        Square checkingSquare = board.navigation.getSquareAbove(square);
+
+        while(checkingSquare!=null){
+            list.add(checkingSquare);
+            if (checkingSquare.isEmpty()){
+                checkingSquare = board.navigation.getSquareAbove(checkingSquare);
+            }
+            else{
+                break;
+            }
+        }
+
+        return list;
+    }
+
+    @Override
+    public ArrayList<Square> getSquaresBelow(Square square) {
+
+        ArrayList<Square> list = new ArrayList<>();
+        boolean borderWasCrossed = false;
+        
+        Square checkingSquare = board.navigation.getSquareBelow(square);
+
+        while(checkingSquare!=null){
+            list.add(checkingSquare);
+            if (checkingSquare.isEmpty()){
+                if(borderWasCrossed){
+                    checkingSquare = board.navigation.getSquareAbove(checkingSquare);
+                }
+                else {
+                    if (checkingSquare.label.charAt(0) <= 'd' && (checkingSquare.label.charAt(1) == '4' || checkingSquare.label.charAt(1) == '5')) {
+                        borderWasCrossed = true;
+                        checkingSquare = board.navigation.getSquareBelow(checkingSquare);
+                        continue;
+                    }
+                    checkingSquare = board.navigation.getSquareBelow(checkingSquare);
+                }
+            }
+            else{
+                break;
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public ArrayList<Square> getSquaresLeft(Square square) {
+
+        ArrayList<Square> list = new ArrayList<>();
+
+        Square checkingSquare = board.navigation.getSquareLeft(square);
+
+        while(checkingSquare!=null){
+            list.add(checkingSquare);
+            if (checkingSquare.isEmpty()){
+                checkingSquare = board.navigation.getSquareLeft(checkingSquare);
+            }
+            else{
+                break;
+            }
+        }
+        return list;
+
+    }
+
+    @Override
+    public ArrayList<Square> getSquaresRight(Square square) {
+
+        ArrayList<Square> list = new ArrayList<>();
+
+        Square checkingSquare = board.navigation.getSquareRight(square);
+
+        while(checkingSquare!=null){
+            list.add(checkingSquare);
+            if (checkingSquare.isEmpty()){
+                checkingSquare = board.navigation.getSquareRight(checkingSquare);
+            }
+            else{
+                break;
+            }
+        }
+
+        return list;
+    }
+
+    @Override
+    public HashMap<String, Square> getSquaresAdjacent(Square square){
         HashMap<String, Square> dictionary = new HashMap<>();
 
-        Square up = board.navigation.squareAbove(square);
-        Square down = board.navigation.squareBelow(square);
+        Square up = board.navigation.getSquareAbove(square);
+        Square down = board.navigation.getSquareBelow(square);
 
         dictionary.put("up", up);
-        dictionary.put("left", board.navigation.squareLeft(square));
+        dictionary.put("left", board.navigation.getSquareLeft(square));
         dictionary.put("down", down);
-        dictionary.put("right", board.navigation.squareRight(square));
+        dictionary.put("right", board.navigation.getSquareRight(square));
         
         if(up == null){
             dictionary.put("topLeft", null);
             dictionary.put("topRight", null);
         }
         else{
-            dictionary.put("topLeft", board.navigation.squareLeft(up));
-            dictionary.put("topRight", board.navigation.squareRight(up));
+            dictionary.put("topLeft", board.navigation.getSquareLeft(up));
+            dictionary.put("topRight", board.navigation.getSquareRight(up));
         }
 
         if(down == null){
@@ -174,54 +268,56 @@ public class Navigation {
         }
         else{
             if(down.isAtBorder()){
-                dictionary.put("bottomLeft", board.navigation.squareLeft(down));
-                dictionary.put("bottomRight", board.navigation.squareRight(down));
+                dictionary.put("bottomLeft", board.navigation.getSquareLeft(down));
+                dictionary.put("bottomRight", board.navigation.getSquareRight(down));
             }
             else{
-                dictionary.put("bottomLeft", board.navigation.squareLeft(down));
-                dictionary.put("bottomRight", board.navigation.squareRight(down));
+                dictionary.put("bottomLeft", board.navigation.getSquareLeft(down));
+                dictionary.put("bottomRight", board.navigation.getSquareRight(down));
             }
         }
 
         return dictionary;
     }
 
-    public ArrayList<Square> squaresTopLeftDiagonal(Square square){
+    @Override
+    public ArrayList<Square> getSquaresTopLeftDiagonal(Square square){
         ArrayList<Square> list = new ArrayList<>();
         if(square.label.equals("i9")){
             if(square.isEmpty() || square.piece.isSelected) {
                 list.add(board.getSquareAt("e4"));
                 if(board.getSquareAt("e4").isEmpty())
-                    list.addAll(squaresTopLeftDiagonal(board.getSquareAt("e4")));
+                    list.addAll(getSquaresTopLeftDiagonal(board.getSquareAt("e4")));
                 list.add(board.getSquareAt("d5"));
                 if(board.getSquareAt("d5").isEmpty())
-                    list.addAll(squaresTopLeftDiagonal(board.getSquareAt("d5")));
+                    list.addAll(getSquaresTopLeftDiagonal(board.getSquareAt("d5")));
             }
             return list;
         }
-        Square above = squareAbove(square);
+        Square above = getSquareAbove(square);
         if(above!=null) {
-            Square squaresTopLeft = squareLeft(above);
-            if(squaresTopLeft!= null){
-                list.add(squaresTopLeft);
-                if(squaresTopLeft.isEmpty()){
-                    list.addAll(squaresTopLeftDiagonal(squaresTopLeft));
+            Square getSquaresTopLeft = getSquareLeft(above);
+            if(getSquaresTopLeft!= null){
+                list.add(getSquaresTopLeft);
+                if(getSquaresTopLeft.isEmpty()){
+                    list.addAll(getSquaresTopLeftDiagonal(getSquaresTopLeft));
                 }
             }
         }
         return list;
     }
 
-    public ArrayList<Square> squaresBottomLeftDiagonal(Square square){
+    @Override
+    public ArrayList<Square> getSquaresBottomLeftDiagonal(Square square){
         ArrayList<Square> list = new ArrayList<>();
         if(square.label.equals("d4")){
             if(square.isEmpty() || square.piece.isSelected) {
                 list.add(board.getSquareAt("e9"));
                 if(board.getSquareAt("e9").isEmpty())
-                    list.addAll(squaresBottomLeftDiagonal(board.getSquareAt("e9")));
+                    list.addAll(getSquaresBottomLeftDiagonal(board.getSquareAt("e9")));
                 list.add(board.getSquareAt("i5"));
                 if(board.getSquareAt("i5").isEmpty())
-                    list.addAll(squaresTopRightDiagonal(board.getSquareAt("i5")));
+                    list.addAll(getSquaresTopRightDiagonal(board.getSquareAt("i5")));
             }
             return list;
         }
@@ -229,98 +325,101 @@ public class Navigation {
             if(square.isEmpty() || square.piece.isSelected) {
                 list.add(board.getSquareAt("e9"));
                 if(board.getSquareAt("e9").isEmpty())
-                    list.addAll(squaresBottomLeftDiagonal(board.getSquareAt("e9")));
+                    list.addAll(getSquaresBottomLeftDiagonal(board.getSquareAt("e9")));
                 list.add(board.getSquareAt("d4"));
                 if(board.getSquareAt("d4").isEmpty())
-                    list.addAll(squaresTopRightDiagonal(board.getSquareAt("d4")));
+                    list.addAll(getSquaresTopRightDiagonal(board.getSquareAt("d4")));
             }
             return list;
         }
-        Square below = squareBelow(square);
+        Square below = getSquareBelow(square);
         if(below!=null) {
             if(square.label.charAt(0)<='d' && (square.label.charAt(1)=='4' || square.label.charAt(1)=='5')){
-                Square squaresBottomLeft = squareRight(below);
-                if(squaresBottomLeft!=null){
-                    list.add(squaresBottomLeft);
-                    if(squaresBottomLeft.isEmpty())
-                        list.addAll(squaresTopRightDiagonal(squaresBottomLeft));
+                Square getSquaresBottomLeft = getSquareRight(below);
+                if(getSquaresBottomLeft!=null){
+                    list.add(getSquaresBottomLeft);
+                    if(getSquaresBottomLeft.isEmpty())
+                        list.addAll(getSquaresTopRightDiagonal(getSquaresBottomLeft));
                 }
                 return list;
             }
-            Square squaresBottomLeft = squareLeft(below);
-            if(squaresBottomLeft!= null){
-                list.add(squaresBottomLeft);
-                if(squaresBottomLeft.isEmpty())
-                    list.addAll(squaresBottomLeftDiagonal(squaresBottomLeft));
+            Square getSquaresBottomLeft = getSquareLeft(below);
+            if(getSquaresBottomLeft!= null){
+                list.add(getSquaresBottomLeft);
+                if(getSquaresBottomLeft.isEmpty())
+                    list.addAll(getSquaresBottomLeftDiagonal(getSquaresBottomLeft));
             }
         }
         return list;
     }
 
-    public ArrayList<Square> squaresTopRightDiagonal(Square square){
+    @Override
+    public ArrayList<Square> getSquaresTopRightDiagonal(Square square){
         ArrayList<Square> list = new ArrayList<>();
         if(square.label.equals("e9")){
             if(square.isEmpty() || square.piece.isSelected){
                 list.add(board.getSquareAt("d4"));
                 if(board.getSquareAt("d4").isEmpty())
-                    list.addAll(squaresTopRightDiagonal(board.getSquareAt("d4")));
+                    list.addAll(getSquaresTopRightDiagonal(board.getSquareAt("d4")));
                 list.add(board.getSquareAt("i5"));
                 if(board.getSquareAt("i5").isEmpty())
-                    list.addAll(squaresTopRightDiagonal(board.getSquareAt("i5")));
+                    list.addAll(getSquaresTopRightDiagonal(board.getSquareAt("i5")));
             }
             return list; 
         }
-        Square above = squareAbove(square);
+        Square above = getSquareAbove(square);
         if(above!=null) {
-            Square squaresTopRight = squareRight(above);
-            if(squaresTopRight!= null){
-                list.add(squaresTopRight);
-                if(squaresTopRight.isEmpty())
-                    list.addAll(squaresTopRightDiagonal(squaresTopRight));
+            Square getSquaresTopRight = getSquareRight(above);
+            if(getSquaresTopRight!= null){
+                list.add(getSquaresTopRight);
+                if(getSquaresTopRight.isEmpty())
+                    list.addAll(getSquaresTopRightDiagonal(getSquaresTopRight));
             }
         }
         return list;
     }
 
-    public ArrayList<Square> squaresBottomRightDiagonal(Square square){
+    @Override
+    public ArrayList<Square> getSquaresBottomRightDiagonal(Square square){
         ArrayList<Square> list = new ArrayList<>();
         if(square.label.equals("e4")){
             list.add(board.getSquareAt("i9"));
             if(board.getSquareAt("i9").isEmpty())
-                list.addAll(squaresBottomRightDiagonal(board.getSquareAt("i9")));
+                list.addAll(getSquaresBottomRightDiagonal(board.getSquareAt("i9")));
             list.add(board.getSquareAt("d5"));
             if(board.getSquareAt("d5").isEmpty())
-                list.addAll(squaresTopLeftDiagonal(board.getSquareAt("d5")));
+                list.addAll(getSquaresTopLeftDiagonal(board.getSquareAt("d5")));
             return list;
         }
         if(square.label.equals("d5")){
             list.add(board.getSquareAt("i9"));
             if(board.getSquareAt("i9").isEmpty())
-                list.addAll(squaresBottomRightDiagonal(board.getSquareAt("i9")));
+                list.addAll(getSquaresBottomRightDiagonal(board.getSquareAt("i9")));
             list.add(board.getSquareAt("e4"));
             if(board.getSquareAt("e4").isEmpty())
-                list.addAll(squaresTopLeftDiagonal(board.getSquareAt("e4")));
+                list.addAll(getSquaresTopLeftDiagonal(board.getSquareAt("e4")));
             return list;
         }
-        Square below = squareBelow(square);
+        Square below = getSquareBelow(square);
         if(below!=null) {
             if(square.label.charAt(0)<='d' && (square.label.charAt(1)=='4' || square.label.charAt(1)=='5')){
-                Square squaresBottomRight = squareLeft(below);
-                if(squaresBottomRight!=null) {
-                    list.add(squaresBottomRight);
-                    if(squaresBottomRight.isEmpty())
-                        list.addAll(squaresTopLeftDiagonal(squaresBottomRight));
+                Square getSquaresBottomRight = getSquareLeft(below);
+                if(getSquaresBottomRight!=null) {
+                    list.add(getSquaresBottomRight);
+                    if(getSquaresBottomRight.isEmpty())
+                        list.addAll(getSquaresTopLeftDiagonal(getSquaresBottomRight));
                 }
                 return list;
             }
-            Square squaresBottomRight = squareRight(below);
-            if(squaresBottomRight!= null){
-                list.add(squaresBottomRight);
-                if(squaresBottomRight.isEmpty())
-                    list.addAll(squaresBottomRightDiagonal(squaresBottomRight));
+            Square getSquaresBottomRight = getSquareRight(below);
+            if(getSquaresBottomRight!= null){
+                list.add(getSquaresBottomRight);
+                if(getSquaresBottomRight.isEmpty())
+                    list.addAll(getSquaresBottomRightDiagonal(getSquaresBottomRight));
             }
         }
         return list;
     }
+
 
 }

@@ -1,9 +1,6 @@
 
 package com.thechessnuts.InputHandlerService.models;
 
-import java.util.ArrayList;
-
-
 /**
  * Class to represent a pawn piece
  * Pawn can move only forvard and can beat only across

@@ -3,14 +3,14 @@ package com.thechessnuts.InputHandlerService.models;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
-import com.thechessnuts.InputHandlerService.models.Chess3Board.Chess3Section;
-
-public class Chess3Board {
+public class Chess3Board extends AbstractChessBoard{
     public Chess3Section[] sections;
-    Piece selectedPiece = null;
-    Navigation navigation;
+   
 
     public Chess3Board() {
+        super();
+
+        this.navigation = new Chess3Navigation(this);
         sections = new Chess3Section[6];
 
         // Define pairs of string arrays as arrays of arrays
@@ -52,10 +52,9 @@ public class Chess3Board {
 
             sections[i] = new Chess3Section(rowValues, colValues, this);
         });
-
-        this.navigation = new Navigation(this);
     }
 
+    @Override
     public Square getSquareAt(String label)
     {
         
@@ -66,6 +65,9 @@ public class Chess3Board {
         }
         return null;
     }
+
+    //Use Piece Factory_____________________________________________!!!!!!!!/
+
 
     public void setPieces(Player player){
         int section1/*Queen's Side*/, section2/*King's Side*/;
@@ -157,6 +159,7 @@ public class Chess3Board {
 
         return list;
     }
+    //--------------------------------------------------------//
 
     class Chess3Section {
         public Square[][] squares;//squares of chessboard
