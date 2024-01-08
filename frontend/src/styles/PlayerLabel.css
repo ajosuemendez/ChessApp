@@ -1,0 +1,25 @@
+.generic-player-label {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.label-1{
+    color: rgb(135, 135, 135);
+    position: absolute;
+    top: 800px;
+    left: 500px;
+}
+
+.label-2{
+    color: black;
+    position: absolute;
+    top: 200px;
+    left: 40px;
+}
+
+.label-3{
+    color: rgb(255, 187, 0);
+    position: absolute;
+    top: 200px;
+    left: 960px;
+}

@@ -2,8 +2,10 @@ import React from "react";
 import defaultChessboardState from "../utils/defaultChessboardState";
 import squareStaticInformation from "../utils/squareStaticInformation";
 import chessboardThemes from "../utils/chessboardThemes";
+import threePlayerMetaData from "../utils/threePlayerMetaData";
 import Square from "./Square";
 import "../styles/Board.css";
+import PlayerLabel from "./PlayerLabel";
 
 export default function Board() {
 
@@ -42,17 +44,21 @@ export default function Board() {
                         handleClick={handleClick}/>)
         })
     }
-    
 
+    const playerLabelList = threePlayerMetaData.map( (player) => {
+        return(
+            <PlayerLabel label={player.label} name={player.name} id={player.id}/>
+        );
+    })
     
-
     return (
-        <div className="board">
-        <svg width="2339" height="1771" viewBox="0 0 2339 1771" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g id="Chessboard Frame" filter="url(#filter0_d_1_3)">
-                {SquareList}
-            </g>
-        </svg>
+        <div className="board-container">
+            <svg className="svg-board" width="1640" height="auto" viewBox="0 0 2339 1771" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="Chessboard Frame" filter="url(#filter0_d_1_3)">
+                    {SquareList}
+                </g>
+            </svg>
+            {playerLabelList}
         </div>
     );
 }
