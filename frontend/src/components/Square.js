@@ -28,7 +28,7 @@ export default function Square({id, theme, piece, shapeFormat, isValid, framePos
         <g id={`square-${id}`} >
             <path onClick={handleClick} id={id} d={shapeFormat} fill={squareColor} stroke="black" strokeWidth="1.2"/>
             <Piece pieceType={piece} theme={theme.type} framePosition={framePosition} />
-            <text x={framePosition.x+3} y={framePosition.y+3} dominantBaseline="middle" textAnchor="middle" fill="pink">
+            <text x={framePosition.x+3} y={framePosition.y+3} dominantBaseline="middle" textAnchor="middle" fill="white">
           {id}
         </text>
         </g>
