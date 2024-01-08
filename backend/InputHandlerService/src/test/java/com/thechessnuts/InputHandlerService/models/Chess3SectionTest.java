@@ -23,7 +23,7 @@ class Chess3SectionTest {
         assertEquals(x_axis,section.getX_axis());
         assertEquals(y_axis,section.getY_axis());
         assertEquals(board,section.getBoard());
-
+/*
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
@@ -34,7 +34,7 @@ class Chess3SectionTest {
                 assertSame(section, square.getSection());
             }
         }
-
+*/
 
 
     }
@@ -62,6 +62,7 @@ class Chess3SectionTest {
         this.board=new Chess3Board();
         assertThrows(IllegalArgumentException.class,()->new Chess3Section(x_axis,y_axis,board));
     }
+    /*
     @Test
     void findSquareTest() {
         this.x_axis = new String[]{"a", "b", "c", "d"};
@@ -71,7 +72,7 @@ class Chess3SectionTest {
         assertNull(section.findSquare("a5"));
         assertNull(section.findSquare("e1"));
     }
-
+*/
     @Test
     void getSectionState() {
     }

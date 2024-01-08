@@ -24,10 +24,10 @@ class BishopTest {
     @Test
     void allMovesFourDirectionTest() {
         board.sections[2].squares[1][1].setPiece(bishop);
-        this.TestList.addAll(board.topRightDiagonal(board.sections[2].squares[1][1]));
-        this.TestList.addAll(board.topLeftDiagonal(board.sections[2].squares[1][1]));
-        this.TestList.addAll(board.bottomRightDiagonal(board.sections[2].squares[1][1]));
-        this.TestList.addAll(board.bottomLeftDiagonal(board.sections[2].squares[1][1]));
+        this.TestList.addAll(board.navigation.squaresTopRightDiagonal(board.sections[2].squares[1][1]));
+        this.TestList.addAll(board.navigation.squaresTopLeftDiagonal(board.sections[2].squares[1][1]));
+        this.TestList.addAll(board.navigation.squaresBottomRightDiagonal(board.sections[2].squares[1][1]));
+        this.TestList.addAll(board.navigation.squaresBottomLeftDiagonal(board.sections[2].squares[1][1]));
 
         assertEquals(TestList,bishop.allMoves());
 
@@ -50,7 +50,7 @@ class BishopTest {
         board.sections[2].squares[1][3].setPiece(bishop);
         board.sections[2].squares[0][2].setPiece(pawn);
         TestList.add(board.sections[2].squares[0][2]);
-        TestList.addAll(board.topLeftDiagonal(board.sections[2].squares[1][3]));
+        TestList.addAll(board.navigation.squaresTopLeftDiagonal(board.sections[2].squares[1][3]));
 
         assertEquals(TestList,bishop.allMoves());
     }

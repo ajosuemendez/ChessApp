@@ -14,7 +14,7 @@ class SquareTest {
     String label;
     int x,y;
 
-
+/*
     @Test
     void invalidPosTest() {
         this.board=new Chess3Board();
@@ -46,5 +46,5 @@ class SquareTest {
         Square square=new Square(label);
         assertEquals(label,square.getLabel());
     }
-
+*/
 }

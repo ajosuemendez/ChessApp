@@ -76,5 +76,40 @@ class QueenTest {
 
 
     }
+    @Test
+    void CaptureDiagonalTest(){
+        Rook rook =new Rook(board,player);
+        Bishop bishop=new Bishop(board,opponent);
+
+        board.sections[2].squares[3][3].setPiece(rook);
+        TestList.addAll(rook.allMoves());
+
+        board.sections[2].squares[2][2].setPiece(bishop);
+        TestList.add(board.sections[2].squares[2][2]);
+
+        board.sections[2].squares[3][3].setPiece(queen);
+
+        assertEquals(TestList,queen.allMoves());
+
+    }
+    @Test
+    void CaptureTest(){
+       Bishop bishop =new Bishop(board,player);
+       Pawn pawn=new Pawn(board,opponent);
+
+        board.sections[2].squares[3][2].setPiece(pawn);
+        TestList.add(board.sections[2].squares[3][2]);
+
+        board.sections[2].squares[2][3].setPiece(pawn);
+        TestList.add(board.sections[2].squares[2][3]);
+
+        board.sections[2].squares[3][3].setPiece(bishop);
+        TestList.addAll(bishop.allMoves());
+
+        board.sections[2].squares[3][3].setPiece(queen);
+
+        assertEquals(TestList,queen.allMoves());
+
+    }
 
 }
