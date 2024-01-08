@@ -7,6 +7,7 @@ import Header from './layout/Header';
 
 // Pages
 import Home from "./pages/Home";
+import Game from "./pages/Game";
 import NotFoundPage from './pages/NotFoundPage';
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
       <Header/>
       <Routes>
         <Route exact path="/" element={<Home/>} />
+        <Route exact path="/game" element={<Game/>} />
         <Route path="*" element={<NotFoundPage/>} />
       </Routes>
     </Router>
