@@ -12,6 +12,7 @@ const Header = () => {
       <nav className="nav">
         <Link to="/" className="logo">
             <img src={logoImage} className='logo-img'/>
+            <span>TheChessNut</span>
         </Link>
 
         <ul className="nav-list">
