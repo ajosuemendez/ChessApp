@@ -8,7 +8,7 @@ export const useThemeContext = () => {
 };
 
 export const ThemeProvider = ({ children }) => {
-    const defaultTheme = Object.keys(chessboardThemes)[1];
+    const defaultTheme = Object.keys(chessboardThemes)[0];
 
     const [selectedOption, setSelectedOption] = React.useState(defaultTheme);
     const [options, setOptions] = React.useState(Object.keys(chessboardThemes));

@@ -13,7 +13,6 @@ import { useThemeContext } from '../context/ThemeContext';
 export default function Board() {
     const { theme } = useThemeContext();
     const [chessboardState, setChessboardState] = React.useState(defaultChessboardState);
-    console.log("Chaning theme:" , theme)
 
 
     const fetchData = async (squareId) => {
@@ -36,12 +35,16 @@ export default function Board() {
     if (chessboardState !== undefined) {
 
         SquareList = chessboardState.map( (square) => {
+            // if (square.id === "e11" || square.id === "e9") {square.isFromPreviousMove = true}// For testing purposes
+            // if (square.id === "e11") {square.isSelectedPieceSquare = true}// For testing purposes
             return( 
                 <Square key={square.id}
                         theme={theme}
                         id={square.id}
                         piece={square.piece} 
                         isValid={square.isValid}
+                        isFromPreviousMove={square.isFromPreviousMove}
+                        isSelectedPieceSquare={square.isSelectedPieceSquare}
                         shapeFormat={squareStaticInformation[square.id].shape}
                         framePosition={squareStaticInformation[square.id].centerPos}
                         handleClick={handleClick}/>)
