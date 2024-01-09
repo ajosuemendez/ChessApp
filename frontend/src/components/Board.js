@@ -7,10 +7,13 @@ import Square from "./Square";
 import "../styles/Board.css";
 import PlayerLabel from "./PlayerLabel";
 
-export default function Board() {
+// Context
+import { useThemeContext } from '../context/ThemeContext';
 
+export default function Board() {
+    const { theme } = useThemeContext();
     const [chessboardState, setChessboardState] = React.useState(defaultChessboardState);
-    const [theme, setTheme] = React.useState(chessboardThemes.classic);
+    console.log("Chaning theme:" , theme)
 
 
     const fetchData = async (squareId) => {
@@ -34,7 +37,7 @@ export default function Board() {
 
         SquareList = chessboardState.map( (square) => {
             return( 
-                <Square 
+                <Square key={square.id}
                         theme={theme}
                         id={square.id}
                         piece={square.piece} 
@@ -47,7 +50,7 @@ export default function Board() {
 
     const playerLabelList = threePlayerMetaData.map( (player) => {
         return(
-            <PlayerLabel label={player.label} name={player.name} id={player.id}/>
+            <PlayerLabel key={player.id} label={player.label} name={player.name} id={player.id}/>
         );
     })
     

@@ -7,7 +7,7 @@ const themes = {
                     colors: {   darkSquareColor: "#bf99a2", 
                                 lightSquareColor: "#c1cde7", 
                                 strongSquareColor: "#7c4429"}},
-    barbie: {  type: "barbie", 
+    barbie: {  type: "classic", 
                 colors: {   darkSquareColor: "#E43F6F", 
                             lightSquareColor: "#F56476", 
                             strongSquareColor: "#DFBBB1"}}
