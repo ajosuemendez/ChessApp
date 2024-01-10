@@ -1,9 +1,17 @@
-/* HistoryTable.css */
+.wrapper-container{
+  position: relative;
+  height: 80vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:center;
+  align-items: center;
+}
+
 .history-container {
     max-width: 800px;
-    position: absolute;
-    top: 100px;
-    right: 300px;
+    position: relative;
+    top: -94rem;
+    left: 34rem;
     z-index: 2;
     border: 1px solid #ddd;
     padding: 20px;
