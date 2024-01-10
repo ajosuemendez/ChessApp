@@ -34,5 +34,3 @@ export default function Square({id, theme, piece, shapeFormat, isValid, framePos
     );
     }
 }
-
-// style={{ zIndex: 1000 + id }}

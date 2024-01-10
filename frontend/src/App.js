@@ -16,14 +16,6 @@ import NotFoundPage from './pages/NotFoundPage';
 
 export default function App() {
 
-  const [options, setOptions] = React.useState(['Option 1', 'Option 2', 'Option 3']);
-
-  // Function to update options
-  const updateOptions = (newOptions) => {
-    setOptions(newOptions);
-    console.log("ds");
-  };
-
   return(
     <Router>
       <ThemeProvider>
