@@ -5,12 +5,11 @@ import java.util.ArrayList;
 public class Game {
     public Settings settings;
     public Chess3Board board;
-    private Player activePlayer;
+    public Player activePlayer;
     //public GameClock gameClock;
     //public Client client;
     public Moves moves;
     public String gameID;
-    //public Chat chat;
 
     public Game(){
         this.moves = new Moves(this);
@@ -52,28 +51,26 @@ public class Game {
     }
 
     public void handleEvent(String label){
-        Square clickedSquare = this.board.findSquare(label);
+        Square clickedSquare = this.board.getSquareAt(label);
 
         if(clickedSquare == null){
             return;
         }
 
         if(clickedSquare.piece != null){
-            //if(clickedSquare.piece.player.color.equals(this.activePlayer.color)){
+            if(clickedSquare.piece.player.color.equals(this.activePlayer.color)){
                 this.board.selectPiece(label);
                 return;
-            //}
+            }
         }
        
         if(this.board.selectedPiece!=null){
             if(this.board.selectedPiece.allMoves().contains(clickedSquare)){
-                System.out.println("was here");
                 this.makeMove(new Move(this.board.selectedPiece.square, clickedSquare, this.board.selectedPiece, clickedSquare.piece));
             }
             this.board.selectPiece("");
         }
 
-        //if(clickedSquare.piece)
     }
 
 
@@ -87,4 +84,23 @@ public class Game {
         return board.getBoardState();
     }
 
+    public Settings getSettings() {
+        return settings;
+    }
+
+    public Chess3Board getBoard() {
+        return board;
+    }
+
+    public Player getActivePlayer() {
+        return activePlayer;
+    }
+
+    public Moves getMoves() {
+        return moves;
+    }
+
+    public String getGameID() {
+        return gameID;
+    }
 }
