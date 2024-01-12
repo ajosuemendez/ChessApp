@@ -3,18 +3,11 @@ package com.thechessnuts.InputHandlerService.models;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
+
 public class Chess3Board extends AbstractChessBoard{
-    public Chess3Section[] sections;
-   
 
-    public Chess3Board() {
-        super();
+    static String[][][] gridReferences = {
 
-        this.navigation = new Chess3Navigation(this);
-        sections = new Chess3Section[6];
-
-        // Define pairs of string arrays as arrays of arrays
-        String[][][] sectionData = {
             {
                 {"4", "3", "2", "1"},
                 {"d", "c", "b", "a"}
@@ -46,9 +39,16 @@ public class Chess3Board extends AbstractChessBoard{
             },
         };
 
+    public Chess3Section[] sections;
+
+    public Chess3Board() {
+
+        this.navigation = new Chess3Navigation(this);
+        sections = new Chess3Section[6];
+
         IntStream.range(0, 6).forEach(i -> {
-            String[] rowValues = sectionData[i][0];
-            String[] colValues = sectionData[i][1];
+            String[] rowValues = gridReferences[i][0];
+            String[] colValues = gridReferences[i][1];
 
             sections[i] = new Chess3Section(rowValues, colValues, this);
         });
@@ -66,68 +66,88 @@ public class Chess3Board extends AbstractChessBoard{
         return null;
     }
 
-    //Use Piece Factory_____________________________________________!!!!!!!!/
+    public void initialBoardSetup(Chess3Settings settings){
 
+        for(int playerNumber = 1; playerNumber <4; playerNumber++){
 
-    public void setPieces(Player player){
-        int section1/*Queen's Side*/, section2/*King's Side*/;
-        if(player.color == Player.colors.BLACK){
-            section1 = 0;
-            section2 = 1;
+            Player player;
+
+            switch (playerNumber) {
+                case 1:
+                    player = settings.playerBlack;
+                    break;
+
+                case 2:
+                    player = settings.playerWhite;
+                    break;
+            
+                case 3:
+                    player = settings.playerYellow;
+                    break;
+            
+                default:
+                    player = settings.playerWhite;
+                    break;
+            }
+            
+
+            int queenSide = 2*(playerNumber-1);                                   /*Queen's Side*/
+            int kingSide = queenSide+1;                                          /*King's  Side*/
+            
+            //PAWNS
+            PawnFactory pawnFactory = new PawnFactory(this, player);
+
+            for(int i = 0; i<4;i++){
+                pawnFactory.createPiece(this.sections[queenSide].squares[i][2].label);
+                pawnFactory.createPiece(this.sections[kingSide].squares[2][i].label);
+            }
+
+            //ROOKS
+            RookFactory rookFactory = new RookFactory(this, player);
+
+            rookFactory.createPiece(this.sections[queenSide].squares[3][3].label);
+            rookFactory.createPiece(this.sections[kingSide].squares[3][3].label);
+
+            //KNIGHTS
+            KnightFactory knightFactory = new KnightFactory(this, player);
+
+            knightFactory.createPiece(this.sections[queenSide].squares[2][3].label);
+            knightFactory.createPiece(this.sections[kingSide].squares[3][2].label);
+
+            //BISHOPS
+            BishopFactory bishopFactory = new BishopFactory(this, player);
+
+            bishopFactory.createPiece(this.sections[queenSide].squares[1][3].label);
+            bishopFactory.createPiece(this.sections[kingSide].squares[3][1].label);
+
+            //QUEEN
+            QueenFactory queenFactory = new QueenFactory(this, player);
+            queenFactory.createPiece(this.sections[queenSide].squares[0][3].label);
+
+            //KING
+            KingFactory kingFactory = new KingFactory(this, player);
+            kingFactory.createPiece(this.sections[kingSide].squares[3][0].label);
         }
-        else if(player.color == Player.colors.WHITE){
-            section1 = 2;
-            section2 = 3;
-        }
-        else{
-            section1 = 4;
-            section2 = 5;
-        }
-
-        //PAWNS
-        for(int i = 0; i<4;i++){
-            this.sections[section1].squares[i][2].setPiece(new Pawn(this, player));
-            this.sections[section2].squares[2][i].setPiece(new Pawn(this, player));
-        }
-
-        //ROOKS
-        this.sections[section1].squares[3][3].setPiece(new Rook(this, player));
-        this.sections[section2].squares[3][3].setPiece(new Rook(this, player));
-
-        //KNIGHTS
-        this.sections[section1].squares[2][3].setPiece(new Knight(this, player));
-        this.sections[section2].squares[3][2].setPiece(new Knight(this, player));
-
-        //BISHOPS
-        this.sections[section1].squares[1][3].setPiece(new Bishop(this, player));
-        this.sections[section2].squares[3][1].setPiece(new Bishop(this, player));
-
-        //QUEEN
-        this.sections[section1].squares[0][3].setPiece(new Queen(this, player));
-
-        //KING
-        this.sections[section2].squares[3][0].setPiece(new King(this, player));
-
-
-
     }
+    
+    @Override
+    public String toString(){
+        String ret = "";
 
-    public void print(){
-        for(int i = 0; i<6; i++){
-            System.out.println(sections[i]);
-            System.out.println("\n");
-        }
+        for(int i = 0; i<6; i++)
+            ret+=sections[i]+"\n\n\n";
+        return ret;
     }
 
     //----------------- clean code below -----------------------//
 
     public void selectPiece(String label){
         if(this.selectedPiece!=null){
-            this.selectedPiece.isSelected = false;
+            this.selectedPiece.deselct();
         }
         Square squareSelected = this.getSquareAt(label);
         if(squareSelected!=null){
-            this.getSquareAt(label).piece.isSelected = true;
+            this.getSquareAt(label).piece.select();
             this.selectedPiece = this.getSquareAt(label).piece;
         }
         else
@@ -184,6 +204,8 @@ public class Chess3Board extends AbstractChessBoard{
             return y_axis;
         }
     
+
+        //CLEAN THE CODE HERE!!!!!!!!!!!!!! IT IS DISGUSTING
         public Chess3Section(String[] x_axis, String[] y_axis, Chess3Board board) {
     
             if (board.equals(null)){

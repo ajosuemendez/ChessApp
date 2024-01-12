@@ -7,8 +7,6 @@ public class Move {
     Piece takenPiece = null;
     Piece promotedTo = null;
 
-    Move(){}
-
     Move(Square from, Square to, Piece movedPiece, Piece takenPiece)
     {
         this.from = from;
@@ -27,6 +25,7 @@ public class Move {
         this.takenPiece = takenPiece;
         this.promotedTo = promotedTo;
     }
+    
     public String toString(){
         String ret = "";
         if(movedPiece!=null){

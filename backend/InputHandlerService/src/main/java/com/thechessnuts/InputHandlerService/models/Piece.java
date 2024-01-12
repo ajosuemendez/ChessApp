@@ -1,9 +1,3 @@
-
-/*
- * Authors:
- * Othman and Janakan
- */
-
 package com.thechessnuts.InputHandlerService.models;
 
 import java.util.ArrayList;
@@ -15,33 +9,48 @@ public abstract class Piece
 {
     PieceBehaviour pieceBehaviour;
     Player player;
-    Chess3Board board;
+    AbstractChessBoard board;
     public Square square;
     public boolean started;
     String name;
     protected String symbol;
-    boolean isSelected;
+    boolean selected;
     boolean crossedBorder;
 
-    Piece(Chess3Board board, Player player, PieceBehaviour pieceBehaviour)
+    Piece(AbstractChessBoard board, Player player, PieceBehaviour pieceBehaviour)
     {
         this.pieceBehaviour = pieceBehaviour;
         this.board = board;
         this.player = player;
-        this.isSelected = false;
+        this.selected = false;
         this.name = player.color.toString().toLowerCase()+'-'; 
     }
 
     public ArrayList<Square> allMoves(){
-        return this.pieceBehaviour.getMoves(this.board, this);
+
+        ArrayList<Square> list = this.pieceBehaviour.getMoves(this.board, this);
+
+        for(int i = 0; i<list.size(); i++){
+            if(list.get(i).piece!=null){
+                if(list.get(i).piece.player.color == this.player.color){
+                    list.remove(i);
+                    i--;
+                }
+            }
+        }
+
+        return list;
     }
   
-    public String getSymbol()
-    {
-        return this.symbol;
-    }
+    public String getSymbol(){ return this.symbol;}
 
-    public void setSquare(Square square){
-        this.square = square;
-    }
+    public void setSquare(Square square){this.square = square;}
+
+    public Square getSquare(Square square){ return this.square;}
+
+    public boolean isSelected(){return this.selected;}
+
+    public void deselct(){this.selected = false;}
+
+    public void select(){this.selected = true;}
 }

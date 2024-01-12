@@ -3,12 +3,13 @@ package com.thechessnuts.InputHandlerService.models;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class AbstractNavigation {
+public abstract class AbstractChessNavigation {
     AbstractChessBoard board;
 
-    AbstractNavigation(AbstractChessBoard board){
+    AbstractChessNavigation(AbstractChessBoard board){
         this.board = board;
     }
+
     abstract Square getSquareAbove(Square square);
  
     abstract Square getSquareBelow(Square square);
@@ -26,21 +27,15 @@ public abstract class AbstractNavigation {
  
     abstract ArrayList<Square> getSquaresRight(Square square);
 
-
     
     abstract HashMap<String, Square> getSquaresAdjacent(Square square);
 
     
     abstract ArrayList<Square> getSquaresTopLeftDiagonal(Square square);
-
     
     abstract ArrayList<Square> getSquaresBottomLeftDiagonal(Square square);
-
     
     abstract ArrayList<Square> getSquaresTopRightDiagonal(Square square);    
 
-    
     abstract ArrayList<Square> getSquaresBottomRightDiagonal(Square square);
-
-
 }

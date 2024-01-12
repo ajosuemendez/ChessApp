@@ -48,9 +48,9 @@ public class Pawn extends Piece
 
     public static short value = 1;
 
-    public Pawn(Chess3Board board, Player player)
+    public Pawn(AbstractChessBoard board, Player player)
     {
-        super(board, player, new PawnBehaviour());
+        super(board, player, new Pawn3Behaviour());
         this.started = false; // Check if pawn has made first move
         this.crossedBorder = false;
         this.board = board;

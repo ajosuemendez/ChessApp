@@ -3,7 +3,7 @@ package com.thechessnuts.InputHandlerService.models;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Chess3Navigation extends AbstractNavigation{
+public class Chess3Navigation extends AbstractChessNavigation{
 
     Chess3Navigation(Chess3Board board){
         super(board);
@@ -284,7 +284,7 @@ public class Chess3Navigation extends AbstractNavigation{
     public ArrayList<Square> getSquaresTopLeftDiagonal(Square square){
         ArrayList<Square> list = new ArrayList<>();
         if(square.label.equals("i9")){
-            if(square.isEmpty() || square.piece.isSelected) {
+            if(square.isEmpty() || square.piece.isSelected()) {
                 list.add(board.getSquareAt("e4"));
                 if(board.getSquareAt("e4").isEmpty())
                     list.addAll(getSquaresTopLeftDiagonal(board.getSquareAt("e4")));
@@ -311,7 +311,7 @@ public class Chess3Navigation extends AbstractNavigation{
     public ArrayList<Square> getSquaresBottomLeftDiagonal(Square square){
         ArrayList<Square> list = new ArrayList<>();
         if(square.label.equals("d4")){
-            if(square.isEmpty() || square.piece.isSelected) {
+            if(square.isEmpty() || square.piece.isSelected()) {
                 list.add(board.getSquareAt("e9"));
                 if(board.getSquareAt("e9").isEmpty())
                     list.addAll(getSquaresBottomLeftDiagonal(board.getSquareAt("e9")));
@@ -322,7 +322,7 @@ public class Chess3Navigation extends AbstractNavigation{
             return list;
         }
         if(square.label.equals("i5")){
-            if(square.isEmpty() || square.piece.isSelected) {
+            if(square.isEmpty() || square.piece.isSelected()) {
                 list.add(board.getSquareAt("e9"));
                 if(board.getSquareAt("e9").isEmpty())
                     list.addAll(getSquaresBottomLeftDiagonal(board.getSquareAt("e9")));
@@ -357,7 +357,7 @@ public class Chess3Navigation extends AbstractNavigation{
     public ArrayList<Square> getSquaresTopRightDiagonal(Square square){
         ArrayList<Square> list = new ArrayList<>();
         if(square.label.equals("e9")){
-            if(square.isEmpty() || square.piece.isSelected){
+            if(square.isEmpty() || square.piece.isSelected()){
                 list.add(board.getSquareAt("d4"));
                 if(board.getSquareAt("d4").isEmpty())
                     list.addAll(getSquaresTopRightDiagonal(board.getSquareAt("d4")));

@@ -8,7 +8,7 @@ public class QueenBehaviour implements PieceBehaviour {
     static RookBehaviour queenRookBehaviour = new RookBehaviour();
 
     @Override
-    public ArrayList<Square> getMoves(Chess3Board board, Piece piece){
+    public ArrayList<Square> getMoves(AbstractChessBoard board, Piece piece){
 
         ArrayList<Square> list = new ArrayList<>();
 

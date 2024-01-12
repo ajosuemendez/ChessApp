@@ -3,25 +3,24 @@ package com.thechessnuts.InputHandlerService.models;
 import java.util.ArrayList;
 
 public class Game {
-    public Settings settings;
+    public Chess3Settings settings;
     public Chess3Board board;
     public Player activePlayer;
     //public GameClock gameClock;
     //public Client client;
-    public Moves moves;
+    public MoveHistory moveHistory;
     public String gameID;
 
     public Game(){
-        this.moves = new Moves(this);
+        this.moveHistory = new MoveHistory();
         this.board = new Chess3Board();
-        this.settings = new Settings();
+        this.settings = new Chess3Settings();
         this.gameID = "";
     }
 
     public void newGame(){
-        this.board.setPieces(settings.playerWhite);
-        this.board.setPieces(settings.playerBlack);
-        this.board.setPieces(settings.playerYellow);
+        this.board.initialBoardSetup(settings);
+
         activePlayer = settings.playerWhite;
     }
 
@@ -31,9 +30,9 @@ public class Game {
         settings.playerYellow = player3;
     }
 
-    public void loadGame(Moves moves, Settings settings){
+    public void loadGame(MoveHistory moveHistory, Chess3Settings settings){
         this.settings = settings;
-        this.moves = moves;
+        this.moveHistory = moveHistory;
     }
 
     public void saveGame(){}
@@ -75,16 +74,17 @@ public class Game {
 
 
     public void makeMove(Move move){
-        this.moves.add(move);
+        this.moveHistory.add(move);
         this.board.makeMove(move);
         this.nextTurn();
+        System.out.println(this.moveHistory.get());
     }
 
     public ArrayList<SquareForSending> getBoardState(){
         return board.getBoardState();
     }
 
-    public Settings getSettings() {
+    public Chess3Settings getSettings() {
         return settings;
     }
 
@@ -96,11 +96,23 @@ public class Game {
         return activePlayer;
     }
 
-    public Moves getMoves() {
-        return moves;
+    public MoveHistory getMoves() {
+        return moveHistory;
     }
 
     public String getGameID() {
         return gameID;
     }
+
+    public void undoLastMove(){
+
+        /*TODO : Implement function for undos */
+    }
+
+     public void redoLastUndo(){
+
+        /*TODO : Implement function for redos */
+    }
+
+
 }

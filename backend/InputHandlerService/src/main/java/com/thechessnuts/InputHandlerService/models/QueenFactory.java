@@ -2,7 +2,7 @@ package com.thechessnuts.InputHandlerService.models;
 
 public class QueenFactory extends PieceFactory {
 
-    public QueenFactory(Chess3Board board, Player player) {
+    public QueenFactory(AbstractChessBoard board, Player player) {
         super(board, player);
     }
 

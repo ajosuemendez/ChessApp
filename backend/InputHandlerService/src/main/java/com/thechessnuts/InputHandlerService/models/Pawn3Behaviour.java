@@ -2,12 +2,10 @@ package com.thechessnuts.InputHandlerService.models;
 
 import java.util.ArrayList;
 
-public class PawnBehaviour implements PieceBehaviour{
-
-
+public class Pawn3Behaviour implements PieceBehaviour{
 
     @Override
-    public ArrayList<Square> getMoves(Chess3Board board, Piece piece){
+    public ArrayList<Square> getMoves(AbstractChessBoard board, Piece piece){
         
         ArrayList<Square> list = new ArrayList<>();
 try{
@@ -110,14 +108,7 @@ try{
         System.out.println(e);
     }
 
-        for(int i = 0; i<list.size(); i++){
-            if(list.get(i).piece!=null){
-                if(list.get(i).piece.player.color == piece.player.color){
-                    list.remove(i);
-                    i--;
-                }
-            }
-        }
+        
 
         return list;
     }
