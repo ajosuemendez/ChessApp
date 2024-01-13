@@ -14,6 +14,9 @@ import com.thechessnuts.StorageHandlerService.databases.MongoDatabaseCreator;
 import com.thechessnuts.StorageHandlerService.models.BaseEntity;
 import com.thechessnuts.StorageHandlerService.models.GameEntity;
 
+// Config
+import com.thechessnuts.StorageHandlerService.config.MongoConfig;
+
 
 
 @RestController
@@ -23,7 +26,8 @@ public class DatabaseController {
     private final DatabaseService databaseService;
 
     public DatabaseController() {
-        GenericDatabase mongoDB = new MongoDatabaseCreator();
+        MongoConfig mongoConfig = new MongoConfig();
+        GenericDatabase mongoDB = new MongoDatabaseCreator(mongoConfig.getMongoTemplate());
         this.databaseService = new DatabaseService(mongoDB.initDatabase());
     }
 
