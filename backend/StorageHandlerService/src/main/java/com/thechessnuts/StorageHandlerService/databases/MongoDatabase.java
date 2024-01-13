@@ -35,4 +35,24 @@ public class MongoDatabase<T extends BaseEntity> implements IDatabase<T> {
         Query query = new Query(Criteria.where("id").is(id));
         return (T) mongoTemplate.findOne(query, entity.getClass());
     }
+
+    @Override
+    public T updateEntity(String id, T updatedEntity) {
+        updatedEntity.setId(id);
+        mongoTemplate.save(updatedEntity);
+
+        Query query = new Query(Criteria.where("id").is(id));
+
+        return (T) mongoTemplate.findOne(query, updatedEntity.getClass());
+    }
+
+    @Override
+    public boolean deleteEntityById(String id, T entity) {
+        Query query = new Query(Criteria.where("id").is(id));
+        mongoTemplate.remove(mongoTemplate.findOne(query, entity.getClass()));
+        if (mongoTemplate.findById(id, entity.getClass()) != null) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -21,4 +21,12 @@ public class DatabaseService {
     public BaseEntity findGameById(String id) {
         return this.database.findEntityById(id, new GameEntity());
     }
+
+    public BaseEntity updateGame(String id, GameEntity updatedEntity) {
+        return this.database.updateEntity(id, updatedEntity);
+    }
+
+    public boolean deleteGame(String id) {
+        return database.deleteEntityById(id, new GameEntity());
+    }
 }
