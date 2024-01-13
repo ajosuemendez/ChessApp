@@ -5,7 +5,7 @@ public class King extends Piece
     boolean crossedBorder;
     public static short value = 1;
 
-    public King(Chess3Board board, Player player)
+    public King(AbstractChessBoard board, Player player)
     {
 
         super(board, player, new KingBehaviour());

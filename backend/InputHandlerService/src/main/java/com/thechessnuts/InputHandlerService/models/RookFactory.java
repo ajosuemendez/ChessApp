@@ -2,7 +2,7 @@ package com.thechessnuts.InputHandlerService.models;
 
 public class RookFactory extends PieceFactory {
 
-    public RookFactory(Chess3Board board, Player player) {
+    public RookFactory(AbstractChessBoard board, Player player) {
         super(board, player);
     }
 

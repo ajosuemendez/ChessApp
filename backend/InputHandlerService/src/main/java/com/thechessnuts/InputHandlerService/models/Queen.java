@@ -3,7 +3,7 @@ package com.thechessnuts.InputHandlerService.models;
 public class Queen extends Piece
 {
     public static short value = 9;
-    public Queen(Chess3Board board, Player player)
+    public Queen(AbstractChessBoard board, Player player)
     {
         super(board, player, new QueenBehaviour());
         this.board = board;

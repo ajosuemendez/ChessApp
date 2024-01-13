@@ -1,8 +1,11 @@
 package com.thechessnuts.InputHandlerService.models;
 
 public abstract class AbstractChessBoard {
+    static String[][][] gridReferences;
+
     Piece selectedPiece = null;
-    AbstractNavigation navigation;
+    AbstractChessNavigation navigation;
 
     abstract Square getSquareAt(String label);
+
 }
