@@ -1,17 +1,17 @@
-GET http://localhost:8080/database/games/1
+GET http://localhost:8080/database/games/4
 
 ###
 POST http://localhost:8080/database/games/
 content-type: application/json
 
 {
-    "id": "1",
+    "id": "4",
     "gameName": "sample",
     "numberOfPlayers": 2
 }
 
 ###
-PUT http://localhost:8080/database/games/1
+PUT http://localhost:8080/database/games/4
 content-type: application/json
 
 {
