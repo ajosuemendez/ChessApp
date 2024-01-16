@@ -14,8 +14,7 @@ import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
 @Configuration
 public class MongoConfig {
 
-    private String mongoUri = Secrets.getMongURI();
-
+    private String mongoUri = "mongodb+srv://chessnuts:BSIyi2X86dvxZnt8@cluster0.qnfhnov.mongodb.net/gameDB";
     @Bean
     public MongoTemplate getMongoTemplate() {
         ConnectionString connectionString = new ConnectionString(mongoUri);

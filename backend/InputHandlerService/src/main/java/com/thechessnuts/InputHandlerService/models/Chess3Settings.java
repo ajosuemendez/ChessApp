@@ -18,4 +18,10 @@ public class Chess3Settings{
 
         this.gameMode = gameModes.CLASSIC;
     }
+
+    public void setPlayers(Player player1, Player player2, Player player3){
+        this.playerWhite = player1;
+        this.playerBlack = player2;
+        this.playerYellow = player3;
+    }
 }

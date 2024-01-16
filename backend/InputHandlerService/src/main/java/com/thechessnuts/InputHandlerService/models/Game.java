@@ -3,31 +3,27 @@ package com.thechessnuts.InputHandlerService.models;
 import java.util.ArrayList;
 
 public class Game {
+    
     public Chess3Settings settings;
     public Chess3Board board;
     public Player activePlayer;
-    //public GameClock gameClock;
-    //public Client client;
     public MoveHistory moveHistory;
-    public String gameID;
+    public String id;
+    private AbstractChess3Initializer initializer;
 
     public Game(){
         this.moveHistory = new MoveHistory();
         this.board = new Chess3Board();
         this.settings = new Chess3Settings();
-        this.gameID = "";
+        this.id = "";
+        if(settings.gameMode == Chess3Settings.gameModes.CLASSIC){
+            this.initializer = new Chess3ClassicInitializer(this.board);
+        }
     }
 
     public void newGame(){
-        this.board.initialBoardSetup(settings);
-
+        this.initializer.initialize(settings);
         activePlayer = settings.playerWhite;
-    }
-
-    public void setPlayers(Player player1, Player player2, Player player3){
-        settings.playerWhite = player1;
-        settings.playerBlack = player2;
-        settings.playerYellow = player3;
     }
 
     public void loadGame(MoveHistory moveHistory, Chess3Settings settings){
@@ -50,6 +46,9 @@ public class Game {
     }
 
     public void handleEvent(String label){
+        if(board == null)
+            return;
+
         Square clickedSquare = this.board.getSquareAt(label);
 
         if(clickedSquare == null){
@@ -63,17 +62,17 @@ public class Game {
             }
         }
        
-        if(this.board.selectedPiece!=null){
+        if(this.board.selectedPiece != null){
             if(this.board.selectedPiece.allMoves().contains(clickedSquare)){
-                this.makeMove(new Move(this.board.selectedPiece.square, clickedSquare, this.board.selectedPiece, clickedSquare.piece));
+                this.executeMove(new Move(this.board.selectedPiece.square, clickedSquare, this.board.selectedPiece, clickedSquare.piece));
             }
             this.board.selectPiece("");
+            return;
         }
-
     }
 
 
-    public void makeMove(Move move){
+    public void executeMove(Move move){
         this.moveHistory.add(move);
         this.board.makeMove(move);
         this.nextTurn();
@@ -100,9 +99,17 @@ public class Game {
         return moveHistory;
     }
 
-    public String getGameID() {
-        return gameID;
+    public String getId() {
+        return id;
     }
+
+    public void setPlayers(Player player1, Player player2, Player player3){
+        settings.playerWhite = player1;
+        settings.playerBlack = player2;
+        settings.playerYellow = player3;
+    }
+
+    public void setSettings(){}
 
     public void undoLastMove(){
 

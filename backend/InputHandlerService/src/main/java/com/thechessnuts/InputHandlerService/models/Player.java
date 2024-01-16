@@ -8,14 +8,12 @@ public class Player implements Serializable
 {
 
     String name;
+    int clock;
 
     public colors getColor() {
         return color;
     }
 
-    public playerTypes getPlayerType() {
-        return playerType;
-    }
 
     public boolean isGoDown() {
         return goDown;
@@ -28,12 +26,6 @@ public class Player implements Serializable
     }
     colors color;
 
-    public enum playerTypes
-    {
-
-        localUser, networkUser, computer
-    }
-    public playerTypes playerType;
     boolean goDown;
 
     public Player()
@@ -64,11 +56,4 @@ public class Player implements Serializable
         return this.name;
     }
 
-    /** Method setting the players type
-     *  @param type type of player - enumerate
-     */
-    public void setType(playerTypes type)
-    {
-        this.playerType = type;
-    }
 }

@@ -36,7 +36,7 @@ public class Chess3ClassicInitializer extends AbstractChess3Initializer{
             int kingSide = queenSide+1;                                          /*King's  Side*/
             
             //PAWNS
-            PawnFactory pawnFactory = new PawnFactory(board, player);
+            QueenFactory pawnFactory = new QueenFactory(board, player);
 
             for(int i = 0; i<4;i++){
                 pawnFactory.createPiece(board.sections[queenSide].squares[i][2].label);

@@ -22,7 +22,7 @@ public class InputHandlerController{
      public List<SquareForSending> getNewGame(@PathVariable("gameId") String gameId) {
         System.out.println(gameId);
         if(i==-1){
-            game.gameID = "#24567d";
+            //game.getId() = "#24567d";
             game.newGame();
             i++;
         }
