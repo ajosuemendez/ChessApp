@@ -7,24 +7,27 @@ Class to represent a piece (any kind) - this class should be extended to represe
  */
 public abstract class Piece
 {
+    boolean check;
     PieceBehaviour pieceBehaviour;
     Player player;
     AbstractChessBoard board;
-    public Square square;
-    public boolean started;
+    Square square;
+    boolean started;
     String name;
-    protected String symbol;
+    String symbol;
     boolean selected;
     boolean crossedBorder;
 
     Piece(AbstractChessBoard board, Player player, PieceBehaviour pieceBehaviour)
     {
+        this.check = false;
         this.pieceBehaviour = pieceBehaviour;
         this.board = board;
         this.player = player;
         this.selected = false;
         this.name = player.color.toString().toLowerCase()+'-'; 
     }
+
 
     public ArrayList<Square> allMoves(){
 
@@ -46,11 +49,17 @@ public abstract class Piece
 
     public void setSquare(Square square){this.square = square;}
 
-    public Square getSquare(Square square){ return this.square;}
+    public Square getSquare(){ return this.square;}
+
+    public Player.colors getColor(){ return this.player.color;}
 
     public boolean isSelected(){return this.selected;}
 
     public void deselct(){this.selected = false;}
 
     public void select(){this.selected = true;}
+
+    public void setChecked(boolean check){
+        this.check = check;
+    }
 }

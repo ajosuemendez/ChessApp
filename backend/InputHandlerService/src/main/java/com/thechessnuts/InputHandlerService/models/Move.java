@@ -25,6 +25,28 @@ public class Move {
         this.takenPiece = takenPiece;
         this.promotedTo = promotedTo;
     }
+
+    protected Move(String moveString, AbstractChessBoard board){
+
+        String fromLabel, toLabel;
+        int separatorIndex = moveString.indexOf('-');
+        int fromSquareStart = 0;
+        if(Character.isUpperCase(moveString.charAt(0))){
+            fromSquareStart = 1;
+        }
+        this.from = board.getSquareAt(moveString.substring(fromSquareStart, separatorIndex));
+        
+        int toSquareStart = separatorIndex+1;
+
+        if(Character.isUpperCase(separatorIndex+1)){
+            toSquareStart = separatorIndex + 2;
+        }
+
+        this.to = board.getSquareAt(moveString.substring(toSquareStart, moveString.length()));
+
+        this.movedPiece = this.from.piece;
+        this.takenPiece = this.to.piece;
+    }
     
     public String toString(){
         String ret = "";

@@ -1,4 +1,4 @@
-package src.main.java.com.thechessnuts.GameSessionService.controllers;
+package GameSessionService.src.main.java.com.thechessnuts.GameSessionService.controllers;
 import  com.thechessnuts.GameSessionService.models.Square;
 import  com.thechessnuts.GameSessionService.models.SquareForSending;
 import  com.thechessnuts.GameSessionService.models.Game;

@@ -7,6 +7,9 @@ import java.io.Serializable;
 public class Player implements Serializable
 {
 
+    boolean eliminated;
+
+    King king;
     String name;
     int clock;
 
@@ -30,11 +33,15 @@ public class Player implements Serializable
 
     public Player()
     {
+        this.eliminated = false;
+        this.king = null;
         this.color = colors.YELLOW;
     }
 
     public Player(String name, String color)
     {
+        this.king = null;
+        this.eliminated = false;
         this.name = name;
         this.color = colors.valueOf(color);
         this.goDown = false;
@@ -56,4 +63,11 @@ public class Player implements Serializable
         return this.name;
     }
 
+    public void setKing(King king){
+        this.king = king;
+    }
+
+    public void eliminate(){
+        this.eliminated = true;
+    }
 }

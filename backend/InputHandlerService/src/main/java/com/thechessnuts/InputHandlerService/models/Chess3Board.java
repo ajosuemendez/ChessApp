@@ -156,12 +156,17 @@ public class Chess3Board extends AbstractChessBoard{
 
 
     public void makeMove(Move move){
-        this.getSquareAt(move.to.label).setPiece(this.getSquareAt(move.from.label).piece);
-        this.getSquareAt(move.from.label).piece = null;
+        for (Chess3Section section : sections) {
+            section.unmarkChecks();
+        }
+        this.getSquareAt(move.to.label).setPiece(move.movedPiece);
+        move.from.piece = null;
         if(move.movedPiece.symbol == ""){
             move.movedPiece.started = true;
         }
-
+        for (Chess3Section section : sections) {
+            section.markChecks();
+        }
     }
 
     public ArrayList<SquareForSending> getBoardState(){
@@ -178,6 +183,10 @@ public class Chess3Board extends AbstractChessBoard{
         }
 
         return list;
+    }
+
+    public void eliminatePlayer(){
+        
     }
     //--------------------------------------------------------//
 
@@ -275,6 +284,40 @@ public class Chess3Board extends AbstractChessBoard{
             }
     
             return list;
+        }
+
+        private void unmarkChecks(){
+            for (Square[] arr: this.squares) {
+                for (Square square : arr) {
+                    if(square.piece!=null){
+                        square.piece.setChecked(false);
+                    }
+                }
+            }
+        }
+
+        private void markChecks(){
+
+            for (Square[] arr: this.squares) {
+                System.out.print("H");
+                for (Square square : arr) {
+                    if(square.piece!=null){
+                        ArrayList<Square> list = square.piece.allMoves();
+                        for (Square squareAttack : list) {
+                            if(squareAttack.piece != null){
+                                System.out.print("O");
+                                if(squareAttack.piece instanceof King && !squareAttack.piece.player.color.equals(square.piece.player.color)){
+                                    squareAttack.piece.setChecked(true);
+                                    System.out.println(squareAttack.piece.getColor()+"Check!");
+                                }
+                            }
+                            
+                        }
+                    }
+                    
+                }
+                
+            }
         }
     }
 

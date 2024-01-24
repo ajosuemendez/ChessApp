@@ -33,7 +33,7 @@ public class Square
     }
 
     public SquareForSending getSquareState(boolean isSelected){
-        return new SquareForSending(this.label, this.piece==null?"":this.piece.name, isSelected);
+        return new SquareForSending(this.label, this.piece==null?"":this.piece.name, isSelected, this.piece==null?false:(this.piece.name.equals("king")&&this.piece.check));
     }
     
     public boolean isAtBorder(){
@@ -42,4 +42,5 @@ public class Square
         }
         return false;
     }
+
 }

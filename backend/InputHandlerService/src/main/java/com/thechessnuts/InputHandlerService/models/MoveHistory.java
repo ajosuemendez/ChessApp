@@ -20,6 +20,7 @@ public class MoveHistory{
 
     public void undoLastMove(){
         undos.add(history.pop());
+        
     }
 
     public void redoLastUndo(){

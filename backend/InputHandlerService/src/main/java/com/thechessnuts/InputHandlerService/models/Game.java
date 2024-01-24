@@ -1,6 +1,7 @@
 package com.thechessnuts.InputHandlerService.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Game {
     
@@ -9,7 +10,7 @@ public class Game {
     public Player activePlayer;
     public MoveHistory moveHistory;
     public String id;
-    private AbstractChess3Initializer initializer;
+    private Chess3Initializer initializer;
 
     public Game(){
         this.moveHistory = new MoveHistory();
@@ -17,7 +18,7 @@ public class Game {
         this.settings = new Chess3Settings();
         this.id = "";
         if(settings.gameMode == Chess3Settings.gameModes.CLASSIC){
-            this.initializer = new Chess3ClassicInitializer(this.board);
+            this.initializer = new Chess3Initializer(this.board);
         }
     }
 
@@ -71,12 +72,15 @@ public class Game {
         }
     }
 
-
     public void executeMove(Move move){
         this.moveHistory.add(move);
+        if(move.to.piece!=null){
+            if(move.to.piece.name.equals("king")){
+                move.to.piece.player.eliminate();
+            }
+        }
         this.board.makeMove(move);
         this.nextTurn();
-        System.out.println(this.moveHistory.get());
     }
 
     public ArrayList<SquareForSending> getBoardState(){
@@ -112,8 +116,16 @@ public class Game {
     public void setSettings(){}
 
     public void undoLastMove(){
+        moveHistory.undoLastMove();
+        List<String> currentMoves = this.moveHistory.get(); 
 
-        /*TODO : Implement function for undos */
+        board = new Chess3Board();
+        this.initializer.initialize(settings);
+
+        for(int i = 0; i<currentMoves.size(); i++){
+            Move newMove = new Move(currentMoves.get(i), board);
+            this.executeMove(newMove);
+        }
     }
 
      public void redoLastUndo(){

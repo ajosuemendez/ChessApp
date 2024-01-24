@@ -4,14 +4,16 @@ public class SquareForSending {
     private String id;
     private String piece;
     public boolean isValid;
+    public boolean isChecked;
 
     public SquareForSending() {
     }
 
-    public SquareForSending(String id, String piece, boolean isValid) {
+    public SquareForSending(String id, String piece, boolean isValid, boolean isChecked) {
         this.id = id;
         this.piece = piece;
         this.isValid = isValid;
+        this.isChecked = isChecked;
     }
 
 

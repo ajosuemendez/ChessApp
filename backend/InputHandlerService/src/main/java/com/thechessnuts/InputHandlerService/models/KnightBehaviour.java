@@ -13,7 +13,7 @@ public class KnightBehaviour implements PieceBehaviour {
 
         for(String direction : directions){
 
-            Square adjacentSquare = board.navigation.getSquaresAdjacent(piece.square).get(direction);
+            Square adjacentSquare = board.navigation.getSquaresAdjacent(piece.getSquare()).get(direction);
 
             if(adjacentSquare == null)
                 continue;

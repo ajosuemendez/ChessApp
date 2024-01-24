@@ -9,10 +9,10 @@ public class BishopBehaviour implements PieceBehaviour {
     public ArrayList<Square> getMoves(AbstractChessBoard board, Piece piece) {
         ArrayList<Square> list = new ArrayList<>();
 
-        list.addAll(board.navigation.getSquaresTopRightDiagonal(piece.square));
-        list.addAll(board.navigation.getSquaresTopLeftDiagonal(piece.square));
-        list.addAll(board.navigation.getSquaresBottomRightDiagonal(piece.square));
-        list.addAll(board.navigation.getSquaresBottomLeftDiagonal(piece.square));
+        list.addAll(board.navigation.getSquaresTopRightDiagonal(piece.getSquare()));
+        list.addAll(board.navigation.getSquaresTopLeftDiagonal(piece.getSquare()));
+        list.addAll(board.navigation.getSquaresBottomRightDiagonal(piece.getSquare()));
+        list.addAll(board.navigation.getSquaresBottomLeftDiagonal(piece.getSquare()));
         
         return list;
     }

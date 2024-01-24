@@ -8,9 +8,10 @@ public class KingFactory extends PieceFactory {
 
     @Override
     Piece createPiece(String squareLabel) {
-        Piece king = new King(board, player);
+        King king = new King(board, player);
         king.setSquare(this.board.getSquareAt(squareLabel));
         this.board.getSquareAt(squareLabel).setPiece(king);
+        player.setKing(king);
 
         return king;
     }

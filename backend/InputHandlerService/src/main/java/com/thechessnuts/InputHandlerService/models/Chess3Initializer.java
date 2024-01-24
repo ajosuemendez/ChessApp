@@ -1,12 +1,14 @@
 package com.thechessnuts.InputHandlerService.models;
 
-public class Chess3ClassicInitializer extends AbstractChess3Initializer{
+public class Chess3Initializer{
 
-    Chess3ClassicInitializer(Chess3Board board) {
-        super(board);
+    Chess3Board board;
+
+    Chess3Initializer(Chess3Board board) {
+        this.board = board;
+        
     }
 
-    @Override
     public void initialize(Chess3Settings settings){
 
         for(int playerNumber = 1; playerNumber <4; playerNumber++){
@@ -36,7 +38,7 @@ public class Chess3ClassicInitializer extends AbstractChess3Initializer{
             int kingSide = queenSide+1;                                          /*King's  Side*/
             
             //PAWNS
-            QueenFactory pawnFactory = new QueenFactory(board, player);
+            PawnFactory pawnFactory = new PawnFactory(board, player);
 
             for(int i = 0; i<4;i++){
                 pawnFactory.createPiece(board.sections[queenSide].squares[i][2].label);
