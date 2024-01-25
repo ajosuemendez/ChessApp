@@ -27,8 +27,7 @@ public class Move {
     }
 
     protected Move(String moveString, AbstractChessBoard board){
-
-        String fromLabel, toLabel;
+        
         int separatorIndex = moveString.indexOf('-');
         int fromSquareStart = 0;
         if(Character.isUpperCase(moveString.charAt(0))){

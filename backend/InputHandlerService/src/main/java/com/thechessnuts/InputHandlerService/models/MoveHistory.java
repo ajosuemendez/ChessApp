@@ -18,12 +18,18 @@ public class MoveHistory{
         return Arrays.asList(history.toArray(new String[0]));
     }
 
-    public void undoLastMove(){
+    public boolean undoLastMove(){
+        if(history.size() == 0)
+            return false;
         undos.add(history.pop());
+        return true;
         
     }
 
-    public void redoLastUndo(){
+    public boolean redoLastUndo(){
+        if(undos.size() == 0)
+            return false;
         history.add(undos.pop());
+        return true;
     }
 }

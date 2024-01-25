@@ -43,19 +43,43 @@ public class Game {
         }
     }
 
+    public void previousTurn(){
+        if (activePlayer.color == Player.colors.WHITE){
+            activePlayer = settings.playerYellow;
+        }
+        else if (activePlayer.color == Player.colors.BLACK){
+            activePlayer = settings.playerWhite;
+        }
+        else{
+            activePlayer = settings.playerBlack;
+        }
+    }
+
     public void handleEvent(String label){
         if(board == null)
             return;
 
+        if(label.equals("a6")){
+            this.undoLastMove();
+            System.out.println(this.moveHistory.get());
+            return;
+        }
+        if(label.equals("a7")){
+            this.redoLastUndo();
+            System.out.println(this.moveHistory.get());
+            return;
+        }
         Square clickedSquare = this.board.getSquareAt(label);
 
         if(clickedSquare == null){
+            System.out.println(this.moveHistory.get());
             return;
         }
 
         if(clickedSquare.piece != null){
             if(clickedSquare.piece.player.color.equals(this.activePlayer.color)){
                 this.board.selectPiece(label);
+                System.out.println(this.moveHistory.get());
                 return;
             }
         }
@@ -65,6 +89,7 @@ public class Game {
                 this.executeMove(new Move(this.board.selectedPiece.square, clickedSquare, this.board.selectedPiece, clickedSquare.piece));
             }
             this.board.selectPiece("");
+            System.out.println(this.moveHistory.get());
             return;
         }
     }
@@ -81,25 +106,34 @@ public class Game {
     }
 
     public void undoLastMove(){
-        moveHistory.undoLastMove();
-        List<String> currentMoves = this.moveHistory.get(); 
+        boolean successfulUndo  = moveHistory.undoLastMove();
 
-        board = new Chess3Board();
-        this.board.initialise(settings);
+        if(successfulUndo){
+            List<String> currentMoves = this.moveHistory.get(); 
 
-        for(int i = 0; i<currentMoves.size(); i++){
-            Move newMove = new Move(currentMoves.get(i), board);
-            this.board.makeMove(newMove);
+            board = new Chess3Board();
+            this.board.initialise(settings);
+
+            for(int i = 0; i<currentMoves.size(); i++){
+                Move newMove = new Move(currentMoves.get(i), board);
+                this.board.makeMove(newMove);
+            }
+            this.previousTurn();
         }
+
         board.checksManager.markChecks();
     }
 
      public void redoLastUndo(){
         board.checksManager.unmarkChecks();
-        moveHistory.redoLastUndo();
-        Move newMove = new Move(moveHistory.get().get(moveHistory.get().size()-1), board);
+        boolean successfulRedo = moveHistory.redoLastUndo();
         
-        this.board.makeMove(newMove);
+        if(successfulRedo){
+            Move newMove = new Move(moveHistory.get().get(moveHistory.get().size()-1), board);
+            this.board.makeMove(newMove);
+            this.nextTurn();
+        }
+
         board.checksManager.markChecks();
     }
     
