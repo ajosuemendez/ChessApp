@@ -2,9 +2,7 @@ package com.thechessnuts.InputHandlerService.models;
 
 import java.util.ArrayList;
 
-import com.thechessnuts.InputHandlerService.models.Chess3Board.Chess3Section;
-
-public class ChecksManager {
+class ChecksManager {
 
     Chess3Board board;
 

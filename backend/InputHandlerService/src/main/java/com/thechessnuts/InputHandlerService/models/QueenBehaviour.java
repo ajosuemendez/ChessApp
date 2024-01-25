@@ -2,7 +2,7 @@ package com.thechessnuts.InputHandlerService.models;
 
 import java.util.ArrayList;
 
-public class QueenBehaviour extends PieceBehaviour {
+class QueenBehaviour extends PieceBehaviour {
 
     QueenBehaviour(){
         this.symbol = "Q";
@@ -13,7 +13,7 @@ public class QueenBehaviour extends PieceBehaviour {
     static RookBehaviour queenRookBehaviour = new RookBehaviour();
 
     @Override
-    public ArrayList<Square> getMoves(AbstractChessBoard board, Piece piece){
+    ArrayList<Square> getMoves(AbstractChessBoard board, Piece piece){
 
         ArrayList<Square> list = new ArrayList<>();
 

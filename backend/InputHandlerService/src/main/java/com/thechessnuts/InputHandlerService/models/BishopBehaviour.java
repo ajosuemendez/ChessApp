@@ -2,7 +2,7 @@ package com.thechessnuts.InputHandlerService.models;
 
 import java.util.ArrayList;
 
-public class BishopBehaviour extends PieceBehaviour {   
+class BishopBehaviour extends PieceBehaviour {   
     
     BishopBehaviour(){
         this.symbol = "B";
@@ -11,7 +11,7 @@ public class BishopBehaviour extends PieceBehaviour {
 
 
     @Override
-    public ArrayList<Square> getMoves(AbstractChessBoard board, Piece piece) {
+    ArrayList<Square> getMoves(AbstractChessBoard board, Piece piece) {
         ArrayList<Square> list = new ArrayList<>();
 
         list.addAll(board.navigation.getSquaresTopRightDiagonal(piece.getSquare()));

@@ -3,14 +3,14 @@ package com.thechessnuts.InputHandlerService.models;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Chess3Navigation extends AbstractChessNavigation{
+class Chess3Navigation extends AbstractChessNavigation{
 
     Chess3Navigation(Chess3Board board){
         super(board);
     }
     
     @Override
-    public Square getSquareAbove(Square square){
+    Square getSquareAbove(Square square){
        char columnLetter = square.label.charAt(0);
        int rowNumber = Integer.parseInt(square.label.substring(1));
 
@@ -36,7 +36,7 @@ public class Chess3Navigation extends AbstractChessNavigation{
     }
 
     @Override
-    public Square getSquareBelow(Square square){
+    Square getSquareBelow(Square square){
         char columnLetter = square.label.charAt(0);
         int rowNumber = Integer.parseInt(square.label.substring(1));
 
@@ -71,7 +71,7 @@ public class Chess3Navigation extends AbstractChessNavigation{
     }
 
     @Override
-    public Square getSquareLeft(Square square){
+    Square getSquareLeft(Square square){
         char columnLetter = square.label.charAt(0);
         int rowNumber = Integer.parseInt(square.label.substring(1));
 
@@ -108,7 +108,7 @@ public class Chess3Navigation extends AbstractChessNavigation{
     }
 
     @Override
-    public Square getSquareRight(Square square){
+    Square getSquareRight(Square square){
 
     
         char columnLetter = square.label.charAt(0);
@@ -152,7 +152,7 @@ public class Chess3Navigation extends AbstractChessNavigation{
     }
 
     @Override
-    public ArrayList<Square> getSquaresAbove(Square square) {
+    ArrayList<Square> getSquaresAbove(Square square) {
 
         ArrayList<Square> list = new ArrayList<>();
 
@@ -172,7 +172,7 @@ public class Chess3Navigation extends AbstractChessNavigation{
     }
 
     @Override
-    public ArrayList<Square> getSquaresBelow(Square square) {
+    ArrayList<Square> getSquaresBelow(Square square) {
 
         ArrayList<Square> list = new ArrayList<>();
         boolean borderWasCrossed = false;
@@ -206,7 +206,7 @@ public class Chess3Navigation extends AbstractChessNavigation{
     }
 
     @Override
-    public ArrayList<Square> getSquaresLeft(Square square) {
+    ArrayList<Square> getSquaresLeft(Square square) {
 
         ArrayList<Square> list = new ArrayList<>();
 
@@ -226,7 +226,7 @@ public class Chess3Navigation extends AbstractChessNavigation{
     }
 
     @Override
-    public ArrayList<Square> getSquaresRight(Square square) {
+    ArrayList<Square> getSquaresRight(Square square) {
 
         ArrayList<Square> list = new ArrayList<>();
 
@@ -246,7 +246,7 @@ public class Chess3Navigation extends AbstractChessNavigation{
     }
 
     @Override
-    public HashMap<String, Square> getSquaresAdjacent(Square square){
+    HashMap<String, Square> getSquaresAdjacent(Square square){
         HashMap<String, Square> dictionary = new HashMap<>();
 
         Square up = board.navigation.getSquareAbove(square);
@@ -285,7 +285,7 @@ public class Chess3Navigation extends AbstractChessNavigation{
     }
 
     @Override
-    public ArrayList<Square> getSquaresTopLeftDiagonal(Square square){
+    ArrayList<Square> getSquaresTopLeftDiagonal(Square square){
         ArrayList<Square> list = new ArrayList<>();
         if(square.label.equals("i9")){
             if(square.isEmpty() || square.piece.isSelected()) {
@@ -312,7 +312,7 @@ public class Chess3Navigation extends AbstractChessNavigation{
     }
 
     @Override
-    public ArrayList<Square> getSquaresBottomLeftDiagonal(Square square){
+    ArrayList<Square> getSquaresBottomLeftDiagonal(Square square){
         ArrayList<Square> list = new ArrayList<>();
         if(square.label.equals("d4")){
             if(square.isEmpty() || square.piece.isSelected()) {
@@ -358,7 +358,7 @@ public class Chess3Navigation extends AbstractChessNavigation{
     }
 
     @Override
-    public ArrayList<Square> getSquaresTopRightDiagonal(Square square){
+    ArrayList<Square> getSquaresTopRightDiagonal(Square square){
         ArrayList<Square> list = new ArrayList<>();
         if(square.label.equals("e9")){
             if(square.isEmpty() || square.piece.isSelected()){
@@ -384,7 +384,7 @@ public class Chess3Navigation extends AbstractChessNavigation{
     }
 
     @Override
-    public ArrayList<Square> getSquaresBottomRightDiagonal(Square square){
+    ArrayList<Square> getSquaresBottomRightDiagonal(Square square){
         ArrayList<Square> list = new ArrayList<>();
         if(square.label.equals("e4")){
             list.add(board.getSquareAt("i9"));

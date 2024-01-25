@@ -4,53 +4,44 @@ import java.io.Serializable;
 /**
  * Class representing the player in the game
  */
-public class Player implements Serializable
+class Player implements Serializable
 {
-
     boolean eliminated;
-
     Piece king;
     String name;
     int clock;
 
-    public colors getColor() {
+    colors getColor() {
         return color;
-    }
-
-
-    public boolean isGoDown() {
-        return goDown;
     }
 
     enum colors
     {
-
-        WHITE, BLACK, YELLOW
+        WHITE, BLACK, YELLOW, ELIMINATED
     }
     colors color;
 
-    boolean goDown;
-
-    public Player()
+    Player()
     {
+        this.clock = 600;
         this.eliminated = false;
         this.king = null;
         this.color = colors.YELLOW;
     }
 
-    public Player(String name, String color)
+    Player(String name, String color)
     {
         this.king = null;
+        this.clock = 600;
         this.eliminated = false;
         this.name = name;
         this.color = colors.valueOf(color);
-        this.goDown = false;
     }
 
     /** Method setting the players name
      *  @param name name of player
      */
-    public void setName(String name)
+    void setName(String name)
     {
         this.name = name;
     }
@@ -63,11 +54,14 @@ public class Player implements Serializable
         return this.name;
     }
 
-    public void setKing(Piece king){
+    /** Method setting the players king
+     *  @param king king of player
+     */
+    void setKing(Piece king){
         this.king = king;
     }
 
-    public void eliminate(){
+    void eliminate(){
         this.eliminated = true;
     }
 }

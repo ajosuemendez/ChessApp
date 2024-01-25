@@ -1,6 +1,6 @@
 package com.thechessnuts.InputHandlerService.models;
 
-public class Chess3Initializer{
+class Chess3Initializer{
 
     Chess3Board board;
 
@@ -9,7 +9,7 @@ public class Chess3Initializer{
         
     }
 
-    public void initialize(Chess3Settings settings){
+    void initialize(Chess3Settings settings){
 
         for(int playerNumber = 1; playerNumber <4; playerNumber++){
 

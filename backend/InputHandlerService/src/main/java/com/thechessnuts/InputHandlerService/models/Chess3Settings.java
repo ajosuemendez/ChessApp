@@ -1,27 +1,19 @@
 package com.thechessnuts.InputHandlerService.models;
 
-public class Chess3Settings{
-    public Player playerWhite;
-    public Player playerBlack;
-    public Player playerYellow;
+class Chess3Settings{
+    Player playerWhite;
+    Player playerBlack;
+    Player playerYellow;
 
-    public gameModes gameMode;
-
-    public enum gameModes{
-        CLASSIC, REVOLUTION, VICTORIAN
-    }
-
-    public Chess3Settings(){
+    Chess3Settings(){
         this.playerWhite = new Player("", "WHITE");
         this.playerBlack = new Player("", "BLACK");
         this.playerYellow = new Player("", "YELLOW");
-
-        this.gameMode = gameModes.CLASSIC;
     }
 
-    public void setPlayers(Player player1, Player player2, Player player3){
-        this.playerWhite = player1;
-        this.playerBlack = player2;
-        this.playerYellow = player3;
+    void setPlayers(String player1, String player2, String player3){
+        this.playerWhite = new Player(player1, "WHITE");
+        this.playerBlack = new Player(player2, "BLACK");
+        this.playerYellow = new Player(player3, "YELLOW");
     }
 }

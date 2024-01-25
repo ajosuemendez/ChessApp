@@ -1,11 +1,11 @@
 package com.thechessnuts.InputHandlerService.models;
 
-public class PieceFactory {
+class PieceFactory {
     AbstractChessBoard board;
     Player player;
     PieceBehaviour pieceBehaviour;
 
-    public PieceFactory(AbstractChessBoard board, Player player, PieceBehaviour pieceBehaviour){
+    PieceFactory(AbstractChessBoard board, Player player, PieceBehaviour pieceBehaviour){
         this.board = board;
         this.player = player;
         this.pieceBehaviour = pieceBehaviour;

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.stream.IntStream;
 
 
-public class Chess3Board extends AbstractChessBoard{
+class Chess3Board extends AbstractChessBoard{
 
     private Chess3Initializer initializer;
     ChecksManager checksManager;
@@ -41,16 +41,16 @@ public class Chess3Board extends AbstractChessBoard{
             },
         };
 
-    public Chess3Section[] sections;
+    Chess3Section[] sections;
 
-    public Chess3Board() {
+    Chess3Board() {
         this.navigation = new Chess3Navigation(this);
         this.initializer = new Chess3Initializer(this);
         this.checksManager = new ChecksManager(this);
     }
 
     @Override
-    public Square getSquareAt(String label)
+    Square getSquareAt(String label)
     {
         
         for(int i = 0; i<6; i++){
@@ -70,7 +70,7 @@ public class Chess3Board extends AbstractChessBoard{
         return ret;
     }
     
-    public void initialise(Chess3Settings settings){
+    void initialise(Chess3Settings settings){
         sections = new Chess3Section[6];
         IntStream.range(0, 6).forEach(i -> {
             String[] rowValues = gridReferences[i][0];
@@ -81,9 +81,28 @@ public class Chess3Board extends AbstractChessBoard{
         initializer.initialize(settings);
     }
 
+    void wallify(){
+
+        PieceFactory wallFactory = new PieceFactory(this, new Player("", "ELIMINATED"), new WallBehaviour());
+
+        for (Chess3Section section : sections) {
+            for (Square[] squareArr : section.squares) {
+                for (Square square : squareArr) {
+                    if (square.piece!=null){
+                        if(square.piece.player.eliminated){
+                            square.setPiece(wallFactory.createPiece(square.label));
+                        }
+                    }
+                }
+                
+            }
+            
+        }
+    }
+
     //----------------- clean code below -----------------------//
 
-    public void selectPiece(String label){
+    void selectPiece(String label){
         if(this.selectedPiece!=null){
             this.selectedPiece.deselct();
         }
@@ -98,7 +117,7 @@ public class Chess3Board extends AbstractChessBoard{
 
 
 
-    public void makeMove(Move move){
+    void makeMove(Move move){
         checksManager.unmarkChecks();
         this.getSquareAt(move.to.label).setPiece(move.movedPiece);
         move.from.piece = null;
@@ -108,7 +127,7 @@ public class Chess3Board extends AbstractChessBoard{
         checksManager.markChecks();
     }
 
-    public ArrayList<SquareForSending> getBoardState(){
+    ArrayList<SquareForSending> getBoardState(){
         ArrayList<SquareForSending> list = new ArrayList<>();
         ArrayList<Square> selectList = new ArrayList<>();
 
@@ -124,109 +143,10 @@ public class Chess3Board extends AbstractChessBoard{
         return list;
     }
 
-    public void eliminatePlayer(){
+    void eliminatePlayer(){
         
     }
     //--------------------------------------------------------//
-
-    class Chess3Section {
-        public Square[][] squares;//squares of chessboard
-        //The top left corner(pos 0,0) is always the square at the center rosette
-    
-        protected Chess3Board board;
-        protected String[] x_axis, y_axis;
-    
-        public Square[][] getSquares() {
-            return squares;
-        }
-    
-        public Chess3Board getBoard() {
-            return board;
-        }
-    
-        public String[] getX_axis() {
-            return x_axis;
-        }
-    
-        public String[] getY_axis() {
-            return y_axis;
-        }
-    
-
-        //CLEAN THE CODE HERE!!!!!!!!!!!!!! IT IS DISGUSTING
-        public Chess3Section(String[] x_axis, String[] y_axis, Chess3Board board) {
-    
-            if (board.equals(null)){
-                throw new NullPointerException("Board is Null!!");
-            }else this.board = board;
-    
-            if(x_axis.length==0||y_axis.length==0){
-                throw new IllegalArgumentException("Array is Empty!!");
-            } else if (x_axis.length== y_axis.length) {
-                this.x_axis = x_axis;
-                this.y_axis = y_axis;
-            }else {
-                throw new IllegalArgumentException(("THE Lenght of x_axis and y_axis does not match!!"));
-            }
-    
-            this.squares = new Square[4][4];
-    
-    
-            for (int i = 0; i < 4; i++)
-                for (int j = 0; j < 4; j++)
-                    this.squares[i][j] = new Square(x_axis[j] + y_axis[i]);
-    
-        }
-    
-        public Square getSquareAt(String label){
-            for(int i = 0; i < 4; i++)
-                for(int j = 0; j < 4; j++)
-                    if(squares[j][i].label.equals(label))
-                        return squares[j][i];
-            return null;
-        }
-    
-        @Override
-        public String toString() {
-            String ret = "";
-            for(int i = 0; i<4; i++) {
-                ret += y_axis[i]+ " " + (y_axis[i].length()>1?"":" ");
-                for(int j = 0; j<4;j++){
-                    if(this.squares[i][j].piece!=null) {
-                        ret +=  this.squares[i][j].piece.symbol + "   ";
-                    }
-                    else{
-                        ret += "    ";
-                    }
-                }
-                ret+="\n";
-            }
-            ret+="   ";
-            for(int i = 0; i<4; i++)
-                ret+= x_axis[i] + "  " + (x_axis[i].length()>1?"":" ");
-                
-            return ret;
-        }
-    
-        public ArrayList<SquareForSending> getSectionState(ArrayList<Square> selectedList){
-            ArrayList<SquareForSending> list = new ArrayList<>();
-    
-            for(int i = 0; i< 4; i++){
-                for(int j = 0; j<4; j++){
-                    if(selectedList.indexOf(squares[i][j])>=0){
-                        list.add(squares[i][j].getSquareState(true));
-                    }
-                    else{
-                        list.add(squares[i][j].getSquareState(false));
-                    }
-                }
-            }
-    
-            return list;
-        }
-
-    }
-
     
 }
 

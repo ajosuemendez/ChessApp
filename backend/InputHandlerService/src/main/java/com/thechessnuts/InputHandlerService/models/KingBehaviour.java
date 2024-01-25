@@ -2,7 +2,7 @@ package com.thechessnuts.InputHandlerService.models;
 
 import java.util.ArrayList;
 
-public class KingBehaviour extends PieceBehaviour{
+class KingBehaviour extends PieceBehaviour{
 
     KingBehaviour(){
         this.symbol = "K";
@@ -10,7 +10,7 @@ public class KingBehaviour extends PieceBehaviour{
     }
     
     @Override
-    public ArrayList<Square> getMoves(AbstractChessBoard board, Piece piece){
+    ArrayList<Square> getMoves(AbstractChessBoard board, Piece piece){
         ArrayList<Square> list = new ArrayList<>();
 
         String[] directions = {"up", "left", "down", "right", "topLeft", "topRight", "bottomLeft", "bottomRight"};

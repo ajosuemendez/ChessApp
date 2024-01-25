@@ -1,6 +1,6 @@
 package com.thechessnuts.InputHandlerService.models;
 
-public class Move {
+class Move {
     Square from;
     Square to;
     Piece movedPiece;
@@ -47,6 +47,7 @@ public class Move {
         this.takenPiece = this.to.piece;
     }
     
+    @Override
     public String toString(){
         String ret = "";
         if(movedPiece!=null){

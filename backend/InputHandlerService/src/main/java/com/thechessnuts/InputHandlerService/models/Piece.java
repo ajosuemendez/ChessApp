@@ -3,9 +3,9 @@ package com.thechessnuts.InputHandlerService.models;
 import java.util.ArrayList;
 
 /**
-Class to represent a piece (any kind) - this class should be extended to represent pawn, bishop etc.
+Class to represent a piece (any kind) - this class should be extended to represent pawn, bishop etc. using the behaviour class
  */
-public class Piece
+class Piece
 {
     boolean check;
     PieceBehaviour pieceBehaviour;
@@ -32,7 +32,7 @@ public class Piece
     }
 
 
-    public ArrayList<Square> allMoves(){
+    ArrayList<Square> allMoves(){
 
         ArrayList<Square> list = this.pieceBehaviour.getMoves(this.board, this);
 
@@ -48,21 +48,21 @@ public class Piece
         return list;
     }
   
-    public String getSymbol(){ return this.symbol;}
+    String getSymbol(){ return this.symbol;}
 
-    public void setSquare(Square square){this.square = square;}
+    void setSquare(Square square){this.square = square;}
 
-    public Square getSquare(){ return this.square;}
+    Square getSquare(){ return this.square;}
 
-    public Player.colors getColor(){ return this.player.color;}
+    Player.colors getColor(){ return this.player.color;}
 
-    public boolean isSelected(){return this.selected;}
+    boolean isSelected(){return this.selected;}
 
-    public void deselct(){this.selected = false;}
+    void deselct(){this.selected = false;}
 
-    public void select(){this.selected = true;}
+    void select(){this.selected = true;}
 
-    public void setChecked(boolean check){
+    void setChecked(boolean check){
         this.check = check;
     }
 }

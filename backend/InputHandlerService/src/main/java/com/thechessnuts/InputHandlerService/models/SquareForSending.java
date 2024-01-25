@@ -1,15 +1,15 @@
 package com.thechessnuts.InputHandlerService.models;
 
-public class SquareForSending {
+class SquareForSending {
     private String id;
     private String piece;
-    public boolean isValid;
-    public boolean isChecked;
+    boolean isValid;
+    boolean isChecked;
 
-    public SquareForSending() {
+    SquareForSending() {
     }
 
-    public SquareForSending(String id, String piece, boolean isValid, boolean isChecked) {
+    SquareForSending(String id, String piece, boolean isValid, boolean isChecked) {
         this.id = id;
         this.piece = piece;
         this.isValid = isValid;
@@ -17,18 +17,19 @@ public class SquareForSending {
     }
 
 
-    public String getId() {
+    String getId() {
         return this.id;
     }
 
-    public String getPiece() {
+    String getPiece() {
         return this.piece;
     }
 
-    public boolean getIsValid() {
+    boolean getIsValid() {
         return this.isValid;
     }
 
+    @Override
     public String toString(){
         String ret = "\n{"; 
         ret += "id: " + this.id;
