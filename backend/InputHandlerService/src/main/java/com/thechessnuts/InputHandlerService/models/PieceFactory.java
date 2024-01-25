@@ -1,15 +1,23 @@
 package com.thechessnuts.InputHandlerService.models;
 
-public abstract class PieceFactory {
+public class PieceFactory {
     AbstractChessBoard board;
     Player player;
+    PieceBehaviour pieceBehaviour;
 
-    public PieceFactory(AbstractChessBoard board, Player player){
+    public PieceFactory(AbstractChessBoard board, Player player, PieceBehaviour pieceBehaviour){
         this.board = board;
         this.player = player;
+        this.pieceBehaviour = pieceBehaviour;
     }
 
 
-    abstract Piece createPiece(String squareLabel);
+    Piece createPiece(String squareLabel) {
+        Piece piece = new Piece(board, player, this.pieceBehaviour);
+        piece.setSquare(this.board.getSquareAt(squareLabel));
+        this.board.getSquareAt(squareLabel).setPiece(piece);
+
+        return piece;
+    }
     
 }

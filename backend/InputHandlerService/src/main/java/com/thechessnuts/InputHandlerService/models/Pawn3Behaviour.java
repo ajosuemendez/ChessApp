@@ -2,7 +2,12 @@ package com.thechessnuts.InputHandlerService.models;
 
 import java.util.ArrayList;
 
-public class Pawn3Behaviour implements PieceBehaviour{
+public class Pawn3Behaviour extends PieceBehaviour{
+
+    Pawn3Behaviour(){
+        this.symbol = "";
+        this.name = "pawn";
+    }
 
     @Override
     public ArrayList<Square> getMoves(AbstractChessBoard board, Piece piece){

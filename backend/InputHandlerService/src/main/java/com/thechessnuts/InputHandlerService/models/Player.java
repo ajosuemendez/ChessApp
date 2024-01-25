@@ -9,7 +9,7 @@ public class Player implements Serializable
 
     boolean eliminated;
 
-    King king;
+    Piece king;
     String name;
     int clock;
 
@@ -63,7 +63,7 @@ public class Player implements Serializable
         return this.name;
     }
 
-    public void setKing(King king){
+    public void setKing(Piece king){
         this.king = king;
     }
 

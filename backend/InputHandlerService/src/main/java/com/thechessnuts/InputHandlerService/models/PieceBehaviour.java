@@ -4,6 +4,19 @@ package com.thechessnuts.InputHandlerService.models;
  */
 import java.util.ArrayList;
 
-interface PieceBehaviour {
+abstract class PieceBehaviour {
     abstract ArrayList<Square> getMoves(AbstractChessBoard board, Piece piece);
+
+    boolean started = false; 
+    boolean crossedBorder = false;
+    String symbol;
+    String name;
+
+    String getName(){
+        return this.name;
+    }
+
+    String getSymbol(){
+        return this.symbol;
+    }
 }

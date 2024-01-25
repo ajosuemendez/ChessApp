@@ -6,6 +6,8 @@ import java.util.stream.IntStream;
 
 public class Chess3Board extends AbstractChessBoard{
 
+    private Chess3Initializer initializer;
+    ChecksManager checksManager;
     static String[][][] gridReferences = {
 
             {
@@ -42,16 +44,9 @@ public class Chess3Board extends AbstractChessBoard{
     public Chess3Section[] sections;
 
     public Chess3Board() {
-
         this.navigation = new Chess3Navigation(this);
-        sections = new Chess3Section[6];
-
-        IntStream.range(0, 6).forEach(i -> {
-            String[] rowValues = gridReferences[i][0];
-            String[] colValues = gridReferences[i][1];
-
-            sections[i] = new Chess3Section(rowValues, colValues, this);
-        });
+        this.initializer = new Chess3Initializer(this);
+        this.checksManager = new ChecksManager(this);
     }
 
     @Override
@@ -65,70 +60,6 @@ public class Chess3Board extends AbstractChessBoard{
         }
         return null;
     }
-
-    public void initialBoardSetup(Chess3Settings settings){
-
-        for(int playerNumber = 1; playerNumber <4; playerNumber++){
-
-            Player player;
-
-            switch (playerNumber) {
-                case 1:
-                    player = settings.playerBlack;
-                    break;
-
-                case 2:
-                    player = settings.playerWhite;
-                    break;
-            
-                case 3:
-                    player = settings.playerYellow;
-                    break;
-            
-                default:
-                    player = settings.playerWhite;
-                    break;
-            }
-            
-
-            int queenSide = 2*(playerNumber-1);                                   /*Queen's Side*/
-            int kingSide = queenSide+1;                                          /*King's  Side*/
-            
-            //PAWNS
-            PawnFactory pawnFactory = new PawnFactory(this, player);
-
-            for(int i = 0; i<4;i++){
-                pawnFactory.createPiece(this.sections[queenSide].squares[i][2].label);
-                pawnFactory.createPiece(this.sections[kingSide].squares[2][i].label);
-            }
-
-            //ROOKS
-            RookFactory rookFactory = new RookFactory(this, player);
-
-            rookFactory.createPiece(this.sections[queenSide].squares[3][3].label);
-            rookFactory.createPiece(this.sections[kingSide].squares[3][3].label);
-
-            //KNIGHTS
-            KnightFactory knightFactory = new KnightFactory(this, player);
-
-            knightFactory.createPiece(this.sections[queenSide].squares[2][3].label);
-            knightFactory.createPiece(this.sections[kingSide].squares[3][2].label);
-
-            //BISHOPS
-            BishopFactory bishopFactory = new BishopFactory(this, player);
-
-            bishopFactory.createPiece(this.sections[queenSide].squares[1][3].label);
-            bishopFactory.createPiece(this.sections[kingSide].squares[3][1].label);
-
-            //QUEEN
-            QueenFactory queenFactory = new QueenFactory(this, player);
-            queenFactory.createPiece(this.sections[queenSide].squares[0][3].label);
-
-            //KING
-            KingFactory kingFactory = new KingFactory(this, player);
-            kingFactory.createPiece(this.sections[kingSide].squares[3][0].label);
-        }
-    }
     
     @Override
     public String toString(){
@@ -137,6 +68,17 @@ public class Chess3Board extends AbstractChessBoard{
         for(int i = 0; i<6; i++)
             ret+=sections[i]+"\n\n\n";
         return ret;
+    }
+    
+    public void initialise(Chess3Settings settings){
+        sections = new Chess3Section[6];
+        IntStream.range(0, 6).forEach(i -> {
+            String[] rowValues = gridReferences[i][0];
+            String[] colValues = gridReferences[i][1];
+
+            sections[i] = new Chess3Section(rowValues, colValues, this);
+        });
+        initializer.initialize(settings);
     }
 
     //----------------- clean code below -----------------------//
@@ -155,18 +97,15 @@ public class Chess3Board extends AbstractChessBoard{
     }
 
 
+
     public void makeMove(Move move){
-        for (Chess3Section section : sections) {
-            section.unmarkChecks();
-        }
+        checksManager.unmarkChecks();
         this.getSquareAt(move.to.label).setPiece(move.movedPiece);
         move.from.piece = null;
         if(move.movedPiece.symbol == ""){
             move.movedPiece.started = true;
         }
-        for (Chess3Section section : sections) {
-            section.markChecks();
-        }
+        checksManager.markChecks();
     }
 
     public ArrayList<SquareForSending> getBoardState(){
@@ -286,39 +225,6 @@ public class Chess3Board extends AbstractChessBoard{
             return list;
         }
 
-        private void unmarkChecks(){
-            for (Square[] arr: this.squares) {
-                for (Square square : arr) {
-                    if(square.piece!=null){
-                        square.piece.setChecked(false);
-                    }
-                }
-            }
-        }
-
-        private void markChecks(){
-
-            for (Square[] arr: this.squares) {
-                System.out.print("H");
-                for (Square square : arr) {
-                    if(square.piece!=null){
-                        ArrayList<Square> list = square.piece.allMoves();
-                        for (Square squareAttack : list) {
-                            if(squareAttack.piece != null){
-                                System.out.print("O");
-                                if(squareAttack.piece instanceof King && !squareAttack.piece.player.color.equals(square.piece.player.color)){
-                                    squareAttack.piece.setChecked(true);
-                                    System.out.println(squareAttack.piece.getColor()+"Check!");
-                                }
-                            }
-                            
-                        }
-                    }
-                    
-                }
-                
-            }
-        }
     }
 
     

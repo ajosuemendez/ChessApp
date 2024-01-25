@@ -38,7 +38,7 @@ public class Chess3Initializer{
             int kingSide = queenSide+1;                                          /*King's  Side*/
             
             //PAWNS
-            PawnFactory pawnFactory = new PawnFactory(board, player);
+            PieceFactory pawnFactory = new PieceFactory(board, player, new Pawn3Behaviour());
 
             for(int i = 0; i<4;i++){
                 pawnFactory.createPiece(board.sections[queenSide].squares[i][2].label);
@@ -46,29 +46,29 @@ public class Chess3Initializer{
             }
 
             //ROOKS
-            RookFactory rookFactory = new RookFactory(board, player);
+            PieceFactory rookFactory = new PieceFactory(board, player, new RookBehaviour());
 
             rookFactory.createPiece(board.sections[queenSide].squares[3][3].label);
             rookFactory.createPiece(board.sections[kingSide].squares[3][3].label);
 
             //KNIGHTS
-            KnightFactory knightFactory = new KnightFactory(board, player);
+            PieceFactory knightFactory = new PieceFactory(board, player, new KnightBehaviour());
 
             knightFactory.createPiece(board.sections[queenSide].squares[2][3].label);
             knightFactory.createPiece(board.sections[kingSide].squares[3][2].label);
 
             //BISHOPS
-            BishopFactory bishopFactory = new BishopFactory(board, player);
+            PieceFactory bishopFactory = new PieceFactory(board, player, new BishopBehaviour());
 
             bishopFactory.createPiece(board.sections[queenSide].squares[1][3].label);
             bishopFactory.createPiece(board.sections[kingSide].squares[3][1].label);
 
             //QUEEN
-            QueenFactory queenFactory = new QueenFactory(board, player);
+            PieceFactory queenFactory = new PieceFactory(board, player, new QueenBehaviour());
             queenFactory.createPiece(board.sections[queenSide].squares[0][3].label);
 
             //KING
-            KingFactory kingFactory = new KingFactory(board, player);
+            PieceFactory kingFactory = new PieceFactory(board, player, new KingBehaviour());
             kingFactory.createPiece(board.sections[kingSide].squares[3][0].label);
         }
     }

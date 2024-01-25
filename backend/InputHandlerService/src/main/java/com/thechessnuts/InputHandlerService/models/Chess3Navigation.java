@@ -178,9 +178,13 @@ public class Chess3Navigation extends AbstractChessNavigation{
         boolean borderWasCrossed = false;
         
         Square checkingSquare = board.navigation.getSquareBelow(square);
+        
 
         while(checkingSquare!=null){
             list.add(checkingSquare);
+            if(square.label.charAt(0) <= 'd' && (square.label.charAt(1) == '4' || square.label.charAt(1) == '5')){
+                borderWasCrossed = true;
+            }
             if (checkingSquare.isEmpty()){
                 if(borderWasCrossed){
                     checkingSquare = board.navigation.getSquareAbove(checkingSquare);

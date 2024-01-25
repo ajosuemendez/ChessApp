@@ -2,7 +2,12 @@ package com.thechessnuts.InputHandlerService.models;
 
 import java.util.ArrayList;
 
-public class RookBehaviour implements PieceBehaviour{
+public class RookBehaviour extends PieceBehaviour{
+
+    RookBehaviour(){
+        this.symbol = "R";
+        this.name = "rook";
+    }
 
     @Override
     public ArrayList<Square> getMoves(AbstractChessBoard board, Piece piece){

@@ -2,7 +2,12 @@ package com.thechessnuts.InputHandlerService.models;
 
 import java.util.ArrayList;
 
-public class BishopBehaviour implements PieceBehaviour {    
+public class BishopBehaviour extends PieceBehaviour {   
+    
+    BishopBehaviour(){
+        this.symbol = "B";
+        this.name = "bishop";
+    }
 
 
     @Override

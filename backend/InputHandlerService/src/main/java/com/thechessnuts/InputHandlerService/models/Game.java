@@ -3,6 +3,7 @@ package com.thechessnuts.InputHandlerService.models;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Game {
     
     public Chess3Settings settings;
@@ -10,21 +11,17 @@ public class Game {
     public Player activePlayer;
     public MoveHistory moveHistory;
     public String id;
-    private Chess3Initializer initializer;
 
     public Game(){
         this.moveHistory = new MoveHistory();
         this.board = new Chess3Board();
         this.settings = new Chess3Settings();
         this.id = "";
-        if(settings.gameMode == Chess3Settings.gameModes.CLASSIC){
-            this.initializer = new Chess3Initializer(this.board);
-        }
     }
 
     public void newGame(){
-        this.initializer.initialize(settings);
         activePlayer = settings.playerWhite;
+        this.board.initialise(settings);
     }
 
     public void loadGame(MoveHistory moveHistory, Chess3Settings settings){
@@ -83,6 +80,30 @@ public class Game {
         this.nextTurn();
     }
 
+    public void undoLastMove(){
+        moveHistory.undoLastMove();
+        List<String> currentMoves = this.moveHistory.get(); 
+
+        board = new Chess3Board();
+        this.board.initialise(settings);
+
+        for(int i = 0; i<currentMoves.size(); i++){
+            Move newMove = new Move(currentMoves.get(i), board);
+            this.board.makeMove(newMove);
+        }
+        board.checksManager.markChecks();
+    }
+
+     public void redoLastUndo(){
+        board.checksManager.unmarkChecks();
+        moveHistory.redoLastUndo();
+        Move newMove = new Move(moveHistory.get().get(moveHistory.get().size()-1), board);
+        
+        this.board.makeMove(newMove);
+        board.checksManager.markChecks();
+    }
+    
+
     public ArrayList<SquareForSending> getBoardState(){
         return board.getBoardState();
     }
@@ -114,24 +135,4 @@ public class Game {
     }
 
     public void setSettings(){}
-
-    public void undoLastMove(){
-        moveHistory.undoLastMove();
-        List<String> currentMoves = this.moveHistory.get(); 
-
-        board = new Chess3Board();
-        this.initializer.initialize(settings);
-
-        for(int i = 0; i<currentMoves.size(); i++){
-            Move newMove = new Move(currentMoves.get(i), board);
-            this.executeMove(newMove);
-        }
-    }
-
-     public void redoLastUndo(){
-
-        /*TODO : Implement function for redos */
-    }
-
-
 }

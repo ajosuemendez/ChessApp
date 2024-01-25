@@ -2,7 +2,12 @@ package com.thechessnuts.InputHandlerService.models;
 
 import java.util.ArrayList;
 
-public class KnightBehaviour implements PieceBehaviour {
+public class KnightBehaviour extends PieceBehaviour {
+
+    KnightBehaviour(){
+        this.symbol = "N";
+        this.name = "knight";
+    }
     
     @Override
     public ArrayList<Square> getMoves(AbstractChessBoard board, Piece piece){

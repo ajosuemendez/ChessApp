@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
 Class to represent a piece (any kind) - this class should be extended to represent pawn, bishop etc.
  */
-public abstract class Piece
+public class Piece
 {
     boolean check;
     PieceBehaviour pieceBehaviour;
@@ -25,7 +25,10 @@ public abstract class Piece
         this.board = board;
         this.player = player;
         this.selected = false;
-        this.name = player.color.toString().toLowerCase()+'-'; 
+        this.started = false; // Check if piece has made first move
+        this.crossedBorder = false;
+        this.name = player.color.toString().toLowerCase()+'-'+pieceBehaviour.getName(); 
+        this.symbol = pieceBehaviour.getSymbol();
     }
 
 
