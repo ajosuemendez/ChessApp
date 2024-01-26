@@ -1,79 +1,47 @@
-/*
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
-#
-#    You should have received a copy of the GNU General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/*
- * Authors:
- * Mateusz Sławomir Lach ( matlak, msl )
- * Damian Marciniak
- */
 package com.thechessnuts.InputHandlerService.models;
 
 import java.io.Serializable;
-
-
 /**
  * Class representing the player in the game
  */
-public class Player implements Serializable
+class Player implements Serializable
 {
-
+    boolean eliminated;
+    Piece king;
     String name;
+    int clock;
 
-    public colors getColor() {
+    colors getColor() {
         return color;
-    }
-
-    public playerTypes getPlayerType() {
-        return playerType;
-    }
-
-    public boolean isGoDown() {
-        return goDown;
     }
 
     enum colors
     {
-
-        WHITE, BLACK, YELLOW
+        WHITE, BLACK, YELLOW, ELIMINATED
     }
     colors color;
 
-    public enum playerTypes
+    Player()
     {
-
-        localUser, networkUser, computer
-    }
-    public playerTypes playerType;
-    boolean goDown;
-
-    public Player()
-    {
+        this.clock = 600;
+        this.eliminated = false;
+        this.king = null;
         this.color = colors.YELLOW;
     }
 
-    public Player(String name, String color)
+    Player(String name, String color)
     {
+        this.king = null;
+        this.clock = 600;
+        this.eliminated = false;
         this.name = name;
         this.color = colors.valueOf(color);
-        this.goDown = false;
     }
 
     /** Method setting the players name
      *  @param name name of player
      */
-    public void setName(String name)
+    void setName(String name)
     {
         this.name = name;
     }
@@ -86,11 +54,14 @@ public class Player implements Serializable
         return this.name;
     }
 
-    /** Method setting the players type
-     *  @param type type of player - enumerate
+    /** Method setting the players king
+     *  @param king king of player
      */
-    public void setType(playerTypes type)
-    {
-        this.playerType = type;
+    void setKing(Piece king){
+        this.king = king;
+    }
+
+    void eliminate(){
+        this.eliminated = true;
     }
 }

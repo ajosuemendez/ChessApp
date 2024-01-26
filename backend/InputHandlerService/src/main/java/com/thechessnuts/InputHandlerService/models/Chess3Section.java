@@ -2,30 +2,32 @@ package com.thechessnuts.InputHandlerService.models;
 
 import java.util.ArrayList;
 
-public class Chess3Section {
-    public Square[][] squares;//squares of chessboard
+class Chess3Section {
+    Square[][] squares;//squares of chessboard
     //The top left corner(pos 0,0) is always the square at the center rosette
 
     protected Chess3Board board;
     protected String[] x_axis, y_axis;
 
-    public Square[][] getSquares() {
+    Square[][] getSquares() {
         return squares;
     }
 
-    public Chess3Board getBoard() {
+    Chess3Board getBoard() {
         return board;
     }
 
-    public String[] getX_axis() {
+    String[] getX_axis() {
         return x_axis;
     }
 
-    public String[] getY_axis() {
+    String[] getY_axis() {
         return y_axis;
     }
 
-    public Chess3Section(String[] x_axis, String[] y_axis, Chess3Board board) {
+
+    //CLEAN THE CODE HERE!!!!!!!!!!!!!! IT IS DISGUSTING
+    Chess3Section(String[] x_axis, String[] y_axis, Chess3Board board) {
 
         if (board.equals(null)){
             throw new NullPointerException("Board is Null!!");
@@ -45,11 +47,11 @@ public class Chess3Section {
 
         for (int i = 0; i < 4; i++)
             for (int j = 0; j < 4; j++)
-                this.squares[i][j] = new Square(x_axis[j] + y_axis[i], this);
+                this.squares[i][j] = new Square(x_axis[j] + y_axis[i]);
 
     }
 
-    public Square getSquare(String label){
+    Square getSquareAt(String label){
         for(int i = 0; i < 4; i++)
             for(int j = 0; j < 4; j++)
                 if(squares[j][i].label.equals(label))
@@ -79,7 +81,7 @@ public class Chess3Section {
         return ret;
     }
 
-    public ArrayList<SquareForSending> getSectionState(ArrayList<Square> selectedList){
+    ArrayList<SquareForSending> getSectionState(ArrayList<Square> selectedList){
         ArrayList<SquareForSending> list = new ArrayList<>();
 
         for(int i = 0; i< 4; i++){
@@ -95,4 +97,5 @@ public class Chess3Section {
 
         return list;
     }
+
 }

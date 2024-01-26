@@ -2,16 +2,13 @@ package com.thechessnuts.InputHandlerService.models;
 /**
  * Class to represent a chess board square
  */
-public class Square
+class Square
 {
     String label;
     Piece piece = null;
-    Chess3Section section;
 
-    Square(String label, Chess3Section section)
+    Square(String label)
     {
-
-        this.section = section;
         if(label.charAt(0)>= 'a' &&label.charAt(0)<='l') {
             this.label = label;
         }
@@ -20,33 +17,30 @@ public class Square
         }
     }
 
-    public Square(String label){
-        this.label = label;
-    }
-
-    public void setPiece(Piece piece)
+    void setPiece(Piece piece)
     {
         this.piece = piece;
-        this.piece.square = this;
+        piece.square = this;
     }
 
-
+    @Override
     public String toString(){
         return this.label;
     }
 
-    public boolean isEmpty(){
+    boolean isEmpty(){
         return this.piece==null;
     }
 
-    public SquareForSending getSquareState(boolean isSelected){
-        return new SquareForSending(this.label, this.piece==null?"":this.piece.name, isSelected);
+    SquareForSending getSquareState(boolean isSelected){
+        return new SquareForSending(this.label, this.piece==null?"":this.piece.name, isSelected, this.piece==null?false:(this.piece.name.equals("king")&&this.piece.check));
     }
     
-    public boolean isAtBorder(){
+    boolean isAtBorder(){
         if(label.charAt(0)<= 'd' && (label.charAt(1)=='4' || label.charAt(1)=='5')){
             return true;
         }
         return false;
     }
+
 }

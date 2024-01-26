@@ -20,17 +20,14 @@ public class InputHandlerController{
     @RequestMapping("/gameId={gameId}")
     @CrossOrigin(origins = "http://localhost:3000")
      public List<SquareForSending> getNewGame(@PathVariable("gameId") String gameId) {
-        System.out.println(gameId);
-         System.out.println(i);
         if(i==-1){
-            game.gameID = "#24567d";
+            //game.getId() = "#24567d";
             game.newGame();
             i++;
         }
         else{
                 game.handleEvent(gameId);
                 i++;
-            
         }
 
         return game.getBoardState();
