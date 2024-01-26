@@ -1,7 +1,6 @@
-package GameSessionService.src.main.java.com.thechessnuts.GameSessionService.controllers;
-import  com.thechessnuts.GameSessionService.models.Square;
-import  com.thechessnuts.GameSessionService.models.SquareForSending;
-import  com.thechessnuts.GameSessionService.models.Game;
+package com.thechessnuts.gamesessionservice.controllers;
+import  com.thechessnuts.gamesessionservice.models.SquareForSending;
+import  com.thechessnuts.gamesessionservice.models.Game;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
