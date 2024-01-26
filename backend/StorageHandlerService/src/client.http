@@ -1,7 +1,7 @@
-GET http://localhost:8080/database/games/1
+GET http://localhost:8082/database/games/4
 
 ###
-POST http://localhost:8080/database/games/
+POST http://localhost:8082/database/games/
 content-type: application/json
 
 {
@@ -11,7 +11,7 @@ content-type: application/json
 }
 
 ###
-PUT http://localhost:8080/database/games/4
+PUT http://localhost:8082/database/games/4
 content-type: application/json
 
 {
@@ -20,4 +20,4 @@ content-type: application/json
 }
 
 ###
-DELETE http://localhost:8080/database/games/1
+DELETE http://localhost:8082/database/games/1
