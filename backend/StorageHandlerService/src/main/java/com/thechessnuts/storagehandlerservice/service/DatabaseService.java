@@ -1,8 +1,8 @@
-package com.thechessnuts.StorageHandlerService.service;
+package com.thechessnuts.storagehandlerservice.service;
 
-import com.thechessnuts.StorageHandlerService.databases.IDatabase;
-import com.thechessnuts.StorageHandlerService.models.BaseEntity;
-import com.thechessnuts.StorageHandlerService.models.GameEntity;
+import com.thechessnuts.storagehandlerservice.databases.IDatabase;
+import com.thechessnuts.storagehandlerservice.models.BaseEntity;
+import com.thechessnuts.storagehandlerservice.models.GameEntity;
 import org.springframework.stereotype.Service;
 
 @Service

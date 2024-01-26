@@ -1,4 +1,4 @@
-package com.thechessnuts.StorageHandlerService.models;
+package com.thechessnuts.storagehandlerservice.models;
 
 public class BaseEntity {
 

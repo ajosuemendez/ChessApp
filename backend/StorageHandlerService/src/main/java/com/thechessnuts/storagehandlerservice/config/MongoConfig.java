@@ -1,4 +1,4 @@
-package com.thechessnuts.StorageHandlerService.config;
+package com.thechessnuts.storagehandlerservice.config;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;

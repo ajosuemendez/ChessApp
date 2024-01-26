@@ -1,8 +1,8 @@
-package com.thechessnuts.StorageHandlerService.databases;
+package com.thechessnuts.storagehandlerservice.databases;
 
 // Entities
-import com.thechessnuts.StorageHandlerService.models.BaseEntity;
-import com.thechessnuts.StorageHandlerService.models.GameEntity;
+import com.thechessnuts.storagehandlerservice.models.BaseEntity;
+import com.thechessnuts.storagehandlerservice.models.GameEntity;
 
 // MongoAPIs
 import org.springframework.data.mongodb.core.MongoTemplate;

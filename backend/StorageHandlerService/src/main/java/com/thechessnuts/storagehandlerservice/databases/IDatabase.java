@@ -1,6 +1,6 @@
-package com.thechessnuts.StorageHandlerService.databases;
+package com.thechessnuts.storagehandlerservice.databases;
 
-import com.thechessnuts.StorageHandlerService.models.BaseEntity;
+import com.thechessnuts.storagehandlerservice.models.BaseEntity;
 
 public interface IDatabase<T extends BaseEntity> {
     T saveEntity(T entity);

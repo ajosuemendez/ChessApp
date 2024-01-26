@@ -1,4 +1,4 @@
-package com.thechessnuts.StorageHandlerService.controllers;
+package com.thechessnuts.storagehandlerservice.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,14 +14,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 
 
-import com.thechessnuts.StorageHandlerService.service.DatabaseService;
-import com.thechessnuts.StorageHandlerService.databases.GenericDatabase;
-import com.thechessnuts.StorageHandlerService.databases.MongoDatabaseCreator;
-import com.thechessnuts.StorageHandlerService.models.BaseEntity;
-import com.thechessnuts.StorageHandlerService.models.GameEntity;
+import com.thechessnuts.storagehandlerservice.service.DatabaseService;
+import com.thechessnuts.storagehandlerservice.databases.GenericDatabase;
+import com.thechessnuts.storagehandlerservice.databases.MongoDatabaseCreator;
+import com.thechessnuts.storagehandlerservice.models.BaseEntity;
+import com.thechessnuts.storagehandlerservice.models.GameEntity;
 
 // Config
-import com.thechessnuts.StorageHandlerService.config.MongoConfig;
+import com.thechessnuts.storagehandlerservice.config.MongoConfig;
 
 
 @RestController
