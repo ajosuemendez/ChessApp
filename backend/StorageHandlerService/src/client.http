@@ -1,7 +1,10 @@
 GET http://10.0.2.15:8082/games/4 
 
 ###
-GET http://10.0.2.15:9090/games/1
+GET http://10.0.2.15:8080/games/1
+
+###
+GET http://10.0.2.15:8080/gameId=h11
 
 ###
 GET http://10.0.2.15:8082/games/test
