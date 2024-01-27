@@ -51,4 +51,12 @@ public class TestController {
         List<SquareForSending> res = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<SquareForSending>>() {}).getBody();
         return res;
     }
+
+    @RequestMapping("/creategame")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public String CreateGame() {
+        String res = restTemplate.getForObject("http://game-initialisation-service/creategame", String.class);
+        return res;
+    }
+
 }

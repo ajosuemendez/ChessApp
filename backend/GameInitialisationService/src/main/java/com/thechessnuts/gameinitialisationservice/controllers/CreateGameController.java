@@ -1,4 +1,4 @@
-package com.thechessnuts.inputhandlerservice.controllers;
+package com.thechessnuts.gameinitialisationservice.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,13 +10,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/")
-public class InputHandlerController{
+public class CreateGameController{
     
-
-    @RequestMapping("/gameId={gameId}")
-    @CrossOrigin(origins = "http://localhost:3000")
-    
-    public void getNewGame(@PathVariable("gameId") String gameId) {
-    
+    @RequestMapping("/creategame")
+    public String CreateGame() {
+        return "Returning the Game ID: 1 and Password: 12";
     }
 }
