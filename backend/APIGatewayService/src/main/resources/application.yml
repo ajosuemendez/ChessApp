@@ -1,0 +1,70 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: storage-service-route
+          uri: lb://storage-service
+          predicates:
+            - Path=/storage-service/**
+
+
+# server:
+#   port: 9090
+
+# spring:
+#   application:
+#     name: api-gateway
+
+#   cloud:
+#     gateway:
+#       discovery:
+#         locator:spring:
+
+#           enable: true
+#       routes:
+#       - id: storage-service
+#         uri: lb://STORAGE-SERVICE
+#         predicates:
+#           - Path=/games/**
+
+# spring:
+#   cloud:
+#     gateway:
+#       discovery:
+#         locator:
+#           enabled: true
+#           lower-case-service-id: true
+
+# spring:
+#   cloud:
+#     gateway:
+#       routes:
+#         - id: storage-service
+#           uri: lb://STORAGE-SERVICE
+
+# management:
+#   endpoints:
+#     web:
+#       exposure:
+#         include: gateway
+
+
+# spring:
+#   cloud:
+#     gateway:
+#       routes:
+#       - id: storage-service
+#         uri: http://localhost:8082
+#         predicates:
+#         - Path=/games/**
+# management:
+#   endpoints:
+#     web:
+#       exposure:
+#         include: "*"
