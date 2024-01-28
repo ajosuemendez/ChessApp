@@ -80,16 +80,16 @@ class Chess3Board extends Board{
         Chess3Initializer.initialize(this, settings);
     }
 
-    void wallify(){
+    void markDeaths(){
 
-        PieceFactory wallFactory = new PieceFactory(new Player("", "ELIMINATED"), new WallBehaviour());
+        PieceFactory skullFactory = new PieceFactory(new Player("", "ELIMINATED"), new SkullBehaviour());
 
         for (Chess3Section section : sections) {
             for (Square[] squareArr : section.squares) {
                 for (Square square : squareArr) {
                     if (square.piece!=null){
                         if(square.piece.player.eliminated){
-                            square.setPiece(wallFactory.createPiece(this, square.label));
+                            square.setPiece(skullFactory.createPiece(this, square.label));
                         }
                     }
                 }
@@ -117,12 +117,11 @@ class Chess3Board extends Board{
         move.to.setPiece(move.movedPiece);
         move.from.setPiece(null);
         move.movedPiece.moveCounter++;
-        if(move.movedPiece.symbol == ""){
-            move.movedPiece.started = true;
+        move.movedPiece.started = true;
+        if(move.movedPiece.getSymbol().equals("")){
             if(!Chess3Board.navigation.getSquaresAdjacent(this, move.from).containsValue(move.to)){
                 move.movedPiece.moveCounter++;
             }
-
             if(move.movedPiece.moveCounter == 6){
                 move.to.setPiece(new Piece(move.movedPiece.player, new MortyBehaviour()));
             }

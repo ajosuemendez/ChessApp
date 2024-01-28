@@ -41,10 +41,7 @@ class Move {
             ret+= movedPiece.getSymbol();
         }
         ret+= from.toString() + "-";
-
-        // if(promotedTo!=null){
-        //     ret+= promotedTo.getSymbol();
-        // }
+        
         ret+= to.toString();
         return ret;
     }

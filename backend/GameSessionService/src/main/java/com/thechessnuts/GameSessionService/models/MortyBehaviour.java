@@ -29,13 +29,13 @@ public class MortyBehaviour extends PieceBehaviour {
             if(directedSquare==null){
                 continue;
             }
-            Square jumpSquare = board.getNavigation().getSquareAbove(board, board.getNavigation().getSquareAbove(board, directedSquare));
+            Square jumpOverSquare = board.getNavigation().getSquaresAdjacent(board, directedSquare).get(direction); 
+            Square jumpSquare = board.getNavigation().getSquaresAdjacent(board, jumpOverSquare).get(direction); 
             if(jumpSquare!=null){
                 list.add(jumpSquare);
             }
         }
         return list;
-        
     }
     
 }

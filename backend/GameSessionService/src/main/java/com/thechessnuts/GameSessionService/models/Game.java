@@ -27,6 +27,16 @@ public class Game {
     void loadGame(MoveHistory moveHistory, Chess3Settings settings){
         this.settings = settings;
         this.moveHistory = moveHistory;
+
+        this.board.initialise(settings);
+
+        for(int i = 0; i<moveHistory.get().size(); i++){
+            Move newMove = new Move(moveHistory.get().get(i), board);
+            this.board.makeMove(newMove);
+            this.nextTurn();
+        }
+
+        board.checksMarker.markChecks(board);
     }
 
     void saveGame(){
@@ -132,7 +142,7 @@ public class Game {
             if(move.to.piece.getSymbol().equals("K")){
                 move.to.piece.player.eliminate();
                 System.out.println("PLAYER " + move.to.piece.player.color + " WAS ELIMINATED!");
-                this.board.wallify();
+                this.board.markDeaths();
             }
         }
 

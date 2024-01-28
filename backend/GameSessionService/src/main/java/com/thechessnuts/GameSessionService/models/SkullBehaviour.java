@@ -2,11 +2,11 @@ package com.thechessnuts.gamesessionservice.models;
 
 import java.util.ArrayList;
 
-class WallBehaviour extends PieceBehaviour {
+class SkullBehaviour extends PieceBehaviour {
     
-    WallBehaviour(){
-        this.symbol = "W";
-        this.name = "wall";
+    SkullBehaviour(){
+        this.symbol = "S";
+        this.name = "skull";
     }
 
     @Override
