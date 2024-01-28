@@ -5,7 +5,6 @@ public class Main {
         Game g = new Game();
         g.setPlayers(new Player("PLayer-One", "WHITE"), new Player("Player-Two", "BLACK"),  new Player("Player-Three", "YELLOW"));
         g.newGame();
-        g.board.selectPiece("h11");
         return;
     }
 }

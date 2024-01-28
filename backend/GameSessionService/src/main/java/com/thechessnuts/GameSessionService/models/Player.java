@@ -9,7 +9,6 @@ class Player implements Serializable
     boolean eliminated;
     Piece king;
     String name;
-    int clock;
 
     colors getColor() {
         return color;
@@ -23,7 +22,6 @@ class Player implements Serializable
 
     Player()
     {
-        this.clock = 600;
         this.eliminated = false;
         this.king = null;
         this.color = colors.YELLOW;
@@ -32,7 +30,6 @@ class Player implements Serializable
     Player(String name, String color)
     {
         this.king = null;
-        this.clock = 600;
         this.eliminated = false;
         this.name = name;
         this.color = colors.valueOf(color);

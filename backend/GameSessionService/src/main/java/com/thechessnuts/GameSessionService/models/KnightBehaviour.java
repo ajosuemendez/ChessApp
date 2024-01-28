@@ -10,15 +10,16 @@ class KnightBehaviour extends PieceBehaviour {
     }
     
     @Override
-    ArrayList<Square> getMoves(Board board, Piece piece){
+    ArrayList<Square> getMoves(Board board, Square square){
         
         ArrayList<Square> list = new ArrayList<>();
+        BoardNavigation navigation = board.getNavigation();
 
         String[] directions = {"up", "left", "down", "right"};
 
         for(String direction : directions){
 
-            Square adjacentSquare = board.navigation.getSquaresAdjacent(piece.getSquare()).get(direction);
+            Square adjacentSquare = navigation.getSquaresAdjacent(board, square).get(direction);
 
             if(adjacentSquare == null)
                 continue;
@@ -27,11 +28,11 @@ class KnightBehaviour extends PieceBehaviour {
 
             //ABOVE
             if(direction.equals("up")){
-                secondStep = board.navigation.getSquareAbove(adjacentSquare);
+                secondStep = navigation.getSquareAbove(board, adjacentSquare);
             }
             //LEFT
             else if(direction.equals("left")){
-                 secondStep = board.navigation.getSquareLeft(adjacentSquare);
+                 secondStep = navigation.getSquareLeft(board, adjacentSquare);
             }
             //BELOW 
             else if(direction.equals("down")){    
@@ -40,16 +41,16 @@ class KnightBehaviour extends PieceBehaviour {
                  */
 
                 if(adjacentSquare.isAtBorder()){
-                    secondStep = board.navigation.getSquareAbove(adjacentSquare);        
+                    secondStep = navigation.getSquareAbove(board, adjacentSquare);        
                 }
 
                 else{
-                    secondStep = board.navigation.getSquareBelow(adjacentSquare);
+                    secondStep = navigation.getSquareBelow(board, adjacentSquare);
                 }
             }
             //RIGHT
             else{
-                secondStep = board.navigation.getSquareRight(adjacentSquare);
+                secondStep = navigation.getSquareRight(board, adjacentSquare);
             }
 
             if(secondStep == null)
@@ -61,13 +62,13 @@ class KnightBehaviour extends PieceBehaviour {
 
             //ABOVE OR BELOW
             if(direction.equals("up") || direction.equals("down")){
-                thirdStepLeft = board.navigation.getSquareLeft(secondStep);
-                thirdStepRight = board.navigation.getSquareRight(secondStep);
+                thirdStepLeft = navigation.getSquareLeft(board, secondStep);
+                thirdStepRight = navigation.getSquareRight(board, secondStep);
             }
             //LEFT OR RIGHT
             else{
-                thirdStepLeft = board.navigation.getSquareAbove(secondStep);
-                thirdStepRight = board.navigation.getSquareBelow(secondStep);
+                thirdStepLeft = navigation.getSquareAbove(board, secondStep);
+                thirdStepRight = navigation.getSquareBelow(board, secondStep);
             
             }
 

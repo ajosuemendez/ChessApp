@@ -11,7 +11,6 @@ class PieceFactory {
         this.pieceBehaviour = pieceBehaviour;
     }
 
-
     Piece createPiece(String squareLabel) {
         Piece piece = new Piece(board, player, this.pieceBehaviour);
         piece.setSquare(this.board.getSquareAt(squareLabel));

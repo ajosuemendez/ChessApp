@@ -7,14 +7,14 @@ import java.util.List;
 public class Game {
     
     Chess3Settings settings;
-     Chess3Board board;
-     Player activePlayer;
-     MoveHistory moveHistory;
-     String id;
+    Chess3Board board;
+    Player activePlayer;
+    MoveHistory moveHistory;
+    String id;
 
     public Game(){
         this.moveHistory = new MoveHistory();
-        this.board = new Chess3Board();
+        this.board = new Chess3Board(Chess3Board.navigation);
         this.settings = new Chess3Settings();
         this.id = "";
     }
@@ -33,9 +33,9 @@ public class Game {
         String saveState = "";
 
         saveState += moveHistory.get() + "\n";
-        saveState += settings.playerWhite.name + "\n" + settings.playerWhite.clock + "\n";
-        saveState += settings.playerBlack.name + "\n" + settings.playerBlack.clock + "\n";
-        saveState += settings.playerYellow.name + "\n" + settings.playerYellow.clock + "\n";
+        saveState += settings.playerWhite.name + "\n";
+        saveState += settings.playerBlack.name + "\n";
+        saveState += settings.playerYellow.name + "\n";
 
         System.out.println(saveState);
     }
@@ -107,17 +107,17 @@ public class Game {
 
         if(clickedSquare.piece != null){
             if(clickedSquare.piece.player.color.equals(this.activePlayer.color)){
-                this.board.selectPiece(label);
+                this.board.selectSquare(label);
                 this.saveGame();
                 return;
             }
         }
        
-        if(this.board.selectedPiece != null){
-            if(this.board.selectedPiece.allMoves().contains(clickedSquare)){
-                this.executeMove(new Move(this.board.selectedPiece.square, clickedSquare, this.board.selectedPiece, clickedSquare.piece));
+        if(this.board.selectedSquare != null){
+            if(this.board.selectedSquare.getPiece().allMoves(board, board.selectedSquare).contains(clickedSquare)){
+                this.executeMove(new Move(this.board.selectedSquare, clickedSquare, this.board.selectedSquare.getPiece(), clickedSquare.piece));
             }
-            this.board.selectPiece("");
+            this.board.selectSquare("");
             this.saveGame();
             return;
         }
@@ -146,7 +146,7 @@ public class Game {
         if(successfulUndo){
             List<String> currentMoves = this.moveHistory.get(); 
 
-            board = new Chess3Board();
+            board = new Chess3Board(Chess3Board.navigation);
             this.board.initialise(settings);
 
             for(int i = 0; i<currentMoves.size(); i++){
@@ -156,11 +156,11 @@ public class Game {
             this.previousTurn();
         }
 
-        board.checksManager.markChecks();
+        board.checksMarker.markChecks(board);
     }
 
     private void redoLastUndo(){
-        board.checksManager.unmarkChecks();
+        board.checksMarker.unmarkChecks(board);
         boolean successfulRedo = moveHistory.redoLastUndo();
         
         if(successfulRedo){
@@ -169,7 +169,7 @@ public class Game {
             this.nextTurn();
         }
 
-        board.checksManager.markChecks();
+        board.checksMarker.markChecks(board);
     }
     
 
