@@ -17,8 +17,9 @@ class KingBehaviour extends PieceBehaviour{
 
         for(String direction : directions){
             Square directedSquare = board.getNavigation().getSquaresAdjacent(board, square).get(direction); 
-            if(directedSquare==null)
+            if(directedSquare==null){
                 continue;
+            }
             list.add(directedSquare);
         }
 

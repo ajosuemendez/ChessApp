@@ -20,7 +20,6 @@ public class Square
     void setPiece(Piece piece)
     {
         this.piece = piece;
-        piece.square = this;
     }
 
     @Override

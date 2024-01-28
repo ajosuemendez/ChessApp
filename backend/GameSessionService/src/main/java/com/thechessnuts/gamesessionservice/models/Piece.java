@@ -8,22 +8,21 @@ Class to represent a piece (any kind) - this class should be extended to represe
 class Piece
 {
     boolean check;
+    int moveCounter;
     PieceBehaviour pieceBehaviour;
     boolean crossedBorder;
     Player player;
-    Square square;
     boolean started;
     String name;
     String symbol;
-    boolean selected;
 
-    Piece(Board board, Player player, PieceBehaviour pieceBehaviour)
+    Piece(Player player, PieceBehaviour pieceBehaviour)
     {
         this.check = false;
+        this.moveCounter = 0;
         this.crossedBorder = false;
         this.pieceBehaviour = pieceBehaviour;
         this.player = player;
-        this.selected = false;
         this.started = false; // Check if piece hhas made first move
         this.name = player.color.toString().toLowerCase()+'-'+pieceBehaviour.getName(); 
         this.symbol = pieceBehaviour.getSymbol();
@@ -47,17 +46,7 @@ class Piece
   
     String getSymbol(){ return this.symbol;}
 
-    void setSquare(Square square){this.square = square;}
-
-    Square getSquare(){ return this.square;}
-
     Player.colors getColor(){ return this.player.color;}
-
-    boolean isSelected(){return this.selected;}
-
-    void deselct(){this.selected = false;}
-
-    void select(){this.selected = true;}
 
     void setChecked(boolean check){
         this.check = check;

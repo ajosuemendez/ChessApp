@@ -5,8 +5,6 @@ class Move {
     Square to;
     Piece movedPiece;
     Piece takenPiece = null;
-    Piece promotedTo = null;
-
     Move(Square from, Square to, Piece movedPiece, Piece takenPiece)
     {
         this.from = from;
@@ -15,17 +13,6 @@ class Move {
         this.movedPiece = movedPiece;
         this.takenPiece = takenPiece;
     }
-
-    Move(Square from, Square to, Piece movedPiece, Piece takenPiece, Piece promotedTo)
-    {
-        this.from = from;
-        this.to = to;
-
-        this.movedPiece = movedPiece;
-        this.takenPiece = takenPiece;
-        this.promotedTo = promotedTo;
-    }
-
     protected Move(String moveString, Board board){
         
         int separatorIndex = moveString.indexOf('-');
@@ -54,10 +41,7 @@ class Move {
             ret+= movedPiece.getSymbol();
         }
         ret+= from.toString() + "-";
-
-        if(promotedTo!=null){
-            ret+= promotedTo.getSymbol();
-        }
+        
         ret+= to.toString();
         return ret;
     }

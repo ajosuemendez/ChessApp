@@ -6,7 +6,6 @@ import java.util.stream.IntStream;
 
 class Chess3Board extends Board{
 
-    private Chess3Initializer initializer;
     static Chess3Navigation navigation = new Chess3Navigation();
     ChecksMarker checksMarker;
     static String[][][] gridReferences = {
@@ -46,7 +45,6 @@ class Chess3Board extends Board{
 
     Chess3Board(BoardNavigation navigationSetter) {
         super(navigationSetter);
-        this.initializer = new Chess3Initializer(this);
         this.checksMarker = new ChecksMarker();
     }
 
@@ -77,21 +75,21 @@ class Chess3Board extends Board{
             String[] rowValues = gridReferences[i][0];
             String[] colValues = gridReferences[i][1];
 
-            sections[i] = new Chess3Section(rowValues, colValues, this);
+            sections[i] = new Chess3Section(rowValues, colValues);
         });
-        initializer.initialize(settings);
+        Chess3Initializer.initialize(this, settings);
     }
 
-    void wallify(){
+    void markDeaths(){
 
-        PieceFactory wallFactory = new PieceFactory(this, new Player("", "ELIMINATED"), new WallBehaviour());
+        PieceFactory skullFactory = new PieceFactory(new Player("", "ELIMINATED"), new SkullBehaviour());
 
         for (Chess3Section section : sections) {
             for (Square[] squareArr : section.squares) {
                 for (Square square : squareArr) {
                     if (square.piece!=null){
                         if(square.piece.player.eliminated){
-                            square.setPiece(wallFactory.createPiece(square.label));
+                            square.setPiece(skullFactory.createPiece(this, square.label));
                         }
                     }
                 }
@@ -106,7 +104,6 @@ class Chess3Board extends Board{
     void selectSquare(String label){
         Square squareSelected = this.getSquareAt(label);
         if(squareSelected!=null){
-            this.getSquareAt(label).piece.select();//uewhdoquwdh!!!!!!
             this.selectedSquare = this.getSquareAt(label);
         }
         else
@@ -117,10 +114,17 @@ class Chess3Board extends Board{
 
     void makeMove(Move move){
         checksMarker.unmarkChecks(this);
-        this.getSquareAt(move.to.label).setPiece(move.movedPiece);
-        move.from.piece = null;
-        if(move.movedPiece.symbol == ""){
-            move.movedPiece.started = true;
+        move.to.setPiece(move.movedPiece);
+        move.from.setPiece(null);
+        move.movedPiece.moveCounter++;
+        move.movedPiece.started = true;
+        if(move.movedPiece.getSymbol().equals("")){
+            if(!Chess3Board.navigation.getSquaresAdjacent(this, move.from).containsValue(move.to)){
+                move.movedPiece.moveCounter++;
+            }
+            if(move.movedPiece.moveCounter == 6){
+                move.to.setPiece(new Piece(move.movedPiece.player, new MortyBehaviour()));
+            }
         }
         checksMarker.markChecks(this);
     }
