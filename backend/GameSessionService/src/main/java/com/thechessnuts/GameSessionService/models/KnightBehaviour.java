@@ -10,15 +10,16 @@ class KnightBehaviour extends PieceBehaviour {
     }
     
     @Override
-    ArrayList<Square> getMoves(Board board, BoardNavigation navigation, Piece piece){
+    ArrayList<Square> getMoves(Board board, Square square){
         
         ArrayList<Square> list = new ArrayList<>();
+        BoardNavigation navigation = board.getNavigation();
 
         String[] directions = {"up", "left", "down", "right"};
 
         for(String direction : directions){
 
-            Square adjacentSquare = navigation.getSquaresAdjacent(board, piece.getSquare()).get(direction);
+            Square adjacentSquare = navigation.getSquaresAdjacent(board, square).get(direction);
 
             if(adjacentSquare == null)
                 continue;

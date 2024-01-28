@@ -43,4 +43,5 @@ public class Square
         return false;
     }
 
+    Piece getPiece(){return this.piece;}
 }

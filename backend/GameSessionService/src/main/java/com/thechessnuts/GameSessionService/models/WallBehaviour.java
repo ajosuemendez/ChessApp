@@ -10,7 +10,7 @@ class WallBehaviour extends PieceBehaviour {
     }
 
     @Override
-    ArrayList<Square> getMoves(Board board, BoardNavigation navigation, Piece piece) {
+    ArrayList<Square> getMoves(Board board, Square square) {
         return new ArrayList<Square>();
     }
 }

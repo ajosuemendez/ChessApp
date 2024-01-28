@@ -9,32 +9,29 @@ class Piece
 {
     boolean check;
     PieceBehaviour pieceBehaviour;
+    boolean crossedBorder;
     Player player;
-    Board board;
     Square square;
     boolean started;
     String name;
     String symbol;
     boolean selected;
-    boolean crossedBorder;
 
     Piece(Board board, Player player, PieceBehaviour pieceBehaviour)
     {
         this.check = false;
+        this.crossedBorder = false;
         this.pieceBehaviour = pieceBehaviour;
-        this.board = board;
         this.player = player;
         this.selected = false;
-        this.started = false; // Check if piece has made first move
-        this.crossedBorder = false;
+        this.started = false; // Check if piece hhas made first move
         this.name = player.color.toString().toLowerCase()+'-'+pieceBehaviour.getName(); 
         this.symbol = pieceBehaviour.getSymbol();
     }
 
+    ArrayList<Square> allMoves(Board board, Square square){
 
-    ArrayList<Square> allMoves(){
-
-        ArrayList<Square> list = this.pieceBehaviour.getMoves(this.board, Chess3Board.navigation, this);
+        ArrayList<Square> list = this.pieceBehaviour.getMoves(board, square);
 
         for(int i = 0; i<list.size(); i++){
             if(list.get(i).piece!=null){

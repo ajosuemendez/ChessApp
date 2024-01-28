@@ -2,13 +2,7 @@ package com.thechessnuts.gamesessionservice.models;
 
 import java.util.ArrayList;
 
-class ChecksManager {
-
-    Chess3Board board;
-
-    ChecksManager(Chess3Board board){
-        this.board = board;
-    }
+class ChecksMarker {
     
 
     protected void markChecks(Chess3Board board){
@@ -17,7 +11,7 @@ class ChecksManager {
             for (Square[] arr: section.squares) {
                 for (Square square : arr) {
                     if(square.piece!=null){
-                        ArrayList<Square> list = square.piece.allMoves();
+                        ArrayList<Square> list = board.getMoves(square);
                         for (Square squareAttack : list) {
                             if(squareAttack.piece != null){
                                 if(squareAttack.piece.pieceBehaviour instanceof KingBehaviour && !squareAttack.piece.player.color.equals(square.piece.player.color)){
@@ -35,7 +29,7 @@ class ChecksManager {
     }
 
     protected void unmarkChecks(Chess3Board board){
-        for (Chess3Section section : this.board.sections) {
+        for (Chess3Section section : board.sections) {
             
             for (Square[] arr: section.squares) {
                 for (Square square : arr) {

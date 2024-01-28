@@ -1,5 +1,7 @@
 package com.thechessnuts.gamesessionservice.models;
 
+import java.util.ArrayList;
+
 public abstract class Board{
     static String[][][] gridReferences;
     static BoardNavigation navigation;
@@ -8,8 +10,11 @@ public abstract class Board{
         navigation = navigationSetter;
     }
 
-    Piece selectedPiece = null;
+    Square selectedSquare = null;
 
     abstract Square getSquareAt(String label);
 
+    abstract ArrayList<Square> getMoves();
+
+    abstract BoardNavigation getNavigation();
 }

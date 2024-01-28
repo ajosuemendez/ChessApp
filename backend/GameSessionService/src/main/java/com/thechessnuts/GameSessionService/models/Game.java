@@ -107,17 +107,17 @@ public class Game {
 
         if(clickedSquare.piece != null){
             if(clickedSquare.piece.player.color.equals(this.activePlayer.color)){
-                this.board.selectPiece(label);
+                this.board.selectSquare(label);
                 this.saveGame();
                 return;
             }
         }
        
-        if(this.board.selectedPiece != null){
-            if(this.board.selectedPiece.allMoves().contains(clickedSquare)){
-                this.executeMove(new Move(this.board.selectedPiece.square, clickedSquare, this.board.selectedPiece, clickedSquare.piece));
+        if(this.board.selectedSquare != null){
+            if(this.board.selectedSquare.getPiece().allMoves(board, board.selectedSquare).contains(clickedSquare)){
+                this.executeMove(new Move(this.board.selectedSquare, clickedSquare, this.board.selectedSquare.getPiece(), clickedSquare.piece));
             }
-            this.board.selectPiece("");
+            this.board.selectSquare("");
             this.saveGame();
             return;
         }
@@ -156,11 +156,11 @@ public class Game {
             this.previousTurn();
         }
 
-        board.checksManager.markChecks(board);
+        board.checksMarker.markChecks(board);
     }
 
     private void redoLastUndo(){
-        board.checksManager.unmarkChecks(board);
+        board.checksMarker.unmarkChecks(board);
         boolean successfulRedo = moveHistory.redoLastUndo();
         
         if(successfulRedo){
@@ -169,7 +169,7 @@ public class Game {
             this.nextTurn();
         }
 
-        board.checksManager.markChecks(board);
+        board.checksMarker.markChecks(board);
     }
     
 
