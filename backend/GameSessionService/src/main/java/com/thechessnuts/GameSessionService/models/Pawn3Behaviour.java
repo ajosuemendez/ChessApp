@@ -10,7 +10,7 @@ public class Pawn3Behaviour extends PieceBehaviour{
     }
 
     @Override
-    public ArrayList<Square> getMoves(Board board, Piece piece){
+    public ArrayList<Square> getMoves(Board board, BoardNavigation navigation, Piece piece){
         
         ArrayList<Square> list = new ArrayList<>();
 try{
@@ -25,16 +25,16 @@ try{
                     list.add(board.getSquareAt("i5"));
                 }
             }
-            Square squareAbove = board.navigation.getSquareAbove(piece.square);
+            Square squareAbove = navigation.getSquareAbove(board, piece.square);
             if(squareAbove.isEmpty()){
                 list.add(squareAbove);
-                Square nextStep = board.navigation.getSquareAbove(squareAbove);
+                Square nextStep = navigation.getSquareAbove(board, squareAbove);
                 if(nextStep.isEmpty() && !piece.started){
                     list.add(nextStep);
                 }
             }
-            Square leftFront = board.navigation.getSquareLeft(squareAbove);
-            Square rightFront = board.navigation.getSquareRight(squareAbove);
+            Square leftFront = navigation.getSquareLeft(board, squareAbove);
+            Square rightFront = navigation.getSquareRight(board, squareAbove);
             if(leftFront!=null && !leftFront.isEmpty()){
                 list.add(leftFront);
             }
@@ -75,12 +75,12 @@ try{
             }
 
             if(piece.crossedBorder){
-                Square squareAbove = board.navigation.getSquareAbove(piece.square);
+                Square squareAbove = navigation.getSquareAbove(board, piece.square);
                 if(squareAbove.isEmpty()){
                     list.add(squareAbove);
                 }
-                Square leftFront = board.navigation.getSquareLeft(squareAbove);
-                Square rightFront = board.navigation.getSquareRight(squareAbove);
+                Square leftFront = navigation.getSquareLeft(board, squareAbove);
+                Square rightFront = navigation.getSquareRight(board, squareAbove);
                 if(leftFront!=null && !leftFront.isEmpty()){
                     list.add(leftFront);
                 }
@@ -89,16 +89,16 @@ try{
                 }
             }
             else {
-                Square squareBelow = board.navigation.getSquareBelow(piece.square);
+                Square squareBelow = navigation.getSquareBelow(board, piece.square);
                 if (squareBelow.isEmpty()) {
                     list.add(squareBelow);
-                    Square nextStep = board.navigation.getSquareBelow(squareBelow);
+                    Square nextStep = navigation.getSquareBelow(board, squareBelow);
                     if(nextStep.isEmpty() && !piece.started){
                         list.add(nextStep);
                     }
                 }
-                Square leftFront = board.navigation.getSquareLeft(squareBelow);
-                Square rightFront = board.navigation.getSquareRight(squareBelow);
+                Square leftFront = navigation.getSquareLeft(board, squareBelow);
+                Square rightFront = navigation.getSquareRight(board, squareBelow);
                 if (leftFront != null && !leftFront.isEmpty()) {
                     list.add(leftFront);
                 }

@@ -5,7 +5,7 @@ package com.thechessnuts.gamesessionservice.models;
 import java.util.ArrayList;
 
 abstract class PieceBehaviour {
-    abstract ArrayList<Square> getMoves(Board board, Piece piece);
+    abstract ArrayList<Square> getMoves(Board board, BoardNavigation navigation, Piece piece);
 
     boolean started = false; 
     boolean crossedBorder = false;

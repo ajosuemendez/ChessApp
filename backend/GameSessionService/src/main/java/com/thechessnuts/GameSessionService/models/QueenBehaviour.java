@@ -13,12 +13,12 @@ class QueenBehaviour extends PieceBehaviour {
     static RookBehaviour queenRookBehaviour = new RookBehaviour();
 
     @Override
-    ArrayList<Square> getMoves(Board board, Piece piece){
+    ArrayList<Square> getMoves(Board board, BoardNavigation navigation, Piece piece){
 
         ArrayList<Square> list = new ArrayList<>();
 
-        list.addAll(queenBishopBehaviour.getMoves(board, piece));
-        list.addAll(queenRookBehaviour.getMoves(board, piece));
+        list.addAll(queenBishopBehaviour.getMoves(board, navigation, piece));
+        list.addAll(queenRookBehaviour.getMoves(board, navigation, piece));
 
         return list;
     }

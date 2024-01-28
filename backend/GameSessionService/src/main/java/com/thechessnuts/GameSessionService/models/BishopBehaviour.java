@@ -11,13 +11,13 @@ class BishopBehaviour extends PieceBehaviour {
 
 
     @Override
-    ArrayList<Square> getMoves(Board board, Piece piece) {
+    ArrayList<Square> getMoves(Board board, BoardNavigation navigation, Piece piece) {
         ArrayList<Square> list = new ArrayList<>();
 
-        list.addAll(board.navigation.getSquaresTopRightDiagonal(piece.getSquare()));
-        list.addAll(board.navigation.getSquaresTopLeftDiagonal(piece.getSquare()));
-        list.addAll(board.navigation.getSquaresBottomRightDiagonal(piece.getSquare()));
-        list.addAll(board.navigation.getSquaresBottomLeftDiagonal(piece.getSquare()));
+        list.addAll(navigation.getSquaresTopRightDiagonal(board, piece.getSquare()));
+        list.addAll(navigation.getSquaresTopLeftDiagonal(board, piece.getSquare()));
+        list.addAll(navigation.getSquaresBottomRightDiagonal(board, piece.getSquare()));
+        list.addAll(navigation.getSquaresBottomLeftDiagonal(board, piece.getSquare()));
         
         return list;
     }

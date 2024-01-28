@@ -11,7 +11,7 @@ class ChecksManager {
     }
     
 
-    protected void markChecks(){
+    protected void markChecks(Chess3Board board){
 
         for (Chess3Section section : board.sections) {
             for (Square[] arr: section.squares) {
@@ -34,7 +34,7 @@ class ChecksManager {
         }
     }
 
-    protected void unmarkChecks(){
+    protected void unmarkChecks(Chess3Board board){
         for (Chess3Section section : this.board.sections) {
             
             for (Square[] arr: section.squares) {

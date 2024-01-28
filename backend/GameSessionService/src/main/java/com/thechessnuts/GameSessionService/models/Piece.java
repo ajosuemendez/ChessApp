@@ -34,7 +34,7 @@ class Piece
 
     ArrayList<Square> allMoves(){
 
-        ArrayList<Square> list = this.pieceBehaviour.getMoves(this.board, this);
+        ArrayList<Square> list = this.pieceBehaviour.getMoves(this.board, Chess3Board.navigation, this);
 
         for(int i = 0; i<list.size(); i++){
             if(list.get(i).piece!=null){

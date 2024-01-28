@@ -7,6 +7,7 @@ import java.util.stream.IntStream;
 class Chess3Board extends Board{
 
     private Chess3Initializer initializer;
+    static Chess3Navigation navigation = new Chess3Navigation();
     ChecksManager checksManager;
     static String[][][] gridReferences = {
 
@@ -43,8 +44,8 @@ class Chess3Board extends Board{
 
     Chess3Section[] sections;
 
-    Chess3Board() {
-        this.navigation = new Chess3Navigation(this);
+    Chess3Board(BoardNavigation navigationSetter) {
+        super(navigationSetter);
         this.initializer = new Chess3Initializer(this);
         this.checksManager = new ChecksManager(this);
     }
@@ -118,13 +119,13 @@ class Chess3Board extends Board{
 
 
     void makeMove(Move move){
-        checksManager.unmarkChecks();
+        checksManager.unmarkChecks(this);
         this.getSquareAt(move.to.label).setPiece(move.movedPiece);
         move.from.piece = null;
         if(move.movedPiece.symbol == ""){
             move.movedPiece.started = true;
         }
-        checksManager.markChecks();
+        checksManager.markChecks(this);
     }
 
     ArrayList<SquareForSending> getBoardState(){
