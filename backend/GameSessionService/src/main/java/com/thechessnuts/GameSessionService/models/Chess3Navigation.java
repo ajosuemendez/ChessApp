@@ -8,6 +8,10 @@ class Chess3Navigation extends BoardNavigation{
     
     @Override
     Square getSquareAbove(Board board, Square square){
+
+        if(square == null)
+            return null;
+
        char columnLetter = square.label.charAt(0);
        int rowNumber = Integer.parseInt(square.label.substring(1));
 
@@ -34,6 +38,11 @@ class Chess3Navigation extends BoardNavigation{
 
     @Override
     Square getSquareBelow(Board board, Square square){
+
+        if(square == null)
+            return null;
+
+
         char columnLetter = square.label.charAt(0);
         int rowNumber = Integer.parseInt(square.label.substring(1));
 
@@ -69,6 +78,10 @@ class Chess3Navigation extends BoardNavigation{
 
     @Override
     Square getSquareLeft(Board board, Square square){
+
+        if(square == null)
+            return null;
+
         char columnLetter = square.label.charAt(0);
         int rowNumber = Integer.parseInt(square.label.substring(1));
 
@@ -106,6 +119,9 @@ class Chess3Navigation extends BoardNavigation{
 
     @Override
     Square getSquareRight(Board board, Square square){
+
+        if(square == null)
+            return null;
 
     
         char columnLetter = square.label.charAt(0);
@@ -285,7 +301,7 @@ class Chess3Navigation extends BoardNavigation{
     ArrayList<Square> getSquaresTopLeftDiagonal(Board board, Square square){
         ArrayList<Square> list = new ArrayList<>();
         if(square.label.equals("i9")){
-            if(square.isEmpty() || square.piece.isSelected()) {
+            if(square.isEmpty() || board.selectedSquare == square) {
                 list.add(board.getSquareAt("e4"));
                 if(board.getSquareAt("e4").isEmpty())
                     list.addAll(getSquaresTopLeftDiagonal(board, board.getSquareAt("e4")));
@@ -312,7 +328,7 @@ class Chess3Navigation extends BoardNavigation{
     ArrayList<Square> getSquaresBottomLeftDiagonal(Board board, Square square){
         ArrayList<Square> list = new ArrayList<>();
         if(square.label.equals("d4")){
-            if(square.isEmpty() || square.piece.isSelected()) {
+            if(square.isEmpty() || board.selectedSquare == square) {
                 list.add(board.getSquareAt("e9"));
                 if(board.getSquareAt("e9").isEmpty())
                     list.addAll(getSquaresBottomLeftDiagonal(board, board.getSquareAt("e9")));
@@ -323,7 +339,7 @@ class Chess3Navigation extends BoardNavigation{
             return list;
         }
         if(square.label.equals("i5")){
-            if(square.isEmpty() || square.piece.isSelected()) {
+            if(square.isEmpty() || board.selectedSquare == square) {
                 list.add(board.getSquareAt("e9"));
                 if(board.getSquareAt("e9").isEmpty())
                     list.addAll(getSquaresBottomLeftDiagonal(board, board.getSquareAt("e9")));
@@ -358,7 +374,7 @@ class Chess3Navigation extends BoardNavigation{
     ArrayList<Square> getSquaresTopRightDiagonal(Board board, Square square){
         ArrayList<Square> list = new ArrayList<>();
         if(square.label.equals("e9")){
-            if(square.isEmpty() || square.piece.isSelected()){
+            if(square.isEmpty() || board.selectedSquare == square){
                 list.add(board.getSquareAt("d4"));
                 if(board.getSquareAt("d4").isEmpty())
                     list.addAll(getSquaresTopRightDiagonal(board, board.getSquareAt("d4")));
