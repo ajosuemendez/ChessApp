@@ -16,6 +16,7 @@ import org.springframework.http.HttpMethod;
 
 import com.example.apigatewayservice.models.BaseEntity;
 import com.example.apigatewayservice.models.GameEntity;
+import com.example.apigatewayservice.models.Game;
 import com.example.apigatewayservice.models.SquareForSending;
 
 
@@ -54,8 +55,8 @@ public class TestController {
 
     @RequestMapping("/creategame")
     @CrossOrigin(origins = "http://localhost:3000")
-    public String CreateGame() {
-        String res = restTemplate.getForObject("http://game-initialisation-service/creategame", String.class);
+    public Game CreateGame() {
+        Game res = restTemplate.getForObject("http://game-initialisation-service/creategame", Game.class);
         return res;
     }
 
