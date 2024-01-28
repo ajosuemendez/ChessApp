@@ -1,4 +1,4 @@
-name: The ChessNuts CI
+name: Game History Service
 on: [push]
 jobs:
   build:
