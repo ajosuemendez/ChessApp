@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 import java.util.List;
+import java.util.Stack;
 
 
 @RestController
@@ -36,6 +37,8 @@ public class CreateGameController{
         game.setGameId(gameId);
         game.setPassword(password);
         game.setBoardState(defaultBoardState);
+        game.setHistory(new Stack<>());
+        game.setUndos(new Stack<>());
 
         // Save the game details to MongoDB
         return gameRepository.save(game);
