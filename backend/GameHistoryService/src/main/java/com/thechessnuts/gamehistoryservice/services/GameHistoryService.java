@@ -10,17 +10,21 @@ import com.thechessnuts.gamehistoryservice.repositories.GameRepository;
 import java.util.Optional;
 import java.util.Stack;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 @Service
 public class GameHistoryService implements IGameHistoryService {
 
-    @Autowired
-    private GameRepository gameRepository;
+    private final GameRepository gameRepository;
+
+    public GameHistoryService(GameRepository gameRepository) {
+        this.gameRepository = gameRepository;
+    }
 
     @Override
     public Game addMove(String gameId, String move) {
-        System.out.println("I am here");
-        System.out.println("The Game id is: " + gameId);
-        System.out.println("The Move is: " + move);
 
         Optional<Game> requestedGame = gameRepository.findByGameId(gameId);
 
