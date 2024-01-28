@@ -20,7 +20,7 @@ const Header = () => {
     <header className="header">
       <nav className="nav">
         <Link to="/" className="logo">
-            <img src={logoImage} className='logo-img'/>
+            <img src={logoImage} className='logo-img' alt='logo'/>
             <span>TheChessNut</span>
         </Link>
         <ul className="nav-list">

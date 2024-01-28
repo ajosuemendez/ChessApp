@@ -1,5 +1,5 @@
 import "../styles/Dropdown.css";
-import {useState, useEffect, useRef} from "react";
+import {useState, useEffect, useRef, useCallback } from "react";
 
 const Dropdown = ({ label,selectedOption, options, handleSelect }) => {
 
@@ -12,19 +12,19 @@ const Dropdown = ({ label,selectedOption, options, handleSelect }) => {
     closeDropdown();
   };
 
-  const closeDropdown = () => {
+  const closeDropdown = useCallback(() => {
     setIsOpen(false);
-  };
+  }, [setIsOpen]);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleClickOutside = (event) => {
+  const handleClickOutside = useCallback((event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       closeDropdown();
     }
-  };
+  }, [closeDropdown]);
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
@@ -32,7 +32,7 @@ const Dropdown = ({ label,selectedOption, options, handleSelect }) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, [handleClickOutside]);
 
   return (
     <div ref={dropdownRef} className="dropdown">
