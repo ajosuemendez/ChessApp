@@ -1,17 +1,38 @@
-GET http://localhost:8080/database/games/1
+GET http://10.0.2.15:8082/games/4 
 
 ###
-POST http://localhost:8080/database/games/
+GET http://10.0.2.15:8080/games/1
+
+###
+GET http://10.0.2.15:8080/gameId=h11
+
+###
+GET http://10.0.2.15:8082/games/test
+###
+GET http://10.0.2.15:9090/test
+
+###
+POST http://localhost:8082/games/
 content-type: application/json
 
 {
-    "id": "4",
+    "id": "5",
     "gameName": "sample",
-    "numberOfPlayers": 2
+    "numberOfPlayers": 3
 }
 
 ###
-PUT http://localhost:8080/database/games/4
+POST http://localhost:9090/games/
+content-type: application/json
+
+{
+    "id": "6",
+    "gameName": "sample",
+    "numberOfPlayers": 3
+}
+
+###
+PUT http://localhost:8082/database/games/4
 content-type: application/json
 
 {
@@ -20,4 +41,4 @@ content-type: application/json
 }
 
 ###
-DELETE http://localhost:8080/database/games/1
+DELETE http://localhost:8082/database/games/1

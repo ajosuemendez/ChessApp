@@ -1,0 +1,37 @@
+###
+GET http://10.0.2.15:8081/creategame
+
+###
+GET http://10.0.2.15:8080/creategame
+
+###
+POST http://localhost:8082/games/
+content-type: application/json
+
+{
+    "id": "5",
+    "gameName": "sample",
+    "numberOfPlayers": 3
+}
+
+###
+POST http://localhost:9090/games/
+content-type: application/json
+
+{
+    "id": "6",
+    "gameName": "sample",
+    "numberOfPlayers": 3
+}
+
+###
+PUT http://localhost:8082/database/games/4
+content-type: application/json
+
+{
+    "gameName": "updatedSample",
+    "numberOfPlayers": 3
+}
+
+###
+DELETE http://localhost:8082/database/games/1

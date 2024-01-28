@@ -25,7 +25,7 @@ import com.thechessnuts.storagehandlerservice.config.MongoConfig;
 
 
 @RestController
-@RequestMapping("/database")
+@RequestMapping("/games")
 public class DatabaseController {
 
     private final DatabaseService databaseService;
@@ -36,22 +36,27 @@ public class DatabaseController {
         this.databaseService = new DatabaseService(mongoDB.initDatabase());
     }
 
-    @GetMapping("/games/{gameId}")
+    @GetMapping("/test")
+    public String test() {
+        return "String from database";
+    }
+
+    @GetMapping("/{gameId}")
     public BaseEntity getGame(@PathVariable String gameId) {
         return databaseService.findGameById(gameId);
     }
 
-    @PostMapping("/games/")
+    @PostMapping("/")
     public BaseEntity saveGame(@RequestBody GameEntity game) {
         return databaseService.saveGame(game);
     }
 
-    @PutMapping("/games/{gameId}")
+    @PutMapping("/{gameId}")
     public BaseEntity updateGame(@PathVariable String gameId, @RequestBody GameEntity updatedGame) {
         return databaseService.updateGame(gameId, updatedGame);
     }
 
-    @DeleteMapping("/games/{gameId}")
+    @DeleteMapping("/{gameId}")
     public ResponseEntity<String> deleteGame(@PathVariable String gameId) {
         boolean wasDeleted = databaseService.deleteGame(gameId);
         return this.SendDeleteHttpResponse(wasDeleted);

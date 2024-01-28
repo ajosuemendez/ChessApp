@@ -1,4 +1,4 @@
-package GameSessionService.src.main.java.com.thechessnuts.GameSessionService.config;
+package com.thechessnuts.gamesessionservice.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
