@@ -10,17 +10,18 @@ class RookBehaviour extends PieceBehaviour{
     }
 
     @Override
-    ArrayList<Square> getMoves(Board board, Piece piece){
+    ArrayList<Square> getMoves(Board board, Square square){
         
         ArrayList<Square> list = new ArrayList<>();
+        BoardNavigation navigation = board.getNavigation();
         
-        list.addAll(board.navigation.getSquaresAbove(piece.getSquare()));
+        list.addAll(navigation.getSquaresAbove(board, square));
 
-        list.addAll(board.navigation.getSquaresBelow(piece.getSquare()));
+        list.addAll(navigation.getSquaresBelow(board, square));
 
-        list.addAll(board.navigation.getSquaresLeft(piece.getSquare()));
+        list.addAll(navigation.getSquaresLeft(board, square));
 
-        list.addAll(board.navigation.getSquaresRight(piece.getSquare()));
+        list.addAll(navigation.getSquaresRight(board, square));
 
         return list;
     }

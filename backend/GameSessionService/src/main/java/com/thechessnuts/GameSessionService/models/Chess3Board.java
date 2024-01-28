@@ -7,7 +7,8 @@ import java.util.stream.IntStream;
 class Chess3Board extends Board{
 
     private Chess3Initializer initializer;
-    ChecksManager checksManager;
+    static Chess3Navigation navigation = new Chess3Navigation();
+    ChecksMarker checksMarker;
     static String[][][] gridReferences = {
 
             {
@@ -43,10 +44,10 @@ class Chess3Board extends Board{
 
     Chess3Section[] sections;
 
-    Chess3Board() {
-        this.navigation = new Chess3Navigation(this);
+    Chess3Board(BoardNavigation navigationSetter) {
+        super(navigationSetter);
         this.initializer = new Chess3Initializer(this);
-        this.checksManager = new ChecksManager(this);
+        this.checksMarker = new ChecksMarker();
     }
 
     @Override
@@ -102,38 +103,35 @@ class Chess3Board extends Board{
 
     //----------------- clean code below -----------------------//
 
-    void selectPiece(String label){
-        if(this.selectedPiece!=null){
-            this.selectedPiece.deselct();
-        }
+    void selectSquare(String label){
         Square squareSelected = this.getSquareAt(label);
         if(squareSelected!=null){
-            this.getSquareAt(label).piece.select();
-            this.selectedPiece = this.getSquareAt(label).piece;
+            this.getSquareAt(label).piece.select();//uewhdoquwdh!!!!!!
+            this.selectedSquare = this.getSquareAt(label);
         }
         else
-            this.selectedPiece = null;
+            this.selectedSquare = null;
     }
 
 
 
     void makeMove(Move move){
-        checksManager.unmarkChecks();
+        checksMarker.unmarkChecks(this);
         this.getSquareAt(move.to.label).setPiece(move.movedPiece);
         move.from.piece = null;
         if(move.movedPiece.symbol == ""){
             move.movedPiece.started = true;
         }
-        checksManager.markChecks();
+        checksMarker.markChecks(this);
     }
 
     ArrayList<SquareForSending> getBoardState(){
         ArrayList<SquareForSending> list = new ArrayList<>();
         ArrayList<Square> selectList = new ArrayList<>();
 
-        if(this.selectedPiece!=null){
+        if(this.selectedSquare!=null){
             //selectList.add(board.selectedPiece.square);
-            selectList.addAll(this.selectedPiece.allMoves());
+            selectList.addAll(this.getMoves());
         }
 
         for(int i = 0; i< 6; i++){
@@ -147,6 +145,32 @@ class Chess3Board extends Board{
         
     }
     //--------------------------------------------------------//
+
+    @Override
+    ArrayList<Square> getMoves() {
+        ArrayList<Square> list = new ArrayList<Square>();
+        Piece piece = selectedSquare.getPiece();
+        if(piece==null){
+            return list;
+        }
+
+        return piece.allMoves(this, selectedSquare);
+    }
+
+    ArrayList<Square> getMoves(Square square) {
+        ArrayList<Square> list = new ArrayList<Square>();
+        Piece piece = square.getPiece();
+        if(piece==null){
+            return list;
+        }
+
+        return piece.allMoves(this, square);
+    }
+
+    @Override
+    BoardNavigation getNavigation(){
+        return navigation;
+    }
     
 }
 

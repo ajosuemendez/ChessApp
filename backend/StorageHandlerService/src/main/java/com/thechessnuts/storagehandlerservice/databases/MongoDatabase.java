@@ -2,18 +2,14 @@ package com.thechessnuts.storagehandlerservice.databases;
 
 // Entities
 import com.thechessnuts.storagehandlerservice.models.BaseEntity;
-import com.thechessnuts.storagehandlerservice.models.GameEntity;
 
 // MongoAPIs
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
 
 // Components
 import org.springframework.stereotype.Component;
-
-import java.lang.Class;
 
 @Component
 public class MongoDatabase<T extends BaseEntity> implements IDatabase<T> {
