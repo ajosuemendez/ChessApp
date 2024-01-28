@@ -10,7 +10,7 @@ jobs:
       with:
         java-version: '17'
         distribution: 'adopt'
-    - name: Build with Maven
+    - name: Build Game History Service
       run: mvn -B package --file backend/GameHistoryService/pom.xml
-    - name: Test with Maven
+    - name: Test Game History Service
       run: mvn test --file backend/GameHistoryService/pom.xml
