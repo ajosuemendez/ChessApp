@@ -1,7 +1,7 @@
 import React from "react";
-import defaultChessboardState from "../utils/defaultChessboardState";
+// import defaultChessboardState from "../utils/defaultChessboardState";
 import squareStaticInformation from "../utils/squareStaticInformation";
-import chessboardThemes from "../utils/chessboardThemes";
+// import chessboardThemes from "../utils/chessboardThemes";
 import threePlayerMetaData from "../utils/threePlayerMetaData";
 import Square from "./Square";
 import "../styles/Board.css";
@@ -10,25 +10,8 @@ import PlayerLabel from "./PlayerLabel";
 // Context
 import { useThemeContext } from '../context/ThemeContext';
 
-export default function Board() {
+export default function Board({chessboardState, handleClick}) {
     const { theme } = useThemeContext();
-    const [chessboardState, setChessboardState] = React.useState(defaultChessboardState);
-
-
-    const fetchData = async (squareId) => {
-        const response = await fetch(`http://localhost:8080/gameId=${squareId}`);
-        const data = await response.json();
-        setChessboardState(data);
-    };
-
-    
-    const handleClick = (e) => {
-        const clickedSquare = e.target.id;
-        console.log(`Making API call "Check Valid Moves": selected origin: ${clickedSquare}`);
-        console.log("API response......");
-        fetchData(clickedSquare);
-        return;
-    }
 
     let SquareList;
 
