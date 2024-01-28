@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
+import java.util.Stack;
 
 @Document(collection = "games")
 public class Game {
@@ -13,6 +14,8 @@ public class Game {
     private String password;
     private String activePlayer;
     private List<SquareForSending> boardState;
+    private Stack<String> history;
+    private Stack<String> undos;
 
     public Game() {}
 
@@ -60,5 +63,21 @@ public class Game {
 
     public void setBoardState(List<SquareForSending> boardState) {
         this.boardState = boardState;
+    }
+
+    public Stack<String> getHistory() {
+        return history;
+    }
+
+    public void setHistory(Stack<String> history) {
+        this.history = history;
+    }
+
+    public Stack<String> getUndos() {
+        return undos;
+    }
+
+    public void setUndos(Stack<String> undos) {
+        this.undos = undos;
     }
 }
