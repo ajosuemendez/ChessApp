@@ -12,10 +12,16 @@ export default function Game() {
     const gameState = location.state?.gameData || {};
     const [chessboardState, setChessboardState] = React.useState(gameState.boardState);
 
+    React.useEffect(() => {
+        localStorage.setItem("gameId", JSON.stringify(gameState.gameId));
+    }, [gameState.gameId]);
+
 
     const fetchData = async (squareId) => {
-        const response = await fetch(`http://localhost:8080/gameId=${squareId}`);
+        const gameId = JSON.parse(localStorage.getItem("gameId"))
+        const response = await fetch(`http://localhost:8080/${gameId}/${squareId}`);
         const data = await response.json();
+        console.log(data);
         setChessboardState(data);
     };
 
@@ -32,7 +38,7 @@ export default function Game() {
     return(
         <>
             <Board chessboardState={chessboardState} handleClick={handleClick}/>
-            <Historytable moves={["e11","e9", "e8", "e7", "e11","e9", "e8", "e7", "e11","e9", "e8", "e7", "e11","e9", "e8", "e7", "e11","e9", "e8", "e7", "e11","e9", "e8", "e7", "e11","e9", "e8", "e7", "e11","e9", "e8", "e7", "e11","e9", "e8", "e7", "e11","e9", "e8", "e7", "e11","e9", "e8", "e7", "e11","e9", "e8", "e7", "e11","e9", "e8", "e7"]}/>
+            <Historytable moves={[]}/>
         </>
     );
 }

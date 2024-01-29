@@ -1,11 +1,11 @@
 package com.thechessnuts.gamesessionservice.models;
 
-class Chess3Settings{
+public class Chess3Settings{
     Player playerWhite;
     Player playerBlack;
     Player playerYellow;
 
-    Chess3Settings(){
+    public Chess3Settings(){
         this.playerWhite = new Player("", "WHITE");
         this.playerBlack = new Player("", "BLACK");
         this.playerYellow = new Player("", "YELLOW");

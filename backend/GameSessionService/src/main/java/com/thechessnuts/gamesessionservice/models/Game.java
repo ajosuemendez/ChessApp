@@ -1,5 +1,7 @@
 package com.thechessnuts.gamesessionservice.models;
 
+import org.springframework.web.client.RestTemplate;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +16,10 @@ public class Game {
 
     public Game(){
         this.moveHistory = new MoveHistory();
-        this.board = new Chess3Board(Chess3Board.navigation);
+        this.board = new Chess3Board();
         this.settings = new Chess3Settings();
         this.id = "";
+        this.newGame();
     }
 
     public void newGame(){
@@ -24,15 +27,20 @@ public class Game {
         this.board.initialise(settings);
     }
 
-    void loadGame(MoveHistory moveHistory, Chess3Settings settings){
+    public void loadGame(MoveHistory moveHistory, Chess3Settings settings){
         this.settings = settings;
         this.moveHistory = moveHistory;
-
+        activePlayer = settings.playerWhite;
+        this.board = new Chess3Board();
         this.board.initialise(settings);
 
         for(int i = 0; i<moveHistory.get().size(); i++){
             Move newMove = new Move(moveHistory.get().get(i), board);
-            this.board.makeMove(newMove);
+            try{this.executeMove(newMove);}
+            catch(Exception e){
+                this.board.makeMove(newMove);
+                System.out.println("Last move was weirdl loaded");
+            }
             this.nextTurn();
         }
 
@@ -92,46 +100,56 @@ public class Game {
         }
     }
 
-    public void handleEvent(String label){
+    public boolean handleEvent(String label, String gameId, RestTemplate restTemplate){
         if(board == null)
-            return;
+            return false;
 
         if(label.equals("a6")){
             this.undoLastMove();
             this.saveGame();
-            return;
+            return false;
         }
 
         if(label.equals("a7")){
             this.redoLastUndo();
             this.saveGame();
-            return;
+            return false;
         }
 
         Square clickedSquare = this.board.getSquareAt(label);
 
         if(clickedSquare == null){
             this.saveGame();
-            return;
+            return false; 
         }
 
         if(clickedSquare.piece != null){
             if(clickedSquare.piece.player.color.equals(this.activePlayer.color)){
                 this.board.selectSquare(label);
                 this.saveGame();
-                return;
+                return false;
             }
         }
        
         if(this.board.selectedSquare != null){
+            System.out.println("Is this board selected square?");
             if(this.board.selectedSquare.getPiece().allMoves(board, board.selectedSquare).contains(clickedSquare)){
-                this.executeMove(new Move(this.board.selectedSquare, clickedSquare, this.board.selectedSquare.getPiece(), clickedSquare.piece));
+                Move moveToExecute = new Move(this.board.selectedSquare, clickedSquare, this.board.selectedSquare.getPiece(), clickedSquare.piece);
+
+                // Save-Send the Move to the History Game
+                GameEntity res = restTemplate.getForObject("http://game-history-service/" + gameId + "/add/" + moveToExecute.toString(), GameEntity.class);
+                // System.out.println(moveToExecute.toString());
+                // System.out.println(res);
+                System.out.println("This is the response from the Game History Service");
+                System.out.println(res.toString());
+
+    
             }
             this.board.selectSquare("");
-            this.saveGame();
-            return;
+            return true;
         }
 
+        return false;
     }
 
     void executeMove(Move move){
@@ -156,7 +174,7 @@ public class Game {
         if(successfulUndo){
             List<String> currentMoves = this.moveHistory.get(); 
 
-            board = new Chess3Board(Chess3Board.navigation);
+            board = new Chess3Board();
             this.board.initialise(settings);
 
             for(int i = 0; i<currentMoves.size(); i++){

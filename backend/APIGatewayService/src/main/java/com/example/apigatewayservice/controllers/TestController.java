@@ -43,11 +43,11 @@ public class TestController {
         return res;
     }
 
-    @RequestMapping("/gameId={gameId}")
+    @RequestMapping("/{gameId}/{move}")
     @ResponseBody
     @CrossOrigin(origins = "http://localhost:3000")
-    public List<SquareForSending> getGameSession(@PathVariable String gameId) {
-        String url = "http://game-session-service/gameId=" + gameId;
+    public List<SquareForSending> getGameSession(@PathVariable String gameId, @PathVariable String move) {
+        String url = "http://game-session-service/" + gameId + "/" + move;
         List<SquareForSending> res = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<SquareForSending>>() {}).getBody();
         return res;
     }

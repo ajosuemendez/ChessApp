@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
-class MoveHistory{
+public class MoveHistory{
 
     private Stack<String> history = new Stack<String>();
     private Stack<String> undos = new Stack<String>();
@@ -12,6 +12,10 @@ class MoveHistory{
     void add(Move move){
         history.add(move.toString());
         undos.clear();
+    }
+
+    public void setHistory(Stack<String> history) {
+        this.history = history;
     }
 
     List<String> get(){

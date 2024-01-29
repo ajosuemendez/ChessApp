@@ -1,10 +1,14 @@
 package com.thechessnuts.gamesessionservice.models;
 
-public class SquareForSending {
+import java.io.Serializable;
+
+
+public class SquareForSending implements Serializable {
     private String id;
     private String piece;
     boolean isValid;
     boolean isChecked;
+    private static final long serialVersionUID = 1L;
 
     public SquareForSending() {
     }

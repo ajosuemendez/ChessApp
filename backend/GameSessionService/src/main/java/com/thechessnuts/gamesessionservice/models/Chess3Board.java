@@ -43,8 +43,8 @@ class Chess3Board extends Board{
 
     Chess3Section[] sections;
 
-    Chess3Board(BoardNavigation navigationSetter) {
-        super(navigationSetter);
+    Chess3Board() {
+        super(Chess3Board.navigation);
         this.checksMarker = new ChecksMarker();
     }
 
