@@ -29,20 +29,18 @@ public class Game {
 
     public void loadGame(MoveHistory moveHistory, Chess3Settings settings){
         this.settings = settings;
-        this.moveHistory = moveHistory;
         activePlayer = settings.playerWhite;
-        this.board = new Chess3Board();
+        this.moveHistory = moveHistory;
+
+        board = new Chess3Board();
         this.board.initialise(settings);
 
-        for(int i = 0; i<moveHistory.get().size(); i++){
-            Move newMove = new Move(moveHistory.get().get(i), board);
-            try{this.executeMove(newMove);}
-            catch(Exception e){
-                this.board.makeMove(newMove);
-                System.out.println("Last move was weirdl loaded");
+        List<String> moveList = this.moveHistory.get();
+
+            for(int i = 0; i<moveList.size(); i++){
+                Move newMove = new Move(moveList.get(i), board);
+                this.executeMove(newMove);
             }
-            this.nextTurn();
-        }
 
         board.checksMarker.markChecks(board);
     }
@@ -106,27 +104,23 @@ public class Game {
 
         if(label.equals("a6")){
             this.undoLastMove();
-            this.saveGame();
             return false;
         }
 
         if(label.equals("a7")){
             this.redoLastUndo();
-            this.saveGame();
             return false;
         }
 
         Square clickedSquare = this.board.getSquareAt(label);
 
         if(clickedSquare == null){
-            this.saveGame();
             return false; 
         }
 
         if(clickedSquare.piece != null){
             if(clickedSquare.piece.player.color.equals(this.activePlayer.color)){
                 this.board.selectSquare(label);
-                this.saveGame();
                 return false;
             }
         }

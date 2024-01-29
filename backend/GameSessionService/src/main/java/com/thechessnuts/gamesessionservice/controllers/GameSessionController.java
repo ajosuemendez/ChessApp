@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
-import java.util.Stack;
-import java.util.ArrayList;
 
 import com.thechessnuts.gamesessionservice.models.MoveHistory;
 import com.thechessnuts.gamesessionservice.models.Chess3Settings;

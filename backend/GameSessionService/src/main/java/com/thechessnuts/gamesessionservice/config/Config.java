@@ -1,4 +1,4 @@
-package com.thechessnuts.gamesessionservice.configurations;
+package com.thechessnuts.gamesessionservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
