@@ -26,6 +26,7 @@ export default function Board({chessboardState, handleClick}) {
                         id={square.id}
                         piece={square.piece} 
                         isValid={square.isValid}
+                        isChecked={square.isChecked}
                         isFromPreviousMove={square.isFromPreviousMove}
                         isSelectedPieceSquare={square.isSelectedPieceSquare}
                         shapeFormat={squareStaticInformation[square.id].shape}

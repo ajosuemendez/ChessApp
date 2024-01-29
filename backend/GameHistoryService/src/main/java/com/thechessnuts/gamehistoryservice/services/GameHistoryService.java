@@ -62,7 +62,7 @@ public class GameHistoryService implements IGameHistoryService {
 
         // Check if there are any moves done
         if (game.getHistory().size() == 0) {
-            return null;
+            return game;
         }
 
         // Remove the last move and add it to the undo stack
@@ -88,7 +88,7 @@ public class GameHistoryService implements IGameHistoryService {
 
         // Check if there are any undos
         if (game.getUndos().size() == 0) {
-            return null;
+            return game;
         }
 
         // Redo the last undo and add it back to the history stack

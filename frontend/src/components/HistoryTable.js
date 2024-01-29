@@ -6,15 +6,17 @@ const undoImage = process.env.PUBLIC_URL + `/images/game/undo.png`;
 const redoImage = process.env.PUBLIC_URL + `/images/game/redo.png`;
 
 
-export default function HistoryTable({ moves }) {
+export default function HistoryTable({ moves, onUndo, onRedo }) {
   const players = ['TheChessNut1', 'TheChessNut2', 'TheChessNut3'];
 
   const undoCallBack = () => {
     console.log("Making API Call for Undoing Move");
+    onUndo();
   };
 
   const redoCallBack = () => {
     console.log("Making API Call for Redoing Move");
+    onRedo();
   };
 
 

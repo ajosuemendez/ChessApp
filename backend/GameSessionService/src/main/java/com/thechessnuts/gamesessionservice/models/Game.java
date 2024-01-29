@@ -38,8 +38,17 @@ public class Game {
         List<String> moveList = this.moveHistory.get();
 
             for(int i = 0; i<moveList.size(); i++){
-                Move newMove = new Move(moveList.get(i), board);
-                this.executeMove(newMove);
+                Move move = new Move(moveList.get(i), board);
+                if(move.to.piece!=null){
+            if(move.to.piece.getSymbol().equals("K")){
+                move.to.piece.player.eliminate();
+                System.out.println("PLAYER " + move.to.piece.player.color + " WAS ELIMINATED!");
+                this.board.markDeaths();
+            }
+        }
+
+        this.board.makeMove(move);
+        this.nextTurn();
             }
 
         board.checksMarker.markChecks(board);
@@ -98,52 +107,55 @@ public class Game {
         }
     }
 
-    public boolean handleEvent(String label, String gameId, RestTemplate restTemplate){
-        if(board == null)
-            return false;
-
-        if(label.equals("a6")){
-            this.undoLastMove();
-            return false;
-        }
-
-        if(label.equals("a7")){
-            this.redoLastUndo();
-            return false;
-        }
+    public GameEntity handleEvent(String label, String gameId, RestTemplate restTemplate){
+        if(board == null) {
+            GameEntity gameState = new GameEntity();
+            gameState.setHistory(this.moveHistory.getHistory());
+            gameState.setIsNull(true);
+            return gameState;
+            }
 
         Square clickedSquare = this.board.getSquareAt(label);
 
         if(clickedSquare == null){
-            return false; 
+            GameEntity gameState = new GameEntity();
+            gameState.setHistory(this.moveHistory.getHistory());
+            gameState.setIsNull(true);
+            return gameState; 
         }
 
         if(clickedSquare.piece != null){
             if(clickedSquare.piece.player.color.equals(this.activePlayer.color)){
                 this.board.selectSquare(label);
-                return false;
+                GameEntity gameState = new GameEntity();
+                gameState.setHistory(this.moveHistory.getHistory());
+                gameState.setIsNull(true);
+                return gameState;
             }
         }
        
         if(this.board.selectedSquare != null){
             System.out.println("Is this board selected square?");
+            GameEntity gameState = new GameEntity();
             if(this.board.selectedSquare.getPiece().allMoves(board, board.selectedSquare).contains(clickedSquare)){
                 Move moveToExecute = new Move(this.board.selectedSquare, clickedSquare, this.board.selectedSquare.getPiece(), clickedSquare.piece);
 
                 // Save-Send the Move to the History Game
-                GameEntity res = restTemplate.getForObject("http://game-history-service/" + gameId + "/add/" + moveToExecute.toString(), GameEntity.class);
+                gameState = restTemplate.getForObject("http://game-history-service/" + gameId + "/add/" + moveToExecute.toString(), GameEntity.class);
                 // System.out.println(moveToExecute.toString());
                 // System.out.println(res);
                 System.out.println("This is the response from the Game History Service");
-                System.out.println(res.toString());
-
+                System.out.println(gameState.toString());
     
             }
             this.board.selectSquare("");
-            return true;
+            return gameState;
         }
 
-        return false;
+        GameEntity gameState = new GameEntity();
+        gameState.setHistory(this.moveHistory.getHistory());
+        gameState.setIsNull(true);
+        return gameState;
     }
 
     void executeMove(Move move){

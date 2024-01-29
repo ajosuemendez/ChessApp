@@ -56,7 +56,7 @@ public class GameSessionController{
     //  }
 
      @RequestMapping("/{gameId}/{move}")
-     public List<SquareForSending> updateGame(@PathVariable("gameId") String gameId, @PathVariable("move") String move) {
+     public GameEntity updateGame(@PathVariable("gameId") String gameId, @PathVariable("move") String move) {
         System.out.println(gameId);
         System.out.println(move);
 
@@ -65,25 +65,69 @@ public class GameSessionController{
 
         MoveHistory movesHistory = new MoveHistory();
         movesHistory.setHistory(gameRequested.getHistory());
-        //game.loadGame(movesHistory, new Chess3Settings());
-        boolean reload = game.handleEvent(move, gameId, this.restTemplate);
+        GameEntity gameState = game.handleEvent(move, gameId, this.restTemplate);
+        System.out.println(gameState.toString());
 
-        if(reload){
-        gameRequested = gameRepository.findByGameId(gameId)
-                .orElseThrow(() -> new RuntimeException("Game not found for ID: " + gameId));
+        if(!gameState.getIsNull()){
+            gameRequested = gameRepository.findByGameId(gameId)
+                    .orElseThrow(() -> new RuntimeException("Game not found for ID: " + gameId));
 
-        movesHistory.setHistory(gameRequested.getHistory());
-        game.loadGame(movesHistory, new Chess3Settings());
+            movesHistory.setHistory(gameRequested.getHistory());
+            game.loadGame(movesHistory, new Chess3Settings());
+            
+            gameState.setBoardState(game.getBoardState());
+            
+
+            return gameState;
         }
-        // GameEntity gameResponse = new GameEntity();
-        // gameResponse.setHistory(gameRequested.getHistory());
-        // gameResponse.setBoardState(game.getBoardState());
-        // gameResponse.setGameId(gameId);
 
-        //System.out.println(gameResponse.toString());
-         
-        // return gameResponse;
-        return game.getBoardState();
+        
+        gameState.setBoardState(game.getBoardState());
+
+        // System.out.println(gameResponse.toString());
+        return gameState;
+     }
+
+     @RequestMapping("/undo/{gameId}")
+     public GameEntity undoGame(@PathVariable("gameId") String gameId) {
+        System.out.println(gameId);
+
+        GameEntity gameState = restTemplate.getForObject("http://game-history-service/" + gameId + "/undo", GameEntity.class);
+        
+        if (gameState.getIsNull()) {
+            GameEntity gameResponse = new GameEntity();
+            gameResponse.setBoardState(game.getBoardState());
+            return gameResponse;
+        }
+
+        MoveHistory movesHistory = new MoveHistory();
+        movesHistory.setHistory(gameState.getHistory());
+        game.loadGame(movesHistory, new Chess3Settings());
+
+        gameState.setBoardState(game.getBoardState());
+
+        return gameState;
+     }
+
+     @RequestMapping("/redo/{gameId}")
+     public GameEntity redoGame(@PathVariable("gameId") String gameId) {
+        System.out.println(gameId);
+
+        GameEntity gameState = restTemplate.getForObject("http://game-history-service/" + gameId + "/redo", GameEntity.class);
+
+        if (gameState.getIsNull()) {
+            GameEntity gameResponse = new GameEntity();
+            gameResponse.setBoardState(game.getBoardState());
+            return gameResponse;
+        }
+
+        MoveHistory movesHistory = new MoveHistory();
+        movesHistory.setHistory(gameState.getHistory());
+        game.loadGame(movesHistory, new Chess3Settings());
+
+        gameState.setBoardState(game.getBoardState());
+        return gameState;
+
      }
 
 

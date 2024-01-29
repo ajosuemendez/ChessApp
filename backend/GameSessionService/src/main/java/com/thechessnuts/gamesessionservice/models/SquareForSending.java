@@ -42,4 +42,6 @@ public class SquareForSending implements Serializable {
 
         return ret;
     }
+
+    public boolean getIsChecked(){ return this.isChecked;}
 }

@@ -11,6 +11,7 @@ export default function Game() {
     const location = useLocation();
     const gameState = location.state?.gameData || {};
     const [chessboardState, setChessboardState] = React.useState(gameState.boardState);
+    const history = React.useRef([]);
 
     React.useEffect(() => {
         localStorage.setItem("gameId", JSON.stringify(gameState.gameId));
@@ -22,7 +23,25 @@ export default function Game() {
         const response = await fetch(`http://localhost:8080/${gameId}/${squareId}`);
         const data = await response.json();
         console.log(data);
-        setChessboardState(data);
+        history.current = data.history
+        setChessboardState(data.boardState);
+    };
+
+    const handleUndo = async () => {
+        const gameId = JSON.parse(localStorage.getItem("gameId"));
+        const response = await fetch(`http://localhost:8080/undo/${gameId}`);
+        const data = await response.json();
+        history.current = data.history
+        setChessboardState(data.boardState);
+    };
+
+    const handleRedo = async () => {
+        const gameId = JSON.parse(localStorage.getItem("gameId"));
+        const response = await fetch(`http://localhost:8080/redo/${gameId}`);
+        const data = await response.json();
+        history.current = data.history
+        console.log(history);
+        setChessboardState(data.boardState);
     };
 
     
@@ -38,7 +57,7 @@ export default function Game() {
     return(
         <>
             <Board chessboardState={chessboardState} handleClick={handleClick}/>
-            <Historytable moves={[]}/>
+            <Historytable moves={history.current || []} onUndo={handleUndo} onRedo={handleRedo}/>
         </>
     );
 }

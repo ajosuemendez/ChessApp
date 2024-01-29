@@ -46,9 +46,27 @@ public class TestController {
     @RequestMapping("/{gameId}/{move}")
     @ResponseBody
     @CrossOrigin(origins = "http://localhost:3000")
-    public List<SquareForSending> getGameSession(@PathVariable String gameId, @PathVariable String move) {
+    public GameEntity getGameSession(@PathVariable String gameId, @PathVariable String move) {
         String url = "http://game-session-service/" + gameId + "/" + move;
-        List<SquareForSending> res = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<SquareForSending>>() {}).getBody();
+        GameEntity res = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<GameEntity>() {}).getBody();
+        return res;
+    }
+
+    @RequestMapping("/undo/{gameId}/")
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:3000")
+    public GameEntity performUndoOperation(@PathVariable String gameId) {
+        String url = "http://game-session-service/undo/" + gameId;
+        GameEntity res = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<GameEntity>() {}).getBody();
+        return res;
+    }
+
+    @RequestMapping("/redo/{gameId}/")
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:3000")
+    public GameEntity performRedoOperation(@PathVariable String gameId) {
+        String url = "http://game-session-service/undo/" + gameId;
+        GameEntity res = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<GameEntity>() {}).getBody();
         return res;
     }
 

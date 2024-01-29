@@ -29,6 +29,8 @@ public class SquareForSending {
         return this.isValid;
     }
 
+    public boolean getIsChecked(){ return this.isChecked;}
+
     @Override
     public String toString(){
         String ret = "\n{"; 

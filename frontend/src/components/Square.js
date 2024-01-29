@@ -2,7 +2,7 @@ import React from "react";
 import Piece from "./Piece";
 import { getSquareColor } from "../utils/getSquareColor";
 
-export default function Square({id, theme, piece, shapeFormat, isValid, framePosition, handleClick, isFromPreviousMove, isSelectedPieceSquare}) {
+export default function Square({id, theme, piece, shapeFormat, isValid, isChecked, framePosition, handleClick, isFromPreviousMove, isSelectedPieceSquare}) {
 
     let squareColor = getSquareColor(id) === "dark" ? theme.colors.darkSquareColor :  theme.colors.lightSquareColor;
 
@@ -11,6 +11,12 @@ export default function Square({id, theme, piece, shapeFormat, isValid, framePos
     if (isFromPreviousMove || isSelectedPieceSquare) {
         squareColor = theme.colors.strongSquareColor;
     } 
+
+    if (isChecked) {
+        squareColor = theme.colors.dangerColor;
+    }
+
+
     if(piece === ""){
     return(
         <g id={`square-${id}`} >

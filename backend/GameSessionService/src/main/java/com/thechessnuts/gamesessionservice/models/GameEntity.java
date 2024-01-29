@@ -17,6 +17,7 @@ public class GameEntity {
     private List<SquareForSending> boardState;
     private Stack<String> history;
     private Stack<String> undos;
+    private boolean isNull;
 
     public GameEntity() {}
 
@@ -32,6 +33,14 @@ public class GameEntity {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public boolean getIsNull() {
+        return isNull;
+    }
+
+    public void setIsNull(boolean isNull) {
+        this.isNull = isNull;
     }
 
     public String getGameId() {

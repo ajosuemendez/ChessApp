@@ -36,4 +36,8 @@ public class MoveHistory{
         history.add(undos.pop());
         return true;
     }
+
+    public Stack<String> getHistory() {
+        return this.history;
+    }
 }
